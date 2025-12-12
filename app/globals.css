@@ -1,26 +1,260 @@
 @import "tailwindcss";
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  color-scheme: dark;
+  --ink: #030a1a;
+  --river-900: #050c20;
+  --river-800: #0d1633;
+  --river-700: #17264f;
+  --river-600: #1f3567;
+  --foam: #e8eef9;
+  --foam-muted: #cfd8ec;
+  --ember: #ff8d6a;
+  --pearl: #8ef0ff;
+  --iris: #bca2ff;
+  --haze: rgba(255, 255, 255, 0.04);
 }
 
 @theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --color-ink: var(--ink);
+  --color-river-900: var(--river-900);
+  --color-river-800: var(--river-800);
+  --color-river-700: var(--river-700);
+  --color-river-600: var(--river-600);
+  --color-foam: var(--foam);
+  --color-foam-muted: var(--foam-muted);
+  --color-ember: var(--ember);
+  --color-pearl: var(--pearl);
+  --color-iris: var(--iris);
+  --font-sans: var(--font-sans-var);
+  --font-display: var(--font-display-var);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+* {
+  box-sizing: border-box;
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  margin: 0;
+  background:
+    radial-gradient(circle at 20% 20%, rgba(146, 240, 255, 0.12), transparent 35%),
+    radial-gradient(circle at 80% 0%, rgba(255, 141, 106, 0.16), transparent 30%),
+    linear-gradient(180deg, var(--river-900) 0%, #050b1a 100%);
+  color: var(--foam);
+  font-family:
+    var(--font-sans),
+    "Inter",
+    system-ui,
+    -apple-system,
+    sans-serif;
+  min-height: 100vh;
+  text-rendering: optimizeLegibility;
+  scroll-behavior: auto;
+}
+
+h1,
+h2,
+h3,
+h4 {
+  font-family: var(--font-display), "Space Grotesk", system-ui, sans-serif;
+  letter-spacing: -0.02em;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+::selection {
+  background: rgba(255, 141, 106, 0.4);
+  color: var(--foam);
+}
+
+[data-motion="reduced"] * {
+  animation-duration: 0.001ms !important;
+  animation-iteration-count: 1 !important;
+  transition-duration: 0.001ms !important;
+  scroll-behavior: auto !important;
+}
+
+
+/* Piano navbar styling */
+.piano-vertical {
+  position: relative;
+  display: grid;
+  grid-template-columns: 140px 1fr;
+  gap: 2px;
+  height: auto;
+  min-height: 0;
+}
+
+.nav-scroll {
+  scrollbar-width: none;
+}
+.nav-scroll::-webkit-scrollbar {
+  width: 0;
+  height: 0;
+}
+
+.piano-stack {
+  position: relative;
+  width: 110px;
+  border-radius: 14px;
+  padding: 6px;
+  background: linear-gradient(180deg, rgba(0, 0, 0, 0.36), rgba(0, 0, 0, 0.6));
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  box-shadow:
+    0 1px 0 rgba(255, 255, 255, 0.06) inset,
+    0 -1px 0 rgba(0, 0, 0, 0.4) inset,
+    0 16px 40px rgba(0, 0, 0, 0.45);
+  overflow: hidden;
+}
+
+.piano-rows {
+  position: relative;
+  width: var(--white-w);
+  height: calc(88 * var(--white-h));
+  margin: 6px auto;
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.05), transparent);
+  border-radius: 10px;
+}
+
+.piano-white-layer {
+  position: absolute;
+  inset: 0;
+  width: var(--white-w);
+  height: 100%;
+}
+
+.piano-white-key {
+  position: absolute;
+  left: 0;
+  width: var(--white-w);
+  height: var(--white-h);
+  border: 1px solid rgba(0, 0, 0, 0.22);
+  background: linear-gradient(180deg, #f8f8f8, #e9e9e9);
+  box-shadow:
+    0 1px 0 rgba(255, 255, 255, 0.8) inset,
+    0 -6px 8px rgba(0, 0, 0, 0.08) inset;
+  border-radius: 3px;
+}
+
+.piano-white-key::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.22), transparent);
+  opacity: 0.5;
+  mix-blend-mode: overlay;
+}
+
+.piano-black-layer {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+
+.piano-black-key {
+  position: absolute;
+  top: 0;
+  height: calc(var(--white-h) * 0.65);
+  width: var(--black-w);
+  background: linear-gradient(180deg, #1b1b1f, #0b0b0d);
+  border: 1px solid rgba(0, 0, 0, 0.6);
+  border-radius: 6px;
+  box-shadow:
+    0 8px 14px rgba(0, 0, 0, 0.5),
+    0 1px 0 rgba(255, 255, 255, 0.08) inset;
+}
+
+.piano-black-key::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: 6px;
+  background: linear-gradient(
+    90deg,
+    rgba(255, 255, 255, 0.12),
+    transparent 40%,
+    rgba(255, 255, 255, 0.1)
+  );
+  opacity: 0.75;
+}
+
+.piano-key-active {
+  box-shadow:
+    0 0 0 1px rgba(142, 240, 255, 0.6),
+    0 10px 28px rgba(142, 240, 255, 0.22);
+  filter: brightness(1.05);
+  z-index: 3;
+}
+
+@keyframes notePop {
+  0% {
+    transform: translateY(0) scale(0.6);
+    opacity: 0.9;
+  }
+  60% {
+    transform: translateY(-10px) scale(1.05);
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(-18px) scale(0.9);
+    opacity: 0;
+  }
+}
+
+.piano-key-active::before,
+.piano-navitem-active::before,
+.piano-navitem-hover::before {
+  content: "♪";
+  position: absolute;
+  top: 4px;
+  right: 6px;
+  font-size: 12px;
+  color: var(--pearl);
+  opacity: 0;
+  animation: notePop 800ms ease-out;
+}
+
+.piano-navlist {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding-right: 6px;
+}
+
+.piano-navitem {
+  display: grid;
+  gap: 4px;
+  padding: 10px 12px;
+  border-radius: 12px;
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.04), rgba(255, 255, 255, 0.02));
+  color: var(--foam);
+  text-decoration: none;
+  transition: transform 150ms ease, border-color 150ms ease, box-shadow 150ms ease, background 150ms ease;
+}
+
+.piano-navitem:hover,
+.piano-navitem-hover {
+  transform: translateX(4px);
+  border-color: rgba(142, 240, 255, 0.55);
+  box-shadow:
+    0 0 0 1px rgba(142, 240, 255, 0.18) inset,
+    0 14px 34px rgba(0, 0, 0, 0.42);
+}
+
+.piano-navitem-active {
+  border-color: rgba(142, 240, 255, 0.6);
+  box-shadow:
+    0 0 0 1px rgba(142, 240, 255, 0.25) inset,
+    0 18px 42px rgba(142, 240, 255, 0.22);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .piano-key,
+  .piano-navitem {
+    transition: none;
+  }
 }

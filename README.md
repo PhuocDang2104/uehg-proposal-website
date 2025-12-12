@@ -1,36 +1,58 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# UEHG — Proposal Landing (Next.js 14+, App Router)
 
-## Getting Started
+Skeleton cho website tuyến tính “Nơi Bắt Đầu — Ngược Dòng” (UEHG). Mục tiêu: dẫn sponsor & sinh viên đi qua 8 chương, giữ trải nghiệm mượt (Lenis), ưu tiên motion nhưng tôn trọng `prefers-reduced-motion`.
 
-First, run the development server:
+## Tech stack
+
+- Next.js 16 (App Router) + TypeScript (strict)
+- Tailwind CSS (inline @theme) + custom palette theo poster cá hồi
+- Framer Motion (reveal/parallax), Lenis (smooth scroll, tắt khi reduce motion), GSAP stub (chưa gắn)
+- ESLint + Prettier, alias `@/*`
+
+## Cấu trúc chính
+
+- `app/` — 8 page tuyến tính (`/`, `/about`, `/social-proof`, `/the-show`, `/impact`, `/sponsorship`, `/media`, `/contact`)
+- `components/layout/RootLayout` — shell global + Lenis + StickyNav
+- `components/nav/StickyNav` — menu, CTA, waterline progress, sound toggle (OFF mặc định)
+- `components/nav/LinearPager` — PREV/NEXT cuối trang
+- `components/sections/` — `PageHeader`, `Section` wrapper
+- `components/ui/` — `Button`, `Card`, `Badge`
+- `components/motion/` — `Reveal`, `Parallax` (respect reduce motion)
+- `components/experience/SalmonScene` — placeholder container cho 3D/canvas
+- `lib/routes.ts` — map thứ tự tuyến tính + helper progress
+- `lib/seo.ts` — metadata base + helper per page
+- `app/globals.css` — theme màu River/Foam/Ember/Pearl + nền gradient, data-attr reduce motion
+
+## Màu & mood (theo poster)
+
+- `river-*` (xanh sâu), `foam` (trắng sương), `ember` (cam đỏ nhẹ), `pearl` (neon ngọc), `iris` (tím nhấn)
+- Nền gradient + noise nhẹ; typo: Space Grotesk (sans) + Playfair Display (display)
+
+## Motion & accessibility
+
+- `MotionConfig reducedMotion="user"` + `data-motion="reduced"` → tắt Lenis, bỏ animate khi user chọn giảm chuyển động.
+- Sound toggle chỉ là placeholder (OFF mặc định, không autoplay).
+- Parallax/Reveal tự tắt khi reduce motion.
+
+## Chạy dự án
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+npm install
+npm run dev     # http://localhost:3000
+npm run lint    # kiểm tra lint (ESLint + Prettier)
+npm run format  # format bằng Prettier
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Nơi cần gắn nội dung/asset thật
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+- Thay placeholder hero/3D tại `components/experience/SalmonScene`.
+- Cập nhật copy/CTA/ảnh tại từng `app/*/page.tsx` (đã chia section bám blueprint).
+- Gắn animation phức tạp (GSAP ScrollTrigger/WebGL) vào `SalmonScene` + các section đã comment placeholder.
+- Cập nhật link tải Sponsorship Kit trong CTA nav và `Media` page.
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## Lưu ý triển khai
 
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+- Sticky nav luôn hiển thị menu đúng thứ tự + waterline progress.
+- Mỗi page có PREV/NEXT để đảm bảo flow tuyến tính.
+- Mobile-first: nav scroll ngang, CTA rút gọn; desktop: đầy đủ CTA.
+- Không xoá logic reduce-motion khi thêm hiệu ứng mới.
