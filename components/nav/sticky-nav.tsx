@@ -52,7 +52,7 @@ const StickyNav = ({ expanded: expandedProp, onExpandedChange }: StickyNavProps)
   const reduceMotion = useReducedMotion();
 
   const progress = useMemo(() => getProgress(currentPath), [currentPath]);
-  const [internalExpanded, setInternalExpanded] = useState(expandedProp ?? true);
+  const [internalExpanded, setInternalExpanded] = useState(expandedProp ?? false);
   const expanded = expandedProp ?? internalExpanded;
   const [soundEnabled, setSoundEnabled] = useState(false);
   const [hoveredGroup, setHoveredGroup] = useState<number | null>(null);
@@ -134,15 +134,32 @@ const StickyNav = ({ expanded: expandedProp, onExpandedChange }: StickyNavProps)
     closed: {
       width: "4rem",
       opacity: 0,
-      transition: { duration: reduceMotion ? 0 : 0.1, ease: "easeIn" },
+      transition: { duration: reduceMotion ? 0 : 0.08, ease: "easeIn" },
     },
     open: {
       width: "22rem",
       opacity: 1,
       transition: {
-        duration: reduceMotion ? 0.3 : 1.25,
-        ease: reduceMotion ? "easeOut" : [0.18, 0.82, 0.18, 1],
+        duration: reduceMotion ? 0.25 : 0.55,
+        ease: reduceMotion ? "easeOut" : [0.2, 0.9, 0.2, 1],
       },
+    },
+  };
+
+  const liquidVariants = {
+    closed: {
+      scaleX: 0.42,
+      scaleY: 0.55,
+      opacity: 0,
+      x: -6,
+      transition: { duration: reduceMotion ? 0 : 0.2, ease: "easeOut" },
+    },
+    open: {
+      scaleX: 1,
+      scaleY: 1,
+      opacity: 1,
+      x: 0,
+      transition: { duration: reduceMotion ? 0.25 : 0.55, ease: "easeOut" },
     },
   };
 
@@ -161,7 +178,7 @@ const StickyNav = ({ expanded: expandedProp, onExpandedChange }: StickyNavProps)
   };
   const handleClose = () => {
     if (closeTimer.current) clearTimeout(closeTimer.current);
-    closeTimer.current = setTimeout(() => setExpandedState(false), 160);
+    closeTimer.current = setTimeout(() => setExpandedState(false), 130);
   };
 
   const itemVariants = {
@@ -169,7 +186,7 @@ const StickyNav = ({ expanded: expandedProp, onExpandedChange }: StickyNavProps)
     visible: (i: number) => ({
       opacity: 1,
       y: 0,
-      transition: { delay: reduceMotion ? 0 : 0.45 + i * 0.06, duration: 0.3, ease: "easeOut" },
+      transition: { delay: reduceMotion ? 0 : 0.25 + i * 0.05, duration: 0.26, ease: "easeOut" },
     }),
     exit: { opacity: 0, y: 6, transition: { duration: 0.2, ease: "easeIn" } },
   };
@@ -177,6 +194,52 @@ const StickyNav = ({ expanded: expandedProp, onExpandedChange }: StickyNavProps)
   return (
     <aside className="fixed left-3 top-3 bottom-3 z-50 flex items-start">
       <div className="relative flex h-full items-start gap-2">
+        <svg width="0" height="0">
+          <defs>
+            <filter id="nav-goo">
+              <feGaussianBlur in="SourceGraphic" stdDeviation="10" result="blur" />
+              <feColorMatrix
+                in="blur"
+                mode="matrix"
+                values="1 0 0 0 0  0 1 0 0 0  0 0 1 0 0  0 0 0 18 -7"
+                result="goo"
+              />
+              <feBlend in="SourceGraphic" in2="goo" />
+            </filter>
+          </defs>
+        </svg>
+
+        <AnimatePresence>
+          {expanded && (
+            <motion.div
+              key="liquid-shell"
+              className="pointer-events-none absolute -left-8 top-0 bottom-0 w-[32rem] -z-10"
+              initial="closed"
+              animate="open"
+              exit="closed"
+              variants={liquidVariants}
+              style={{ filter: "url(#nav-goo)" }}
+            >
+              <motion.div
+                className="absolute left-0 top-2 bottom-2 w-[12rem] rounded-[28px] bg-gradient-to-b from-[#050b15] via-[#06152c] to-[#040a17] blur-[18px] opacity-95"
+                animate={{ x: [-4, 6, -2, 4, 0] }}
+                transition={{ duration: 9, repeat: Infinity, repeatType: "mirror", ease: "easeInOut" }}
+              />
+              <motion.div
+                className="absolute left-4 top-4 bottom-4 w-[28rem] rounded-[56px] bg-[linear-gradient(180deg,rgba(7,18,36,0.92),rgba(10,28,52,0.95),rgba(6,14,28,0.92))] blur-[22px] opacity-95"
+                animate={{ x: [0, 10, -6, 4, 0] }}
+                transition={{ duration: 8, repeat: Infinity, repeatType: "mirror", ease: "easeInOut" }}
+              />
+              <motion.div
+                className="absolute left-2 top-6 bottom-6 w-[28rem] rounded-[999px] bg-[radial-gradient(circle_at_20%_20%,rgba(88,197,255,0.3),transparent_40%),radial-gradient(circle_at_70%_40%,rgba(94,168,255,0.25),transparent_48%),radial-gradient(circle_at_50%_70%,rgba(80,112,255,0.22),transparent_50%)] mix-blend-screen"
+                animate={{ x: [0, 8, -4, 6, 0] }}
+                transition={{ duration: 7.5, repeat: Infinity, repeatType: "mirror", ease: "easeInOut" }}
+                style={{ filter: "blur(30px)" }}
+              />
+            </motion.div>
+          )}
+        </AnimatePresence>
+
         <div className="relative flex h-full flex-col items-center">
           <div className="group relative flex h-14 w-14 items-center justify-center">
             <div className="absolute inset-0 rounded-full bg-gradient-to-br from-ember/40 via-pearl/35 to-iris/35 blur-lg opacity-0 transition duration-300 group-hover:opacity-100" />
@@ -200,28 +263,12 @@ const StickyNav = ({ expanded: expandedProp, onExpandedChange }: StickyNavProps)
 
         <motion.div
           className="relative h-full"
-          initial="open"
+          initial={expanded ? "open" : "closed"}
           animate={expanded ? "open" : "closed"}
           variants={containerVariants}
-          style={{ filter: "url(#gooey)" }}
-          onMouseEnter={handleOpen}
+          style={{ filter: "url(#nav-goo)" }}
           onMouseLeave={handleClose}
         >
-          <svg width="0" height="0">
-            <defs>
-              <filter id="gooey">
-                <feGaussianBlur in="SourceGraphic" stdDeviation="10" result="blur" />
-                <feColorMatrix
-                  in="blur"
-                  mode="matrix"
-                  values="1 0 0 0 0  0 1 0 0 0  0 0 1 0 0  0 0 0 18 -7"
-                  result="goo"
-                />
-                <feBlend in="SourceGraphic" in2="goo" />
-              </filter>
-            </defs>
-          </svg>
-
           <div className="pointer-events-none absolute inset-[-18%] -z-10">
             <AnimatePresence>
               {!expanded && (
@@ -249,9 +296,10 @@ const StickyNav = ({ expanded: expandedProp, onExpandedChange }: StickyNavProps)
                   opacity: 1,
                   x: 0,
                   scale: 1,
-                  transition: { delay: reduceMotion ? 0 : 0.45, duration: 0.5 },
+                  transition: { delay: reduceMotion ? 0 : 0.18, duration: 0.35 },
                 }}
                 exit={{ opacity: 0, transition: { duration: reduceMotion ? 0 : 0.1 } }}
+                onMouseEnter={handleOpen}
               >
                 <div className="relative flex flex-1 flex-col">
                   <motion.div
@@ -267,7 +315,7 @@ const StickyNav = ({ expanded: expandedProp, onExpandedChange }: StickyNavProps)
                   </motion.div>
 
                 <div className="relative flex-1 min-h-0 overflow-hidden">
-                  <div className="nav-scroll relative space-y-4 px-4 pt-4 pb-6 overflow-y-auto max-h-[calc(100vh-4rem)]">
+                  <div className="nav-scroll relative flex h-full flex-col space-y-4 px-4 pt-4 pb-6 overflow-y-auto">
                       <div className="flex items-center gap-3">
                         <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-gradient-to-br from-ember/90 via-pearl/70 to-river-600 text-xs font-semibold text-river-900 shadow-lg">
                           UE
@@ -278,7 +326,10 @@ const StickyNav = ({ expanded: expandedProp, onExpandedChange }: StickyNavProps)
                         </div>
                       </div>
 
-                      <nav aria-label="Piano Navigation" className="piano-vertical nav-scroll max-h-[360px] overflow-y-auto pr-1">
+                      <nav
+                        aria-label="Piano Navigation"
+                        className="piano-vertical nav-scroll max-h-[360px] min-h-0 overflow-y-auto pr-1"
+                      >
                         <div
                           className="piano-stack"
                           onMouseLeave={() => setHoveredGroup(null)}
@@ -336,7 +387,7 @@ const StickyNav = ({ expanded: expandedProp, onExpandedChange }: StickyNavProps)
                             </div>
                           </div>
                         </div>
-                        <div className="piano-navlist">
+                        <div className="piano-navlist nav-scroll max-h-[320px] overflow-y-auto pr-2">
                           {routes.map((route, idx) => {
                             const isActive = currentPath === route.path;
                             const isHover = hoveredGroup === idx;
