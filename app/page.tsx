@@ -1,5 +1,6 @@
 import HeroFloatingPhysics from "@/components/sections/HeroFloatingPhysics";
 import { Section } from "@/components/sections/section";
+import LetterReveal from "@/components/sections/LetterReveal";
 import { Card } from "@/components/ui/card";
 import LinearPager from "@/components/nav/linear-pager";
 import { Button } from "@/components/ui/button";
@@ -45,31 +46,7 @@ export default function HomePage() {
         </div>
       </Section>
 
-      <Section
-        eyebrow="Thư ngỏ"
-        title="Teaser thư ngỏ"
-        description="Placeholder 5–7 dòng giới thiệu tinh gọn. Nút dẫn tới About UEHG để đọc đầy đủ."
-        backgroundPreset="dawnMist"
-      >
-        <div className="grid gap-4 md:grid-cols-2 md:items-center">
-          <div className="space-y-3 text-foam/80">
-            <p>
-              UEHG là dòng chảy của sinh viên yêu nhạc, kết nối nghệ sĩ & nhà tài trợ trong hành
-              trình “Nơi Bắt Đầu — Ngược Dòng”. Chúng tôi cam kết trải nghiệm giàu cảm xúc, vận hành
-              chuyên nghiệp.
-            </p>
-            <Button href="/about" variant="secondary" size="md">
-              Đọc đầy đủ
-            </Button>
-          </div>
-          <Card className="space-y-3">
-            <p className="text-xs uppercase tracking-[0.2em] text-foam/60">Splash transition</p>
-            <p className="text-foam">
-              Khu vực này sẽ gắn motion splash reveal (GSAP/Framer) khi kết thúc 3D scene.
-            </p>
-          </Card>
-        </div>
-      </Section>
+      <LetterReveal />
 
       <Section
         eyebrow="Quick Proof Strip"
