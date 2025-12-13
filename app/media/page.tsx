@@ -34,6 +34,7 @@ export default function MediaPage() {
         eyebrow="Aftermovie / Recap"
         title="Video hero & playlist"
         description="Block video chính + playlist grid. Placeholder iframe box."
+        backgroundPreset="lagoonPulse"
       >
         <div className="grid gap-4 md:grid-cols-2">
           <Card className="flex h-48 items-center justify-center rounded-2xl bg-black/40 text-foam/60">
@@ -59,6 +60,7 @@ export default function MediaPage() {
         eyebrow="Gallery"
         title="Ảnh sân khấu + crowd + backstage"
         description="Grid ảnh; click mở lightbox (placeholder)."
+        backgroundPreset="irisDrift"
       >
         <div className="grid gap-3 sm:grid-cols-2 md:grid-cols-3">
           {gallery.map((item) => (
@@ -74,6 +76,7 @@ export default function MediaPage() {
         eyebrow="Press & Mentions"
         title="Đối tác truyền thông"
         description="Nơi gắn logo báo chí/đơn vị truyền thông nếu có."
+        backgroundPreset="dawnMist"
       >
         <div className="flex flex-wrap gap-2">
           <Badge variant="glow">Press logo</Badge>
@@ -85,6 +88,7 @@ export default function MediaPage() {
         eyebrow="Download center"
         title="Media kit & tài liệu"
         description="Sponsorship kit, logo pack, media kit."
+        backgroundPreset="emberBloom"
       >
         <div className="flex flex-wrap gap-3">
           <Button href="/media" variant="secondary">

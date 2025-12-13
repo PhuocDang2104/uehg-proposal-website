@@ -30,6 +30,7 @@ export default function ImpactPage() {
         eyebrow="Ticketing Velocity"
         title="Tốc độ bán vé"
         description="Hiển thị kiểu count-up; placeholder card."
+        backgroundPreset="emberBloom"
       >
         <div className="grid gap-4 md:grid-cols-3">
           {ticketStats.map((stat) => (
@@ -48,6 +49,7 @@ export default function ImpactPage() {
         eyebrow="Audience & Reach"
         title="Độ phủ offline + online"
         description="Gợi ý biểu đồ dòng nước (area chart) thay vì chart SaaS. Placeholder gradient block."
+        backgroundPreset="lagoonPulse"
       >
         <div className="grid gap-4 md:grid-cols-2">
           <Card className="space-y-2">
@@ -67,6 +69,7 @@ export default function ImpactPage() {
         eyebrow="Community & CSR"
         title="Hành trình trao yêu thương"
         description="Tổng gây quỹ 150M+, story highlight ảnh + quote."
+        backgroundPreset="dawnMist"
       >
         <div className="grid gap-4 md:grid-cols-3">
           <Reveal>

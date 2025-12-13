@@ -53,6 +53,7 @@ export default function SponsorshipPage() {
         eyebrow="Invitation"
         title="Thư mời"
         description="6–8 dòng súc tích: đồng hành để thắp lửa cộng đồng; cam kết quyền lợi, minh bạch report."
+        backgroundPreset="dawnMist"
       >
         <Card className="space-y-3">
           <p className="text-foam">
@@ -67,6 +68,7 @@ export default function SponsorshipPage() {
         eyebrow="Sponsor Packages"
         title="Gói tài trợ & toggle"
         description="Kim cương 24M | Vàng 22M | Bạc 15M | Đồng 14M. Toggle: Hiện kim / Hiện vật / Kết hợp (placeholder)."
+        backgroundPreset="emberBloom"
       >
         <div className="grid gap-4 md:grid-cols-2">
           {packages.map((pkg) => (
@@ -86,6 +88,7 @@ export default function SponsorshipPage() {
         eyebrow="Benefits System"
         title="Quyền lợi theo nhóm"
         description="Accordion placeholder: Truyền thông, Product placement, Trong chương trình, Hậu chiến dịch."
+        backgroundPreset="lagoonPulse"
       >
         <div className="grid gap-4 md:grid-cols-2">
           {benefitGroups.map((group) => (
@@ -108,6 +111,7 @@ export default function SponsorshipPage() {
         eyebrow="Call-to-Action Panel"
         title="Hành động nhanh"
         description="Book lịch 15 phút, tải Sponsorship Kit, gửi yêu cầu gói tùy chỉnh."
+        backgroundPreset="irisDrift"
       >
         <div className="flex flex-wrap gap-3">
           <Button href="/contact">Book lịch 15 phút</Button>

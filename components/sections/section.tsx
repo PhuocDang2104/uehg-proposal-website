@@ -1,6 +1,11 @@
+"use client";
+
 import clsx from "clsx";
-import type { ReactNode } from "react";
+import { useEffect, useId, useMemo, useRef, type ReactNode } from "react";
+import { useMotionValueEvent, useScroll } from "framer-motion";
 import { Badge } from "../ui/badge";
+import { backgroundPresets, resolvePreset, type BackgroundPreset } from "../layout/background-presets";
+import { useBackgroundTheme } from "../layout/scroll-background";
 
 type SectionProps = {
   id?: string;
@@ -10,6 +15,7 @@ type SectionProps = {
   children?: ReactNode;
   className?: string;
   align?: "left" | "center";
+  backgroundPreset?: keyof typeof backgroundPresets | BackgroundPreset;
 };
 
 export const Section = ({
@@ -20,10 +26,36 @@ export const Section = ({
   children,
   className,
   align = "left",
+  backgroundPreset,
 }: SectionProps) => {
+  const sectionRef = useRef<HTMLElement>(null);
+  const sectionId = useId();
+  const { registerSection, reportSectionProgress, updateSectionPreset } = useBackgroundTheme();
+  const preset = useMemo(() => resolvePreset(backgroundPreset), [backgroundPreset]);
+
+  const { scrollYProgress } = useScroll({
+    target: sectionRef,
+    offset: ["start end", "end start"],
+  });
+
+  useEffect(() => {
+    const unregister = registerSection(sectionId, preset);
+    reportSectionProgress(sectionId, scrollYProgress.get());
+    return () => unregister();
+  }, [preset, registerSection, reportSectionProgress, scrollYProgress, sectionId]);
+
+  useEffect(() => {
+    updateSectionPreset(sectionId, preset);
+  }, [preset, sectionId, updateSectionPreset]);
+
+  useMotionValueEvent(scrollYProgress, "change", (value) => {
+    reportSectionProgress(sectionId, value);
+  });
+
   return (
     <section
       id={id}
+      ref={sectionRef}
       className={clsx(
         "relative w-full space-y-8 rounded-3xl border border-white/10 bg-white/5 p-6 shadow-[0_20px_70px_rgba(0,0,0,0.35)] md:p-10",
         className,

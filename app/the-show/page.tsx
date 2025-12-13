@@ -40,6 +40,7 @@ export default function TheShowPage() {
         eyebrow="Top Banner"
         title="Banner & thông tin"
         description="Slot key visual NBĐ; Info block: 1000+ sinh viên | Hội trường A.116 UEH | 17:30–21:30, 25/01/2026."
+        backgroundPreset="riverNight"
       >
         <div className="grid gap-6 md:grid-cols-2">
           <Card className="space-y-3">
@@ -66,6 +67,7 @@ export default function TheShowPage() {
         eyebrow="Past Shows"
         title="All Past Shows"
         description="Card lớn cho NBĐ 2023, Khúc Giao Mùa, Hành trình trao yêu thương; grid nhỏ cho chương trình khác."
+        backgroundPreset="emberBloom"
       >
         <div className="grid gap-4 md:grid-cols-2">
           {pastShows.slice(0, 3).map((show) => (

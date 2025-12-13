@@ -54,6 +54,7 @@ export default function AboutPage() {
         eyebrow="Origin — Just the beginning"
         title="Dòng chảy khởi nguồn"
         description="Timeline dạng dòng nước, mỗi mốc như viên đá nổi. Motion sẽ chạy dạng flow khi scroll."
+        backgroundPreset="dawnMist"
       >
         <div className="grid gap-4 md:grid-cols-2">
           {timeline.map((item) => (
@@ -72,6 +73,7 @@ export default function AboutPage() {
         eyebrow="Mission / Vision / Direction"
         title="La bàn hoạt động"
         description="Bộ ba ngắn gọn cho sponsor thấy định hướng và độ bền."
+        backgroundPreset="lagoonPulse"
       >
         <div className="grid gap-4 md:grid-cols-3">
           <Card>
@@ -99,6 +101,7 @@ export default function AboutPage() {
         eyebrow="Kênh truyền thông"
         title="Media footprint"
         description="Preview 3 kênh chính, số liệu + dạng nội dung."
+        backgroundPreset="irisDrift"
       >
         <div className="grid gap-4 md:grid-cols-3">
           {channels.map((channel) => (
@@ -115,6 +118,7 @@ export default function AboutPage() {
         eyebrow="Liên kết flow"
         title="Đi tiếp sang Social Proof"
         description="CTA dẫn người xem tới nghệ sĩ & đối tác đã đồng hành."
+        backgroundPreset="emberBloom"
       >
         <div className="flex flex-wrap gap-3">
           <Badge>Hover ripple để làm giàu trải nghiệm</Badge>

@@ -42,6 +42,7 @@ export default function SocialProofPage() {
         eyebrow="Artists Wall"
         title="Collab artists"
         description="Grid poster-style; mỗi ô hiển thị năm/dạng hợp tác khi hover."
+        backgroundPreset="irisDrift"
       >
         <div className="grid gap-4 sm:grid-cols-2 md:grid-cols-3">
           {artists.map((artist, idx) => (
@@ -62,6 +63,7 @@ export default function SocialProofPage() {
         eyebrow="Partners by Tier"
         title="Tầng quyền lợi 2023-2024"
         description="Có filter theo năm (placeholder). Logo hover hiển thị role + year."
+        backgroundPreset="lagoonPulse"
       >
         <div className="grid gap-4 md:grid-cols-3">
           {partnerTiers.map((tier) => (
@@ -83,6 +85,7 @@ export default function SocialProofPage() {
         eyebrow="Interaction"
         title="UX note"
         description="Hover ripple + tooltip; click mở modal case snippet (2–3 dòng + hình)."
+        backgroundPreset="emberBloom"
       >
         <div className="flex flex-wrap gap-3">
           <Badge>Filter 2023/2024</Badge>

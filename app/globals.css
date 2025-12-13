@@ -13,6 +13,19 @@
   --pearl: #8ef0ff;
   --iris: #bca2ff;
   --haze: rgba(255, 255, 255, 0.04);
+  --bg-linear-start: rgba(5, 12, 32, 1);
+  --bg-linear-end: rgba(8, 18, 40, 1);
+  --bg-linear-angle: 185deg;
+  --bg-r1-color: rgba(146, 240, 255, 0.18);
+  --bg-r2-color: rgba(255, 141, 106, 0.16);
+  --bg-r1-x: 24%;
+  --bg-r1-y: 18%;
+  --bg-r1-size: 36%;
+  --bg-r2-x: 78%;
+  --bg-r2-y: 8%;
+  --bg-r2-size: 30%;
+  --bg-noise-opacity: 0.14;
+  --bg-grain-scale: 1.1;
 }
 
 @theme inline {
@@ -36,10 +49,7 @@
 
 body {
   margin: 0;
-  background:
-    radial-gradient(circle at 20% 20%, rgba(146, 240, 255, 0.12), transparent 35%),
-    radial-gradient(circle at 80% 0%, rgba(255, 141, 106, 0.16), transparent 30%),
-    linear-gradient(180deg, var(--river-900) 0%, #050b1a 100%);
+  background: var(--river-900);
   color: var(--foam);
   font-family:
     var(--font-sans),
@@ -75,6 +85,37 @@ a {
   animation-iteration-count: 1 !important;
   transition-duration: 0.001ms !important;
   scroll-behavior: auto !important;
+}
+
+.gradient-shell {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: -10;
+  background-image: linear-gradient(var(--bg-linear-angle), var(--bg-linear-start), var(--bg-linear-end));
+  background-repeat: no-repeat;
+}
+
+.gradient-shell::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image:
+    radial-gradient(circle at var(--bg-r1-x) var(--bg-r1-y), var(--bg-r1-color), transparent var(--bg-r1-size)),
+    radial-gradient(circle at var(--bg-r2-x) var(--bg-r2-y), var(--bg-r2-color), transparent var(--bg-r2-size));
+  mix-blend-mode: screen;
+  opacity: 0.9;
+}
+
+.gradient-shell::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 160 160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.78' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='160' height='160' filter='url(%23n)' opacity='0.55'/%3E%3C/svg%3E");
+  background-size: calc(260px * var(--bg-grain-scale));
+  mix-blend-mode: soft-light;
+  opacity: var(--bg-noise-opacity);
+  filter: saturate(1.08);
 }
 
 

@@ -1,9 +1,9 @@
-import { PageHeader } from "@/components/sections/page-header";
+import HeroFloatingPhysics from "@/components/sections/HeroFloatingPhysics";
 import { Section } from "@/components/sections/section";
 import { Card } from "@/components/ui/card";
-import { Badge } from "@/components/ui/badge";
 import LinearPager from "@/components/nav/linear-pager";
 import { Button } from "@/components/ui/button";
+import { Badge } from "@/components/ui/badge";
 import { Reveal } from "@/components/motion/reveal";
 import { createPageMetadata } from "@/lib/seo";
 import SalmonScene from "@/components/experience/salmon-scene";
@@ -24,22 +24,13 @@ const waterfallChips = [
 export default function HomePage() {
   return (
     <div className="space-y-10 md:space-y-12">
-      <PageHeader
-        eyebrow="Homepage"
-        title="Nơi Bắt Đầu — Ngược Dòng"
-        subtitle="Landing “chapter experience” dẫn dắt cả sponsor & sinh viên qua dòng chảy UEHG. Hero gợi cảm giác thác nước, cá hồi và ánh phản chiếu."
-        actions={
-          <Button href="/media" size="md" variant="utility">
-            Tải Sponsorship Kit (PDF)
-          </Button>
-        }
-        showScene
-      />
+      <HeroFloatingPhysics />
 
       <Section
         eyebrow="Scroll-driven 3D"
         title="Cá hồi bơi ngược dòng"
         description="Placeholder cho camera dọc sông 3D + chip thông tin bật theo bậc thác. Tích hợp Lenis + GSAP ScrollTrigger sau."
+        backgroundPreset="riverNight"
       >
         <div className="grid gap-6 md:grid-cols-2">
           <SalmonScene />
@@ -58,6 +49,7 @@ export default function HomePage() {
         eyebrow="Thư ngỏ"
         title="Teaser thư ngỏ"
         description="Placeholder 5–7 dòng giới thiệu tinh gọn. Nút dẫn tới About UEHG để đọc đầy đủ."
+        backgroundPreset="dawnMist"
       >
         <div className="grid gap-4 md:grid-cols-2 md:items-center">
           <div className="space-y-3 text-foam/80">
@@ -83,6 +75,7 @@ export default function HomePage() {
         eyebrow="Quick Proof Strip"
         title="Đối tác & nghệ sĩ tiêu biểu"
         description="Hàng logo ngang (hover ripple) + nút xem toàn bộ Social Proof."
+        backgroundPreset="emberBloom"
       >
         <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
           {["Nghệ sĩ A", "Nghệ sĩ B", "Đối tác C", "Đối tác D"].map((item) => (

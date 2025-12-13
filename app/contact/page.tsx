@@ -24,6 +24,7 @@ export default function ContactPage() {
         eyebrow="Closing Letter"
         title="Lời cảm ơn"
         description="Viết như lời kết buổi diễn, trang trọng nhưng giàu cảm xúc."
+        backgroundPreset="dawnMist"
       >
         <Card className="space-y-3">
           <p className="text-foam/80">
@@ -39,6 +40,7 @@ export default function ContactPage() {
         eyebrow="Contact Cards"
         title="Người phụ trách"
         description="Email / Phone / FB — gắn tên người phụ trách tài trợ."
+        backgroundPreset="lagoonPulse"
       >
         <div className="grid gap-4 sm:grid-cols-2">
           <Card className="space-y-2">
@@ -58,6 +60,7 @@ export default function ContactPage() {
         eyebrow="Lead Form"
         title="2 tab: Sponsor / Student"
         description="Form placeholder: Sponsor (Đơn vị / Ngành / Ngân sách / Mục tiêu hợp tác / Thời gian liên hệ); Student (Họ tên / Khoa / Nhu cầu)."
+        backgroundPreset="emberBloom"
       >
         <div className="grid gap-4 md:grid-cols-2">
           <Card className="space-y-3">
@@ -85,6 +88,7 @@ export default function ContactPage() {
         eyebrow="Final CTA"
         title="Đi tới hành động"
         description="Gắn CTA kép chốt chuyển đổi."
+        backgroundPreset="irisDrift"
       >
         <div className="flex flex-wrap gap-3">
           <Button href="/contact">Gửi yêu cầu hợp tác</Button>
