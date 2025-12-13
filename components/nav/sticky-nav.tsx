@@ -221,20 +221,26 @@ const StickyNav = ({ expanded: expandedProp, onExpandedChange }: StickyNavProps)
               style={{ filter: "url(#nav-goo)" }}
             >
               <motion.div
-                className="absolute left-0 top-2 bottom-2 w-[12rem] rounded-[28px] bg-gradient-to-b from-[#050b15] via-[#06152c] to-[#040a17] blur-[18px] opacity-95"
+                className="absolute left-0 top-2 bottom-2 w-[12rem] rounded-[28px] bg-gradient-to-b from-[#06101f] via-[#07233a] to-[#050d1b] blur-[18px] opacity-95"
                 animate={{ x: [-4, 6, -2, 4, 0] }}
                 transition={{ duration: 9, repeat: Infinity, repeatType: "mirror", ease: "easeInOut" }}
               />
               <motion.div
-                className="absolute left-4 top-4 bottom-4 w-[28rem] rounded-[56px] bg-[linear-gradient(180deg,rgba(7,18,36,0.92),rgba(10,28,52,0.95),rgba(6,14,28,0.92))] blur-[22px] opacity-95"
+                className="absolute left-4 top-4 bottom-4 w-[28rem] rounded-[56px] bg-[linear-gradient(180deg,rgba(6,20,38,0.92),rgba(8,36,64,0.95),rgba(6,18,32,0.9))] blur-[22px] opacity-95"
                 animate={{ x: [0, 10, -6, 4, 0] }}
                 transition={{ duration: 8, repeat: Infinity, repeatType: "mirror", ease: "easeInOut" }}
               />
               <motion.div
-                className="absolute left-2 top-6 bottom-6 w-[28rem] rounded-[999px] bg-[radial-gradient(circle_at_20%_20%,rgba(88,197,255,0.3),transparent_40%),radial-gradient(circle_at_70%_40%,rgba(94,168,255,0.25),transparent_48%),radial-gradient(circle_at_50%_70%,rgba(80,112,255,0.22),transparent_50%)] mix-blend-screen"
+                className="absolute left-2 top-6 bottom-6 w-[28rem] rounded-[999px] bg-[radial-gradient(circle_at_20%_20%,rgba(88,197,255,0.32),transparent_40%),radial-gradient(circle_at_70%_40%,rgba(86,196,255,0.28),transparent_48%),radial-gradient(circle_at_50%_70%,rgba(80,132,255,0.25),transparent_52%)] mix-blend-screen"
                 animate={{ x: [0, 8, -4, 6, 0] }}
                 transition={{ duration: 7.5, repeat: Infinity, repeatType: "mirror", ease: "easeInOut" }}
                 style={{ filter: "blur(30px)" }}
+              />
+              <motion.div
+                className="absolute left-6 top-2 bottom-2 w-[6rem] rounded-[999px] bg-[linear-gradient(180deg,rgba(110,226,255,0.38),rgba(58,129,255,0.22),rgba(6,20,38,0))] mix-blend-screen"
+                animate={{ x: [0, 10, 2, 8, 0], opacity: [0.45, 0.6, 0.4, 0.55, 0.45] }}
+                transition={{ duration: 6.5, repeat: Infinity, repeatType: "mirror", ease: "easeInOut" }}
+                style={{ filter: "blur(24px)" }}
               />
             </motion.div>
           )}
@@ -301,7 +307,7 @@ const StickyNav = ({ expanded: expandedProp, onExpandedChange }: StickyNavProps)
                 exit={{ opacity: 0, transition: { duration: reduceMotion ? 0 : 0.1 } }}
                 onMouseEnter={handleOpen}
               >
-                <div className="relative flex flex-1 flex-col">
+                <div className="relative flex flex-1 min-h-0 flex-col">
                   <motion.div
                     className="pointer-events-none absolute inset-0"
                     initial={{ opacity: 0 }}
@@ -315,7 +321,7 @@ const StickyNav = ({ expanded: expandedProp, onExpandedChange }: StickyNavProps)
                   </motion.div>
 
                 <div className="relative flex-1 min-h-0 overflow-hidden">
-                  <div className="nav-scroll relative flex h-full flex-col space-y-4 px-4 pt-4 pb-6 overflow-y-auto">
+                  <div className="nav-scroll relative flex flex-1 min-h-0 flex-col space-y-4 px-4 pt-4 pb-6 overflow-y-auto" style={{ overscrollBehavior: "contain" }}>
                       <div className="flex items-center gap-3">
                         <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-gradient-to-br from-ember/90 via-pearl/70 to-river-600 text-xs font-semibold text-river-900 shadow-lg">
                           UE
@@ -387,7 +393,7 @@ const StickyNav = ({ expanded: expandedProp, onExpandedChange }: StickyNavProps)
                             </div>
                           </div>
                         </div>
-                        <div className="piano-navlist nav-scroll max-h-[320px] overflow-y-auto pr-2">
+                        <div className="piano-navlist nav-scroll max-h-[320px] min-h-0 overflow-y-auto pr-2">
                           {routes.map((route, idx) => {
                             const isActive = currentPath === route.path;
                             const isHover = hoveredGroup === idx;
