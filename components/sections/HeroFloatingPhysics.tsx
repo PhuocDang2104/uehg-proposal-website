@@ -63,7 +63,7 @@ const seeded = (seed: number) => {
   return x - Math.floor(x);
 };
 
-export const heroFloatingItems: ItemConfig[] = [
+const baseFloatingItems: ItemConfig[] = [
   {
     id: "item-1",
     src: "/hero-floating/1.png",
@@ -145,6 +145,67 @@ export const heroFloatingItems: ItemConfig[] = [
     seed: 1.56,
   },
 ];
+
+const noteFloatingItems: ItemConfig[] = [
+  {
+    id: "note-1",
+    src: "/hero-floating/note1.png",
+    size: 78,
+    xPct: 8,
+    yPct: 10,
+    seed: 2.08,
+  },
+  {
+    id: "note-2",
+    src: "/hero-floating/note2.png",
+    size: 68,
+    xPct: 28,
+    yPct: 32,
+    seed: 2.22,
+  },
+  {
+    id: "note-3",
+    src: "/hero-floating/note3.png",
+    size: 64,
+    xPct: 48,
+    yPct: 16,
+    seed: 2.36,
+  },
+  {
+    id: "note-4",
+    src: "/hero-floating/note4.png",
+    size: 74,
+    xPct: 72,
+    yPct: 12,
+    seed: 2.48,
+  },
+  {
+    id: "note-5",
+    src: "/hero-floating/note5.png",
+    size: 70,
+    xPct: 88,
+    yPct: 44,
+    seed: 2.6,
+  },
+  {
+    id: "note-6",
+    src: "/hero-floating/note2.png",
+    size: 62,
+    xPct: 22,
+    yPct: 78,
+    seed: 2.7,
+  },
+  {
+    id: "note-7",
+    src: "/hero-floating/note4.png",
+    size: 76,
+    xPct: 56,
+    yPct: 82,
+    seed: 2.82,
+  },
+];
+
+export const heroFloatingItems: ItemConfig[] = [...baseFloatingItems, ...noteFloatingItems];
 
 const noiseSvg =
   "url(\"data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 160 160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.78' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='160' height='160' filter='url(%23n)' opacity='0.55'/%3E%3C/svg%3E\")";
