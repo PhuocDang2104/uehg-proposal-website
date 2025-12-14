@@ -139,15 +139,11 @@ a {
 
 .piano-stack {
   position: relative;
-  width: 110px;
-  border-radius: 14px;
-  padding: 6px;
-  background: linear-gradient(180deg, rgba(0, 0, 0, 0.36), rgba(0, 0, 0, 0.6));
-  border: 1px solid rgba(255, 255, 255, 0.08);
-  box-shadow:
-    0 1px 0 rgba(255, 255, 255, 0.06) inset,
-    0 -1px 0 rgba(0, 0, 0, 0.4) inset,
-    0 16px 40px rgba(0, 0, 0, 0.45);
+  width: calc(var(--white-w) + 12px);
+  border-radius: 12px;
+  padding: 4px;
+  background: linear-gradient(180deg, rgba(0, 0, 0, 0.26), rgba(0, 0, 0, 0.55));
+  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.35);
   overflow: hidden;
 }
 
@@ -291,6 +287,15 @@ a {
   box-shadow:
     0 0 0 1px rgba(142, 240, 255, 0.25) inset,
     0 18px 42px rgba(142, 240, 255, 0.22);
+}
+
+@keyframes hue-rotate {
+  from {
+    filter: hue-rotate(0deg);
+  }
+  to {
+    filter: hue-rotate(360deg);
+  }
 }
 
 @media (prefers-reduced-motion: reduce) {

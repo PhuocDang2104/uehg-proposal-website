@@ -12,7 +12,7 @@ export type ShowItem = {
 export const shows: ShowItem[] = [
   {
   id: "show-01",
-  title: "Nơi Bắt Đầu — Vol.1",
+  title: "Nơi Bắt Đầu 2024",
   subtitle: "Acoustic Night",
   posterSrc: "/posters/Nơi bắt đầu 2024.jpg",
     year: "2018",

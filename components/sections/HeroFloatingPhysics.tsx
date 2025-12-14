@@ -227,68 +227,51 @@ export const HeroFloatingPhysics = () => {
   const causticCanvasRef = useRef<HTMLCanvasElement | null>(null);
   const rippleRef = useRef<{ x: number; y: number; t: number }[]>([]);
   const lastRippleTimeRef = useRef(0);
-  const lastSoundTimeRef = useRef(0);
-  const audioCtxRef = useRef<AudioContext | null>(null);
-  const noiseBufferRef = useRef<AudioBuffer | null>(null);
+  const waterAudioRef = useRef<HTMLAudioElement | null>(null);
+  const waterFadeFrameRef = useRef<number | null>(null);
+  const lastMoveTimeRef = useRef(0);
   const fishRef = useRef<HTMLDivElement | null>(null);
 
-  const ensureAudio = () => {
-    if (!audioCtxRef.current) {
-      const Ctx = (window.AudioContext || (window as any).webkitAudioContext) as
-        | typeof AudioContext
-        | undefined;
-      audioCtxRef.current = Ctx ? new Ctx() : null;
+  const ensureWaterAudio = () => {
+    if (!waterAudioRef.current) {
+      const audio = new Audio("/audio/water_swimming.mp3");
+      audio.loop = true;
+      audio.preload = "auto";
+      audio.volume = 0;
+      waterAudioRef.current = audio;
     }
-    const ctx = audioCtxRef.current;
-    if (!ctx) return null;
-    if (!noiseBufferRef.current) {
-      const duration = 0.35;
-      const sampleRate = ctx.sampleRate;
-      const buffer = ctx.createBuffer(1, sampleRate * duration, sampleRate);
-      const data = buffer.getChannelData(0);
-      for (let i = 0; i < data.length; i += 1) {
-        const fade = 1 - i / data.length;
-        data[i] = (Math.random() * 2 - 1) * fade;
-      }
-      noiseBufferRef.current = buffer;
-    }
-    return ctx;
+    return waterAudioRef.current;
   };
 
-  const playRippleSound = () => {
-    const now = performance.now();
-    if (now - lastSoundTimeRef.current < 120) return;
-    lastSoundTimeRef.current = now;
-    const ctx = ensureAudio();
-    if (!ctx || !noiseBufferRef.current) return;
-    if (ctx.state === "suspended") {
-      ctx.resume().catch(() => {});
+  const fadeAudio = (target: number, duration = 150, onDone?: () => void) => {
+    const audio = ensureWaterAudio();
+    if (!audio) return;
+    if (waterFadeFrameRef.current) cancelAnimationFrame(waterFadeFrameRef.current);
+    const start = performance.now();
+    const from = Math.min(1, Math.max(0, audio.volume));
+    const to = Math.min(1, Math.max(0, target));
+    const step = (now: number) => {
+      const t = Math.min(1, (now - start) / duration);
+      const vol = Math.min(1, Math.max(0, from + (to - from) * t));
+      audio.volume = vol;
+      if (t < 1) {
+        waterFadeFrameRef.current = requestAnimationFrame(step);
+      } else {
+        if (to === 0) audio.pause();
+        if (onDone) onDone();
+      }
+    };
+    waterFadeFrameRef.current = requestAnimationFrame(step);
+  };
+
+  const playWaterAudio = () => {
+    const audio = ensureWaterAudio();
+    if (!audio) return;
+    if (audio.paused) {
+      audio.currentTime = 0;
+      audio.play().catch(() => {});
     }
-    const source = ctx.createBufferSource();
-    source.buffer = noiseBufferRef.current;
-
-    const hp = ctx.createBiquadFilter();
-    hp.type = "highpass";
-    hp.frequency.value = 220;
-    hp.Q.value = 0.7;
-
-    const lp = ctx.createBiquadFilter();
-    lp.type = "lowpass";
-    lp.frequency.value = 1800;
-    lp.Q.value = 0.9;
-
-    const gain = ctx.createGain();
-    const nowCtx = ctx.currentTime;
-    gain.gain.setValueAtTime(0.0001, nowCtx);
-    gain.gain.linearRampToValueAtTime(0.055, nowCtx + 0.04);
-    gain.gain.exponentialRampToValueAtTime(0.0001, nowCtx + 0.34);
-
-    source.connect(hp);
-    hp.connect(lp);
-    lp.connect(gain);
-    gain.connect(ctx.destination);
-    source.start(nowCtx);
-    source.stop(nowCtx + 0.4);
+    fadeAudio(0.8, 150);
   };
 
   const setItemRef = (index: number) => (el: HTMLDivElement | null) => {
@@ -316,8 +299,9 @@ export const HeroFloatingPhysics = () => {
     if (now - lastRippleTimeRef.current > 40) {
       rippleRef.current.push({ x: clientX - rect.left, y: clientY - rect.top, t: now });
       lastRippleTimeRef.current = now;
-      playRippleSound();
     }
+    playWaterAudio();
+    lastMoveTimeRef.current = now;
     const fish = fishRef.current;
     if (fish) {
       fish.style.opacity = "1";
@@ -466,7 +450,32 @@ export const HeroFloatingPhysics = () => {
     if (fish) {
       fish.style.opacity = "0";
     }
+    fadeAudio(0, 240);
   };
+
+  useEffect(() => {
+    let raf: number;
+    const idleCheck = () => {
+      const audio = waterAudioRef.current;
+      const now = performance.now();
+      if (audio) {
+        const idleTooLong = now - lastMoveTimeRef.current > 520 || !pointerRef.current.active;
+        if (idleTooLong && !audio.paused && audio.volume > 0.02) {
+          fadeAudio(0, 180);
+        }
+      }
+      raf = requestAnimationFrame(idleCheck);
+    };
+    raf = requestAnimationFrame(idleCheck);
+    return () => {
+      if (raf) cancelAnimationFrame(raf);
+      if (waterFadeFrameRef.current) cancelAnimationFrame(waterFadeFrameRef.current);
+      const audio = waterAudioRef.current;
+      if (audio) {
+        audio.pause();
+      }
+    };
+  }, []);
 
   const gradientBackground = useMemo(
     () =>
@@ -488,6 +497,7 @@ export const HeroFloatingPhysics = () => {
         marginLeft: "calc(50% - 50vw)",
         marginRight: "calc(50% - 50vw)",
       }}
+      onPointerDown={(event) => updatePointer(event.clientX, event.clientY)}
       onPointerMove={(event) => updatePointer(event.clientX, event.clientY)}
       onPointerLeave={handlePointerLeave}
       onTouchStart={(event) => {

@@ -7,7 +7,6 @@ import { usePathname, useRouter } from "next/navigation";
 import { useEffect, useMemo, useRef, useState } from "react";
 import { routes, getProgress } from "@/lib/routes";
 import { Button } from "../ui/button";
-import WavyRail from "../ui/wavy-rail";
 
 type PianoKey = {
   id: number;
@@ -57,6 +56,7 @@ const StickyNav = ({ expanded: expandedProp, onExpandedChange }: StickyNavProps)
   const [soundEnabled, setSoundEnabled] = useState(false);
   const [hoveredGroup, setHoveredGroup] = useState<number | null>(null);
   const closeTimer = useRef<NodeJS.Timeout | null>(null);
+  const transitionAudioRef = useRef<HTMLAudioElement | null>(null);
   useEffect(
     () => () => {
       if (closeTimer.current) clearTimeout(closeTimer.current);
@@ -123,6 +123,20 @@ const StickyNav = ({ expanded: expandedProp, onExpandedChange }: StickyNavProps)
     playNote(freq);
   };
 
+  const playTransitionAudio = () => {
+    const audio =
+      transitionAudioRef.current ??
+      (() => {
+        const a = new Audio("/audio/page_transition.mp3");
+        a.preload = "auto";
+        a.volume = 0.7;
+        transitionAudioRef.current = a;
+        return a;
+      })();
+    audio.currentTime = 0;
+    audio.play().catch(() => {});
+  };
+
   const activeGroup = useMemo(
     () => routes.findIndex((r) => r.path === currentPath),
     [currentPath],
@@ -137,7 +151,7 @@ const StickyNav = ({ expanded: expandedProp, onExpandedChange }: StickyNavProps)
       transition: { duration: reduceMotion ? 0 : 0.08, ease: "easeIn" },
     },
     open: {
-      width: "22rem",
+      width: "18rem",
       opacity: 1,
       transition: {
         duration: reduceMotion ? 0.25 : 0.55,
@@ -213,7 +227,7 @@ const StickyNav = ({ expanded: expandedProp, onExpandedChange }: StickyNavProps)
           {expanded && (
             <motion.div
               key="liquid-shell"
-              className="pointer-events-none absolute -left-8 top-0 bottom-0 w-[32rem] -z-10"
+              className="pointer-events-none absolute -left-6 top-0 bottom-0 w-[22rem] -z-10"
               initial="closed"
               animate="open"
               exit="closed"
@@ -221,23 +235,23 @@ const StickyNav = ({ expanded: expandedProp, onExpandedChange }: StickyNavProps)
               style={{ filter: "url(#nav-goo)" }}
             >
               <motion.div
-                className="absolute left-0 top-2 bottom-2 w-[12rem] rounded-[28px] bg-gradient-to-b from-[#06101f] via-[#07233a] to-[#050d1b] blur-[18px] opacity-95"
+                className="absolute left-0 top-2 bottom-2 w-[10rem] rounded-[28px] bg-gradient-to-b from-[#06101f] via-[#07233a] to-[#050d1b] blur-[16px] opacity-90"
                 animate={{ x: [-4, 6, -2, 4, 0] }}
                 transition={{ duration: 9, repeat: Infinity, repeatType: "mirror", ease: "easeInOut" }}
               />
               <motion.div
-                className="absolute left-4 top-4 bottom-4 w-[28rem] rounded-[56px] bg-[linear-gradient(180deg,rgba(6,20,38,0.92),rgba(8,36,64,0.95),rgba(6,18,32,0.9))] blur-[22px] opacity-95"
+                className="absolute left-4 top-4 bottom-4 w-[18rem] rounded-[48px] bg-[linear-gradient(180deg,rgba(6,20,38,0.92),rgba(8,36,64,0.95),rgba(6,18,32,0.9))] blur-[18px] opacity-92"
                 animate={{ x: [0, 10, -6, 4, 0] }}
                 transition={{ duration: 8, repeat: Infinity, repeatType: "mirror", ease: "easeInOut" }}
               />
               <motion.div
-                className="absolute left-2 top-6 bottom-6 w-[28rem] rounded-[999px] bg-[radial-gradient(circle_at_20%_20%,rgba(88,197,255,0.32),transparent_40%),radial-gradient(circle_at_70%_40%,rgba(86,196,255,0.28),transparent_48%),radial-gradient(circle_at_50%_70%,rgba(80,132,255,0.25),transparent_52%)] mix-blend-screen"
+                className="absolute left-2 top-6 bottom-6 w-[18rem] rounded-[999px] bg-[radial-gradient(circle_at_20%_20%,rgba(88,197,255,0.32),transparent_40%),radial-gradient(circle_at_70%_40%,rgba(86,196,255,0.28),transparent_48%),radial-gradient(circle_at_50%_70%,rgba(80,132,255,0.25),transparent_52%)] mix-blend-screen"
                 animate={{ x: [0, 8, -4, 6, 0] }}
                 transition={{ duration: 7.5, repeat: Infinity, repeatType: "mirror", ease: "easeInOut" }}
                 style={{ filter: "blur(30px)" }}
               />
               <motion.div
-                className="absolute left-6 top-2 bottom-2 w-[6rem] rounded-[999px] bg-[linear-gradient(180deg,rgba(110,226,255,0.38),rgba(58,129,255,0.22),rgba(6,20,38,0))] mix-blend-screen"
+                className="absolute left-6 top-2 bottom-2 w-[5rem] rounded-[999px] bg-[linear-gradient(180deg,rgba(110,226,255,0.38),rgba(58,129,255,0.22),rgba(6,20,38,0))] mix-blend-screen"
                 animate={{ x: [0, 10, 2, 8, 0], opacity: [0.45, 0.6, 0.4, 0.55, 0.45] }}
                 transition={{ duration: 6.5, repeat: Infinity, repeatType: "mirror", ease: "easeInOut" }}
                 style={{ filter: "blur(24px)" }}
@@ -262,8 +276,71 @@ const StickyNav = ({ expanded: expandedProp, onExpandedChange }: StickyNavProps)
               <span className="pointer-events-none absolute inset-0 rounded-full bg-[radial-gradient(circle_at_30%_30%,rgba(255,255,255,0.2),transparent_40%),radial-gradient(circle_at_70%_70%,rgba(146,240,255,0.18),transparent_35%)] opacity-0 transition duration-300 group-hover:opacity-100" />
             </button>
           </div>
-          <div className="absolute -left-4 top-16 bottom-16">
-            <WavyRail progress={progress / 100} />
+          <div className="-mt-0.5 w-full max-w-[70px] overflow-hidden rounded-b-xl rounded-t-[12px] bg-white/6 shadow-[0_12px_32px_rgba(0,0,0,0.35)]">
+            <div
+              className="nav-scroll max-h-[400px] min-h-0 overflow-y-auto px-1.5 py-1.5"
+              onMouseLeave={() => setHoveredGroup(null)}
+            >
+              <div
+                className="piano-stack mx-auto"
+                style={
+                  {
+                    "--white-w": "32px",
+                    "--white-h": "9px",
+                    "--black-w": "18px",
+                  } as React.CSSProperties
+                }
+              >
+                <div className="piano-rows">
+                  <div className="piano-white-layer">
+                    {keys
+                      .filter((k) => !k.isBlack)
+                      .map((key) => {
+                        const isHighlighted = highlightedGroup === key.group;
+                        const top = key.whiteIndex * 9;
+                        return (
+                          <span
+                            key={key.id}
+                            className={clsx("piano-white-key", isHighlighted && "piano-key-active")}
+                            style={{
+                              width: "var(--white-w)",
+                              height: "var(--white-h)",
+                              top,
+                            }}
+                                      onMouseEnter={() => setHoveredGroup(key.group)}
+                                      onClick={() => {
+                                        playTransitionAudio();
+                                        router.push(routes[key.group].path);
+                                      }}
+                                    />
+                                  );
+                                })}
+                  </div>
+                  <div className="piano-black-layer">
+                    {keys
+                      .filter((k) => k.isBlack)
+                      .map((key) => {
+                        const isHighlighted = highlightedGroup === key.group;
+                        const top = (key.whiteIndex + 0.5) * 9 - (9 * 0.65) / 2;
+                        return (
+                          <span
+                            key={key.id}
+                            className={clsx("piano-black-key", isHighlighted && "piano-key-active")}
+                            style={{
+                              left: "calc(var(--white-w) - var(--black-w) - 4px)",
+                              top,
+                              width: "var(--black-w)",
+                              height: "calc(var(--white-h) * 0.65)",
+                            }}
+                            onMouseEnter={() => setHoveredGroup(key.group)}
+                            onClick={() => router.push(routes[key.group].path)}
+                          />
+                        );
+                      })}
+                  </div>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
 
@@ -296,7 +373,7 @@ const StickyNav = ({ expanded: expandedProp, onExpandedChange }: StickyNavProps)
             {expanded && (
               <motion.div
                 key="nav-shell"
-                className="relative z-10 flex h-full w-[22rem] max-h-[calc(100vh-1.5rem)] flex-col overflow-hidden rounded-3xl border border-white/10 bg-river-900/85 backdrop-blur-lg shadow-[0_16px_60px_rgba(0,0,0,0.45)]"
+                className="relative z-10 flex h-full w-[18rem] max-h-[calc(100vh-1.5rem)] flex-col overflow-hidden rounded-3xl border border-white/10 bg-river-900/85 backdrop-blur-lg shadow-[0_16px_60px_rgba(0,0,0,0.45)]"
                 initial={{ opacity: 0, x: -12, scale: 0.98 }}
                 animate={{
                   opacity: 1,
@@ -321,7 +398,7 @@ const StickyNav = ({ expanded: expandedProp, onExpandedChange }: StickyNavProps)
                   </motion.div>
 
                 <div className="relative flex-1 min-h-0 overflow-hidden">
-                  <div className="nav-scroll relative flex flex-1 min-h-0 flex-col space-y-4 px-4 pt-4 pb-6 overflow-y-auto" style={{ overscrollBehavior: "contain" }}>
+                  <div className="relative flex flex-1 min-h-0 flex-col space-y-4 px-4 pt-2 pb-6 overflow-y-auto" style={{ overscrollBehavior: "contain" }}>
                       <div className="flex items-center gap-3">
                         <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-gradient-to-br from-ember/90 via-pearl/70 to-river-600 text-xs font-semibold text-river-900 shadow-lg">
                           UE
@@ -334,66 +411,10 @@ const StickyNav = ({ expanded: expandedProp, onExpandedChange }: StickyNavProps)
 
                       <nav
                         aria-label="Piano Navigation"
-                        className="piano-vertical nav-scroll max-h-[360px] min-h-0 overflow-y-auto pr-1"
+                        className="max-h-[360px] min-h-0 overflow-y-auto pr-2"
+                        onMouseLeave={() => setHoveredGroup(null)}
                       >
-                        <div
-                          className="piano-stack"
-                          onMouseLeave={() => setHoveredGroup(null)}
-                          style={
-                            {
-                              "--white-w": "46px",
-                              "--white-h": "10px",
-                              "--black-w": "24px",
-                            } as React.CSSProperties
-                          }
-                        >
-                          <div className="piano-rows">
-                            <div className="piano-white-layer">
-                              {keys
-                                .filter((k) => !k.isBlack)
-                                .map((key) => {
-                                  const isHighlighted = highlightedGroup === key.group;
-                                  const top = key.whiteIndex * 10;
-                                  return (
-                                    <span
-                                      key={key.id}
-                                      className={clsx("piano-white-key", isHighlighted && "piano-key-active")}
-                                      style={{
-                                        width: "var(--white-w)",
-                                        height: "var(--white-h)",
-                                        top,
-                                      }}
-                                      onMouseEnter={() => setHoveredGroup(key.group)}
-                                      onClick={() => router.push(routes[key.group].path)}
-                                    />
-                                  );
-                                })}
-                            </div>
-                            <div className="piano-black-layer">
-                              {keys
-                                .filter((k) => k.isBlack)
-                                .map((key) => {
-                                  const isHighlighted = highlightedGroup === key.group;
-                                  const top = (key.whiteIndex + 0.5) * 10 - (10 * 0.65) / 2;
-                                  return (
-                                    <span
-                                      key={key.id}
-                                      className={clsx("piano-black-key", isHighlighted && "piano-key-active")}
-                                      style={{
-                                        left: "calc(var(--white-w) - var(--black-w) - 4px)",
-                                        top,
-                                        width: "var(--black-w)",
-                                        height: "calc(var(--white-h) * 0.65)",
-                                      }}
-                                      onMouseEnter={() => setHoveredGroup(key.group)}
-                                      onClick={() => router.push(routes[key.group].path)}
-                                    />
-                                  );
-                                })}
-                            </div>
-                          </div>
-                        </div>
-                        <div className="piano-navlist nav-scroll max-h-[320px] min-h-0 overflow-y-auto pr-2">
+                        <div className="piano-navlist space-y-2">
                           {routes.map((route, idx) => {
                             const isActive = currentPath === route.path;
                             const isHover = hoveredGroup === idx;
@@ -413,6 +434,7 @@ const StickyNav = ({ expanded: expandedProp, onExpandedChange }: StickyNavProps)
                                     isActive && "piano-navitem-active",
                                     isHover && "piano-navitem-hover",
                                   )}
+                                  onClick={() => playTransitionAudio()}
                                   onMouseEnter={() => {
                                     setHoveredGroup(idx);
                                     handleHoverNote(idx);

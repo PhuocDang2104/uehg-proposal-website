@@ -71,6 +71,25 @@ const LetterReveal = () => {
   const prefersReducedMotion = useReducedMotion();
   const [expanded, setExpanded] = useState(false);
   const hasAutoOpened = useRef(false);
+  const envelopeAudioRef = useRef<HTMLAudioElement | null>(null);
+  const hasAudioTriggered = useRef(false);
+
+  const ensureEnvelopeAudio = () => {
+    if (!envelopeAudioRef.current) {
+      const audio = new Audio("/audio/envelope.mp3");
+      audio.preload = "auto";
+      audio.volume = 0.75;
+      envelopeAudioRef.current = audio;
+    }
+    return envelopeAudioRef.current;
+  };
+
+  const playEnvelopeAudio = () => {
+    const audio = ensureEnvelopeAudio();
+    if (!audio) return;
+    audio.currentTime = 0;
+    audio.play().catch(() => {});
+  };
 
   const { scrollYProgress } = useScroll({
     target: sectionRef,
@@ -85,10 +104,21 @@ const LetterReveal = () => {
   }, [expanded]);
 
   useEffect(() => {
+    if (!hasAudioTriggered.current && !expanded) return;
+    hasAudioTriggered.current = true;
+    playEnvelopeAudio();
+  }, [expanded]);
+
+  useEffect(() => {
     if (isInView && !hasAutoOpened.current) {
       hasAutoOpened.current = true;
-      setTimeout(() => setExpanded(true), prefersReducedMotion ? 0 : 160);
+      const timer = setTimeout(
+        () => setExpanded(true),
+        prefersReducedMotion ? 2500 : 2500,
+      );
+      return () => clearTimeout(timer);
     }
+    return undefined;
   }, [isInView, prefersReducedMotion]);
 
   const foldVariants = useMemo(

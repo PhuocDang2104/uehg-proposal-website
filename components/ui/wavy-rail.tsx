@@ -7,9 +7,18 @@ import { cn } from "@/lib/utils";
 type WavyRailProps = {
   progress: number; // 0-1
   className?: string;
+  thickness?: number;
+  orientation?: "vertical" | "horizontal";
+  showCelebration?: boolean;
 };
 
-const WavyRail = ({ progress, className }: WavyRailProps) => {
+const WavyRail = ({
+  progress,
+  className,
+  thickness = 16,
+  orientation = "vertical",
+  showCelebration = false,
+}: WavyRailProps) => {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const noise = useRef(createNoise3D());
   const frame = useRef<number>();
@@ -29,7 +38,7 @@ const WavyRail = ({ progress, className }: WavyRailProps) => {
       const rect = canvas.getBoundingClientRect();
       canvas.width = rect.width * window.devicePixelRatio;
       canvas.height = rect.height * window.devicePixelRatio;
-      ctx.scale(window.devicePixelRatio, window.devicePixelRatio);
+      ctx.setTransform(window.devicePixelRatio, 0, 0, window.devicePixelRatio, 0, 0);
       sizeRef.current = { w: rect.width, h: rect.height };
     };
 
@@ -42,30 +51,53 @@ const WavyRail = ({ progress, className }: WavyRailProps) => {
       const { w, h } = sizeRef.current;
       ctx.clearRect(0, 0, w, h);
       t += 0.004;
-      const visibleHeight = Math.max(0, Math.min(1, progress)) * h;
+      const clamped = Math.max(0, Math.min(1, progress));
+      const visibleHeight = orientation === "vertical" ? clamped * h : clamped * w;
       if (visibleHeight <= 2) {
         frame.current = requestAnimationFrame(render);
         return;
       }
       ctx.save();
       ctx.beginPath();
-      ctx.rect(0, h - visibleHeight, w, visibleHeight);
+      if (orientation === "vertical") {
+        ctx.rect(0, h - visibleHeight, w, visibleHeight);
+      } else {
+        ctx.rect(0, 0, visibleHeight, h);
+      }
       ctx.clip();
       ctx.globalAlpha = 0.45;
       ctx.shadowColor = "rgba(159, 244, 255, 0.5)";
       ctx.shadowBlur = 12;
-      for (let i = 0; i < 4; i += 1) {
-        ctx.beginPath();
-        ctx.lineWidth = 5;
-        const grad = ctx.createLinearGradient(0, h - visibleHeight, 0, h);
-        grad.addColorStop(0, neonColors[i % neonColors.length]);
-        grad.addColorStop(1, neonColors[(i + 1) % neonColors.length]);
-        ctx.strokeStyle = grad;
-        for (let y = h - visibleHeight; y <= h; y += 5) {
-          const nx = noise.current(0.18 * i, y * 0.008, t) * 6;
-          ctx.lineTo(w / 2 + nx, y);
+      if (orientation === "vertical") {
+        for (let i = 0; i < 4; i += 1) {
+          ctx.beginPath();
+          ctx.lineWidth = Math.max(3, thickness * 0.35);
+          const grad = ctx.createLinearGradient(0, h - visibleHeight, 0, h);
+          grad.addColorStop(0, neonColors[i % neonColors.length]);
+          grad.addColorStop(1, neonColors[(i + 1) % neonColors.length]);
+          ctx.strokeStyle = grad;
+          const stepY = Math.max(4, thickness * 0.8);
+          for (let y = h - visibleHeight; y <= h; y += stepY) {
+            const nx = noise.current(0.18 * i, y * 0.008, t) * Math.max(6, thickness);
+            ctx.lineTo(w / 2 + nx, y);
+          }
+          ctx.stroke();
         }
-        ctx.stroke();
+      } else {
+        for (let i = 0; i < 4; i += 1) {
+          ctx.beginPath();
+          ctx.lineWidth = Math.max(3, thickness * 0.35);
+          const grad = ctx.createLinearGradient(0, 0, visibleHeight, 0);
+          grad.addColorStop(0, neonColors[i % neonColors.length]);
+          grad.addColorStop(1, neonColors[(i + 1) % neonColors.length]);
+          ctx.strokeStyle = grad;
+          const stepX = Math.max(4, thickness * 0.8);
+          for (let x = 0; x <= visibleHeight; x += stepX) {
+            const ny = noise.current(x * 0.008, 0.18 * i, t) * Math.max(6, thickness);
+            ctx.lineTo(x, h / 2 + ny);
+          }
+          ctx.stroke();
+        }
       }
       ctx.restore();
       frame.current = requestAnimationFrame(render);
@@ -79,11 +111,13 @@ const WavyRail = ({ progress, className }: WavyRailProps) => {
   }, [neonColors, progress]);
 
   const clamped = Math.max(0, Math.min(1, progress));
+  const isComplete = clamped >= 0.999;
 
   return (
     <div
       className={cn(
-        "relative h-full w-8 overflow-hidden rounded-3xl bg-transparent",
+        "relative overflow-hidden rounded-3xl bg-transparent",
+        orientation === "vertical" ? "h-full w-8" : "h-6 w-full",
         className,
       )}
     >
@@ -93,11 +127,33 @@ const WavyRail = ({ progress, className }: WavyRailProps) => {
       />
       <canvas ref={canvasRef} className="pointer-events-none absolute inset-0 h-full w-full" />
       <div
-        className="pointer-events-none absolute left-1/2 flex -translate-x-1/2 items-center justify-center text-[14px]"
-        style={{ bottom: `${clamped * 100}%` }}
+        className={cn(
+          "pointer-events-none absolute flex items-center justify-center text-[14px]",
+          orientation === "vertical"
+            ? "left-1/2 -translate-x-1/2"
+            : "top-1/2 -translate-y-1/2",
+        )}
+        style={
+          orientation === "vertical"
+            ? { bottom: `${clamped * 100}%` }
+            : { left: `${clamped * 100}%`, transform: "translate(-50%, -35%)" }
+        }
       >
-        <span className="drop-shadow-[0_0_10px_rgba(142,240,255,0.8)]">🐟</span>
+        <span
+          className={cn(
+            "drop-shadow-[0_0_10px_rgba(142,240,255,0.8)] transition-colors duration-700",
+            isComplete && showCelebration && "animate-[hue-rotate_4s_linear_infinite]",
+          )}
+        >
+          {isComplete && showCelebration ? "✨" : "🐟"}
+        </span>
       </div>
+      {isComplete && showCelebration && (
+        <>
+          <div className="pointer-events-none absolute inset-[-10%] animate-pulse bg-[radial-gradient(circle_at_50%_50%,rgba(255,255,255,0.35),transparent_52%)]" />
+          <div className="pointer-events-none absolute inset-[-18%] animate-[spin_8s_linear_infinite] bg-[conic-gradient(from_0deg,rgba(146,240,255,0.5),rgba(255,141,106,0.35),rgba(146,240,255,0.5))] opacity-35 blur-sm" />
+        </>
+      )}
     </div>
   );
 };
