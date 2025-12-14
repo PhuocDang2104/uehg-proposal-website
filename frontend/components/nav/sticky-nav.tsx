@@ -270,9 +270,14 @@ const StickyNav = ({ expanded: expandedProp, onExpandedChange }: StickyNavProps)
               onFocus={handleOpen}
               onBlur={handleClose}
               onClick={handleOpen}
-              className="relative flex h-14 w-14 items-center justify-center rounded-full border border-white/20 bg-black/75 text-sm font-semibold text-foam shadow-[0_10px_40px_rgba(0,0,0,0.45)] ring-ember/40 transition duration-500 hover:scale-[1.08] hover:border-ember/60 hover:shadow-[0_18px_60px_rgba(255,141,106,0.28)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ember"
+              className="relative flex h-14 w-14 items-center justify-center rounded-full border border-white/20 bg-black/75 shadow-[0_10px_40px_rgba(0,0,0,0.45)] ring-ember/40 transition duration-500 hover:scale-[1.08] hover:border-ember/60 hover:shadow-[0_18px_60px_rgba(255,141,106,0.28)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ember overflow-hidden"
             >
-              UEHG
+              <img
+                src="/assets/UEHG_logo.png"
+                alt="UEHG"
+                className="h-full w-full object-cover"
+                draggable={false}
+              />
               <span className="pointer-events-none absolute inset-0 rounded-full bg-[radial-gradient(circle_at_30%_30%,rgba(255,255,255,0.2),transparent_40%),radial-gradient(circle_at_70%_70%,rgba(146,240,255,0.18),transparent_35%)] opacity-0 transition duration-300 group-hover:opacity-100" />
             </button>
           </div>

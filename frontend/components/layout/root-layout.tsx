@@ -9,6 +9,7 @@ import SmoothScrollProvider from "../providers/smooth-scroll-provider";
 import { ScrollBackgroundProvider } from "./scroll-background";
 import WavyRail from "../ui/wavy-rail";
 import { getProgress } from "@/lib/routes";
+import UEHGAIChatWidget from "../UEHGAIChatWidget";
 
 type RootLayoutProps = {
   children: React.ReactNode;
@@ -45,7 +46,7 @@ const RootLayout = ({ children }: RootLayoutProps) => {
     <MotionConfig reducedMotion="user">
       <SmoothScrollProvider disable={prefersReduceMotion}>
         <ScrollBackgroundProvider>
-          <div className="relative min-h-screen text-foam">
+          <div className="relative min-h-screen text-foam overflow-x-hidden">
             <div
               className="pointer-events-none fixed left-0 right-0 top-2 z-40 flex justify-center"
               style={{ opacity: barFaded ? 0.5 : 1, transition: "opacity 220ms ease" }}
@@ -95,6 +96,7 @@ const RootLayout = ({ children }: RootLayoutProps) => {
             >
               {children}
             </motion.main>
+            <UEHGAIChatWidget />
           </div>
         </ScrollBackgroundProvider>
       </SmoothScrollProvider>
