@@ -20,22 +20,30 @@ const ShowcaseCarousel = () => {
     if (!trackRef.current) return undefined;
     const el = trackRef.current;
     let current = 0;
+    let loopWidth = el.scrollWidth / 2;
     let raf = 0;
-    const speed = 0.45; // px per frame approx
+    const speed = 1.8; // px per frame approx (faster glide)
+
+    const resizeObserver = new ResizeObserver(() => {
+      loopWidth = el.scrollWidth / 2;
+    });
+    resizeObserver.observe(el);
 
     const step = () => {
-      if (!paused) {
+      if (!paused && loopWidth > 0) {
         current -= speed;
-        const width = el.scrollWidth / 2;
-        if (-current >= width) {
-          current += width;
+        if (current <= -loopWidth) {
+          current += loopWidth;
         }
         el.style.transform = `translate3d(${current}px, 0, 0)`;
       }
       raf = requestAnimationFrame(step);
     };
     raf = requestAnimationFrame(step);
-    return () => cancelAnimationFrame(raf);
+    return () => {
+      cancelAnimationFrame(raf);
+      resizeObserver.disconnect();
+    };
   }, [paused]);
 
   return (
