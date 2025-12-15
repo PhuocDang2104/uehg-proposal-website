@@ -31,16 +31,17 @@ const GlobalBackground = ({ themes }: GlobalBackgroundProps) => {
 
     const handleScroll = () => {
       const midViewport = window.innerHeight / 2;
-      let best: { id: string; dist: number } | null = null;
-      sections.forEach((el) => {
+      const best = sections.reduce<{ id: string; dist: number } | null>((acc, el) => {
         const rect = el.getBoundingClientRect();
         const dist = Math.abs(rect.top + rect.height / 2 - midViewport);
         const id = el.dataset.themeId;
-        if (!id) return;
-        if (!best || dist < best.dist) {
-          best = { id, dist };
+        if (!id) return acc;
+        if (!acc || dist < acc.dist) {
+          return { id, dist };
         }
-      });
+        return acc;
+      }, null);
+
       if (best && best.id !== activeId) {
         setActiveId(best.id);
       }

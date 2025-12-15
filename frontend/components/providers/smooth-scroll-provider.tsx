@@ -9,7 +9,7 @@ type SmoothScrollProviderProps = {
 };
 
 const SmoothScrollProvider = ({ children, disable = false }: SmoothScrollProviderProps) => {
-  const rafId = useRef<number>();
+  const rafId = useRef<number | null>(null);
 
   useEffect(() => {
     if (disable) return undefined;

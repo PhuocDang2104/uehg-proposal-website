@@ -8,6 +8,7 @@ import {
   useMemo,
   useRef,
   type ReactNode,
+  type CSSProperties,
 } from "react";
 import {
   useMotionValue,
@@ -298,7 +299,7 @@ export const ScrollBackgroundProvider = ({ children }: { children: ReactNode }) 
           "--bg-r2-size": `${initialTheme.r2.size}%`,
           "--bg-noise-opacity": initialTheme.noise.toFixed(3),
           "--bg-grain-scale": initialTheme.grainScale.toFixed(3),
-        }}
+        } as CSSProperties}
       />
       <div className="pointer-events-none fixed inset-0 -z-[9] bg-[radial-gradient(circle_at_20%_15%,rgba(255,255,255,0.05),transparent_32%),radial-gradient(circle_at_80%_10%,rgba(255,255,255,0.04),transparent_30%),radial-gradient(circle_at_50%_80%,rgba(255,255,255,0.04),transparent_28%)] mix-blend-screen" />
       {children}

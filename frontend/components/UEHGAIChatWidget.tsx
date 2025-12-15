@@ -55,7 +55,7 @@ const UEHGAIChatWidget: React.FC = () => {
     localStorage.setItem("uehg-ai-sound", String(soundEnabled));
   }, [soundEnabled]);
 
-  const playAudio = (ref: React.RefObject<HTMLAudioElement>, src: string) => {
+  const playAudio = (ref: React.MutableRefObject<HTMLAudioElement | null>, src: string) => {
     if (!soundEnabled) return;
     let audio = ref.current;
     if (!audio) {

@@ -8,6 +8,7 @@ import {
   useReducedMotion,
   useScroll,
   useTransform,
+  type Variants,
 } from "framer-motion";
 import { Button } from "../ui/button";
 
@@ -68,7 +69,7 @@ const LetterReveal = () => {
   const sectionRef = useRef<HTMLElement | null>(null);
   const contentRef = useRef<HTMLDivElement | null>(null);
   const isInView = useInView(sectionRef, { margin: "-10% 0px -10% 0px", once: true });
-  const prefersReducedMotion = useReducedMotion();
+  const prefersReducedMotion = useReducedMotion() ?? false;
   const [expanded, setExpanded] = useState(false);
   const hasAutoOpened = useRef(false);
   const envelopeAudioRef = useRef<HTMLAudioElement | null>(null);
@@ -121,17 +122,15 @@ const LetterReveal = () => {
     return undefined;
   }, [isInView, prefersReducedMotion]);
 
-  const foldVariants = useMemo(
+  const foldVariants = useMemo<Variants>(
     () => ({
       initial: {
         opacity: 0,
-        y: prefersReducedMotion ? 12 : 30,
         rotateX: prefersReducedMotion ? 0 : -32,
         scale: 0.96,
       },
       animate: {
         opacity: 1,
-        y: 0,
         rotateX: 0,
         scale: 1,
         transition: {
@@ -228,13 +227,13 @@ const LetterReveal = () => {
                   key="open-letter"
                   className="relative rounded-2xl bg-gradient-to-br from-[#f8f5ee] to-[#f0ebe1] p-5 shadow-[0_18px_50px_rgba(0,0,0,0.28)]"
                   variants={foldVariants}
+                  initial="initial"
+                  animate="animate"
                   style={{
                     transformStyle: "preserve-3d",
                     y: parallaxY,
                     overflow: "hidden",
                   }}
-                  initial={{ opacity: 0, y: 18, scale: 0.97 }}
-                  animate={{ opacity: 1, y: 0, scale: 1 }}
                   exit={{ opacity: 0, scale: 0.99 }}
                 >
                   <div
@@ -243,11 +242,10 @@ const LetterReveal = () => {
                   />
                   <motion.div
                     className="absolute -left-2 -top-4 h-[86%] w-[60%] rounded-xl bg-gradient-to-br from-white/70 to-white/30 shadow-[0_16px_40px_rgba(0,0,0,0.2)]"
-                    style={{ y: parallaxY, rotate: -3 }}
                     initial={{ opacity: 0, y: 18, rotate: -8 }}
                     animate={{
                       opacity: isInView ? 1 : 0,
-                      y: isInView ? parallaxY : 18,
+                      y: isInView ? 0 : 18,
                       rotate: isInView ? -3 : -8,
                       transition: { delay: 0.12, duration: 0.55, ease: "easeOut" },
                     }}

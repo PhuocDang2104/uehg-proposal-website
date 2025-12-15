@@ -1,7 +1,13 @@
 "use client";
 
 import clsx from "clsx";
-import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
+import {
+  AnimatePresence,
+  motion,
+  useReducedMotion,
+  type Transition,
+  type Variants,
+} from "framer-motion";
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
 import { useEffect, useMemo, useRef, useState } from "react";
@@ -48,7 +54,9 @@ const StickyNav = ({ expanded: expandedProp, onExpandedChange }: StickyNavProps)
     return pathname.endsWith("/") ? pathname.slice(0, -1) : pathname;
   }, [pathname]);
   const router = useRouter();
-  const reduceMotion = useReducedMotion();
+  const reduceMotion = useReducedMotion() ?? false;
+  const NAV_OPEN_EASE: [number, number, number, number] = [0.2, 0.9, 0.2, 1];
+  const navEase: Transition["ease"] = reduceMotion ? "easeOut" : NAV_OPEN_EASE;
 
   const progress = useMemo(() => getProgress(currentPath), [currentPath]);
   const [internalExpanded, setInternalExpanded] = useState(expandedProp ?? false);
@@ -144,7 +152,7 @@ const StickyNav = ({ expanded: expandedProp, onExpandedChange }: StickyNavProps)
 
   const highlightedGroup = hoveredGroup ?? activeGroup;
 
-  const containerVariants = {
+  const containerVariants: Variants = {
     closed: {
       width: "4rem",
       opacity: 0,
@@ -155,12 +163,12 @@ const StickyNav = ({ expanded: expandedProp, onExpandedChange }: StickyNavProps)
       opacity: 1,
       transition: {
         duration: reduceMotion ? 0.25 : 0.55,
-        ease: reduceMotion ? "easeOut" : [0.2, 0.9, 0.2, 1],
+        ease: navEase,
       },
     },
   };
 
-  const liquidVariants = {
+  const liquidVariants: Variants = {
     closed: {
       scaleX: 0.42,
       scaleY: 0.55,
@@ -195,7 +203,7 @@ const StickyNav = ({ expanded: expandedProp, onExpandedChange }: StickyNavProps)
     closeTimer.current = setTimeout(() => setExpandedState(false), 130);
   };
 
-  const itemVariants = {
+  const itemVariants: Variants = {
     hidden: { opacity: 0, y: 8 },
     visible: (i: number) => ({
       opacity: 1,

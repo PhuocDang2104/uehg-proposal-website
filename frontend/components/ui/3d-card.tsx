@@ -1,7 +1,14 @@
 "use client";
 
 import clsx from "clsx";
-import React, { createContext, useContext, useMemo, useState, type HTMLAttributes } from "react";
+import React, {
+  createContext,
+  useContext,
+  useMemo,
+  useState,
+  type HTMLAttributes,
+  type JSX,
+} from "react";
 
 type TiltState = { x: number; y: number; active: boolean };
 const TiltContext = createContext<TiltState>({ x: 0, y: 0, active: false });

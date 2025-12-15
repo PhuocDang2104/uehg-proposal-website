@@ -16,7 +16,7 @@ type RootLayoutProps = {
 };
 
 const RootLayout = ({ children }: RootLayoutProps) => {
-  const prefersReduceMotion = useReducedMotion();
+  const prefersReduceMotion = useReducedMotion() ?? false;
   const [navExpanded, setNavExpanded] = useState(false);
   const pathname = usePathname();
   const currentPath = useMemo(() => {
