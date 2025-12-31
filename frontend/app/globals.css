@@ -41,6 +41,21 @@
   --color-iris: var(--iris);
   --font-sans: var(--font-sans-var);
   --font-display: var(--font-display-var);
+  --animate-meteor-effect: meteor 6s linear infinite;
+
+  @keyframes meteor {
+    0% {
+      transform: rotate(215deg) translateX(0);
+      opacity: 1;
+    }
+    70% {
+      opacity: 1;
+    }
+    100% {
+      transform: rotate(215deg) translateX(-520px);
+      opacity: 0;
+    }
+  }
 }
 
 * {
@@ -296,6 +311,46 @@ a {
   to {
     filter: hue-rotate(360deg);
   }
+}
+
+@keyframes bannerFade {
+  0% {
+    opacity: 0;
+    transform: scale(1.02);
+  }
+  6% {
+    opacity: 1;
+    transform: scale(1);
+  }
+  24% {
+    opacity: 1;
+  }
+  32% {
+    opacity: 0;
+    transform: scale(0.995);
+  }
+  100% {
+    opacity: 0;
+  }
+}
+
+.banner-slide {
+  opacity: 0;
+  animation-name: bannerFade;
+  animation-timing-function: ease-in-out;
+  animation-iteration-count: infinite;
+  animation-fill-mode: both;
+  will-change: opacity, transform;
+}
+
+[data-motion="reduced"] .banner-slide {
+  animation: none !important;
+  opacity: 1 !important;
+  transform: none !important;
+}
+
+[data-motion="reduced"] .banner-slide:not(:first-child) {
+  display: none;
 }
 
 @media (prefers-reduced-motion: reduce) {

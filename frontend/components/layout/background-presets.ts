@@ -120,6 +120,58 @@ export const backgroundPresets: Record<string, BackgroundPreset> = {
     noise: 0.1,
     grainScale: 1.1,
   },
+  noirBase: {
+    name: "Noir Base",
+    linear: {
+      from: { r: 2, g: 2, b: 6, a: 1 },
+      to: { r: 6, g: 7, b: 14, a: 1 },
+      angle: 185,
+    },
+    radials: [
+      {
+        x: 22,
+        y: 18,
+        size: 34,
+        color: { r: 142, g: 240, b: 255, a: 0.08 },
+        drift: { x: 6, y: 8, alpha: 0.04 },
+      },
+      {
+        x: 76,
+        y: 14,
+        size: 30,
+        color: { r: 255, g: 141, b: 106, a: 0.08 },
+        drift: { x: -6, y: 10, alpha: 0.04 },
+      },
+    ],
+    noise: 0.1,
+    grainScale: 1.2,
+  },
+  noirGlow: {
+    name: "Noir Glow",
+    linear: {
+      from: { r: 2, g: 2, b: 6, a: 1 },
+      to: { r: 8, g: 10, b: 18, a: 1 },
+      angle: 190,
+    },
+    radials: [
+      {
+        x: 26,
+        y: 26,
+        size: 40,
+        color: { r: 142, g: 240, b: 255, a: 0.18 },
+        drift: { x: 8, y: 10, size: 4, alpha: 0.06 },
+      },
+      {
+        x: 70,
+        y: 10,
+        size: 34,
+        color: { r: 255, g: 141, b: 106, a: 0.14 },
+        drift: { x: -8, y: 12, alpha: 0.05 },
+      },
+    ],
+    noise: 0.12,
+    grainScale: 1.25,
+  },
   dawnMist: {
     name: "Dawn Mist",
     linear: {
