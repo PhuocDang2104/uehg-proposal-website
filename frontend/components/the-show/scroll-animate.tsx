@@ -21,7 +21,7 @@ type ScrollAnimationOptions = {
 };
 
 export const useScrollAnimations = (
-  containerRef: React.RefObject<HTMLElement>,
+  containerRef: React.RefObject<HTMLElement | null>,
   { rootMargin = "0px 0px -20% 0px", threshold = 0.2, selector = "[data-scroll-anim]" }: ScrollAnimationOptions = {},
 ) => {
   useEffect(() => {

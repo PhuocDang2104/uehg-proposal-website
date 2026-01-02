@@ -26,7 +26,7 @@ type FishEasing = {
 };
 
 type ScrollNavigationPathProps = {
-  containerRef: React.RefObject<HTMLDivElement>;
+  containerRef: React.RefObject<HTMLDivElement | null>;
   sectionRefs: React.MutableRefObject<(HTMLElement | null)[]>;
   activeIndex: number;
   progress: MotionValue<number>;

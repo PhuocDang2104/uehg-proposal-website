@@ -4,7 +4,7 @@ import { useEffect, useRef, useState } from "react";
 import { useMotionValue, type MotionValue } from "framer-motion";
 
 type ScrollTrackerOptions = {
-  containerRef: React.RefObject<HTMLElement>;
+  containerRef: React.RefObject<HTMLElement | null>;
   sectionRefs: React.MutableRefObject<(HTMLElement | null)[]>;
   rootMargin?: string;
   threshold?: number | number[];

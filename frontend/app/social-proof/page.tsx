@@ -313,7 +313,7 @@ export default function SocialProofPage() {
                   </div>
 
                   <div className="grid gap-4 divide-y divide-white/10 lg:grid-cols-2 lg:gap-0 lg:divide-y-0 lg:divide-x lg:divide-white/10">
-                    {group.sections.map((section, sectionIndex) => (
+                    {(group.sections ?? []).map((section, sectionIndex) => (
                       <div
                         key={section.id}
                         className={`flex h-full flex-col gap-3 ${sectionIndex === 0 ? "pt-0 lg:pr-6" : "pt-4 lg:pt-0 lg:pl-6"}`}
@@ -438,11 +438,11 @@ export default function SocialProofPage() {
   const studioMediaGroup = partnerGroups.find((group) => group.id === "studio-media");
   const studioSection =
     studioMediaGroup && "sections" in studioMediaGroup
-      ? studioMediaGroup.sections.find((section) => section.id === "studio")
+      ? studioMediaGroup.sections?.find((section) => section.id === "studio")
       : undefined;
   const mediaSection =
     studioMediaGroup && "sections" in studioMediaGroup
-      ? studioMediaGroup.sections.find((section) => section.id === "media")
+      ? studioMediaGroup.sections?.find((section) => section.id === "media")
       : undefined;
   const studioGroup =
     studioMediaGroup && studioSection
@@ -450,8 +450,8 @@ export default function SocialProofPage() {
           id: "studio",
           label: studioSection.label,
           tier: studioSection.label,
-          slot: studioSection.slot,
-          note: studioSection.note,
+          slot: studioSection.slot ?? "",
+          note: studioSection.note ?? "",
           accent: studioMediaGroup.accent,
           partners: studioSection.partners,
         }
@@ -462,8 +462,8 @@ export default function SocialProofPage() {
           id: "media",
           label: mediaSection.label,
           tier: mediaSection.label,
-          slot: mediaSection.slot,
-          note: mediaSection.note,
+          slot: mediaSection.slot ?? "",
+          note: mediaSection.note ?? "",
           accent: studioMediaGroup.accent,
           partners: mediaSection.partners,
         }
