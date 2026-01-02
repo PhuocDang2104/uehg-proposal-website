@@ -2,7 +2,6 @@ import HeroFloatingPhysics from "@/components/sections/HeroFloatingPhysics";
 import { Section } from "@/components/sections/section";
 import LetterReveal from "@/components/sections/LetterReveal";
 import ShowcaseCarousel from "@/components/ShowcaseCarousel/ShowcaseCarousel";
-import LinearPager from "@/components/nav/linear-pager";
 import { createPageMetadata } from "@/lib/seo";
 import SalmonScene from "@/components/experience/salmon-scene";
 import SalmonMilestoneStack from "@/components/sections/SalmonMilestoneStack";
@@ -16,7 +15,7 @@ export const metadata = createPageMetadata({
 export default function HomePage() {
   return (
     <div className="space-y-8 md:space-y-10">
-      <div className="-mt-10 md:-mt-12">
+      <div>
         <HeroFloatingPhysics />
       </div>
 
@@ -36,7 +35,6 @@ export default function HomePage() {
 
       <ShowcaseCarousel />
 
-      <LinearPager currentRoute="/" />
     </div>
   );
 }

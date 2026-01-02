@@ -10,6 +10,8 @@ import { ScrollBackgroundProvider } from "./scroll-background";
 import WavyRail from "../ui/wavy-rail";
 import { getProgress } from "@/lib/routes";
 import UEHGAIChatWidget from "../UEHGAIChatWidget";
+import ContactTableSection from "@/components/sections/contact-table";
+import LinearPager from "@/components/nav/linear-pager";
 
 type RootLayoutProps = {
   children: React.ReactNode;
@@ -79,7 +81,7 @@ const RootLayout = ({ children }: RootLayoutProps) => {
             </div>
             <StickyNav expanded={navExpanded} onExpandedChange={setNavExpanded} />
             <motion.main
-              className="content-shell relative z-10 mx-auto w-full max-w-4xl pb-12 pt-10"
+              className="content-shell relative z-10 mx-auto w-full max-w-4xl pb-12 pt-0"
               initial={false}
               animate={{
                 paddingLeft: navExpanded ? "clamp(1.25rem, 8vw + 0.75rem, 24rem)" : "1.25rem",
@@ -95,6 +97,8 @@ const RootLayout = ({ children }: RootLayoutProps) => {
               }}
             >
               {children}
+              <ContactTableSection />
+              <LinearPager currentRoute={currentPath} />
             </motion.main>
             <UEHGAIChatWidget />
           </div>

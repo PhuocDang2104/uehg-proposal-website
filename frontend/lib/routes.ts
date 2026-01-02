@@ -16,10 +16,8 @@ export const routes: RouteConfig[] = [
   { path: "/about", label: "About UEHG", eyebrow: "Chương 2" },
   { path: "/social-proof", label: "Social Proof", eyebrow: "Chương 3" },
   { path: "/the-show", label: "The Show", eyebrow: "Chương 4" },
-  { path: "/impact", label: "Impact", eyebrow: "Chương 5" },
-  { path: "/sponsorship", label: "Sponsorship", eyebrow: "Chương 6" },
-  { path: "/media", label: "Media", eyebrow: "Chương 7" },
-  { path: "/contact", label: "Contact", eyebrow: "Chương 8" },
+  { path: "/sponsorship", label: "Sponsorship", eyebrow: "Chương 5" },
+  { path: "/contact", label: "Contact", eyebrow: "Chương 6" },
 ];
 
 const routeIndex = new Map(routes.map((route, index) => [route.path, index]));

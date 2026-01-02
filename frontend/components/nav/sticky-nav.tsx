@@ -487,9 +487,6 @@ const StickyNav = ({ expanded: expandedProp, onExpandedChange }: StickyNavProps)
                           <Button href="/contact" size="sm" variant="ghost">
                             Đăng ký quan tâm/Đặt vé
                           </Button>
-                          <Button href="/media" size="sm" variant="utility">
-                            Tải Sponsorship Kit (PDF)
-                          </Button>
                         </div>
                       </div>
                     </div>

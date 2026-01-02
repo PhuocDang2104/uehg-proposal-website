@@ -1,4 +1,3 @@
-import LinearPager from "@/components/nav/linear-pager";
 import { Section } from "@/components/sections/section";
 import { PageHeader } from "@/components/sections/page-header";
 import { Badge } from "@/components/ui/badge";
@@ -93,7 +92,6 @@ export default function ImpactPage() {
         </div>
       </Section>
 
-      <LinearPager currentRoute="/impact" />
     </div>
   );
 }

@@ -1,5 +1,4 @@
 import Image from "next/image";
-import LinearPager from "@/components/nav/linear-pager";
 import { Section } from "@/components/sections/section";
 import { Badge } from "@/components/ui/badge";
 import { Card } from "@/components/ui/card";
@@ -666,7 +665,6 @@ export default function SocialProofPage() {
         </Reveal>
       </section>
 
-      <LinearPager currentRoute="/social-proof" />
     </div>
   );
 }
