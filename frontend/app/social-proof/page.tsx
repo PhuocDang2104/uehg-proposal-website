@@ -100,9 +100,9 @@ const sponsorGroups = [
     note: "Logo nổi bật, quyền lợi tối đa",
     accent: "from-pearl/80 via-sky-200/50 to-cyan-300/30",
     partners: [
-      { name: "EduPath", logo: "/partners/edupath.png" },
-      { name: "AZ Soundtech", logo: "/partners/az-soundtech.png" },
-      { name: "FIVO", logo: "/partners/fivo.png" },
+      { name: "EduPath", logo: "/sponsor_logo/edupath.png" },
+      { name: "AZ Soundtech", logo: "/sponsor_logo/azsoundtech.png" },
+      { name: "FIVO", logo: "/sponsor_logo/fivo.png" },
     ],
   },
   {
@@ -113,8 +113,8 @@ const sponsorGroups = [
     note: "Brand hiện diện đa kênh, booth ưu tiên",
     accent: "from-yellow-300/70 via-amber-200/30 to-transparent",
     partners: [
-      { name: "DOL IELTS Đình Lực", logo: "/partners/dol-ielts-dinh-luc.png" },
-      { name: "Công ty THNN Văn Duy Phương (VDP)", logo: "/partners/vdp.png" },
+      { name: "DOL IELTS Đình Lực", logo: "/sponsor_logo/doldinhluc.png" },
+      { name: "Công ty THNN Văn Duy Phương (VDP)", logo: "/sponsor_logo/VDP.png" },
     ],
   },
   {
@@ -125,9 +125,9 @@ const sponsorGroups = [
     note: "Combo truyền thông + offline",
     accent: "from-slate-200/70 via-slate-300/30 to-transparent",
     partners: [
-      { name: "TAPTAP", logo: "/partners/taptap.png" },
-      { name: "Phước Thịnh Uniform", logo: "/partners/phuoc-thinh-uniform.png" },
-      { name: "Lyricist", logo: "/partners/lyricist.png" },
+      { name: "TAPTAP", logo: "/sponsor_logo/taptap.png" },
+      { name: "Phước Thịnh Uniform", logo: "/sponsor_logo/phuocthinhuniform.png" },
+      { name: "Lyricist", logo: "/sponsor_logo/Lyricist.png" },
     ],
   },
   {
@@ -138,9 +138,9 @@ const sponsorGroups = [
     note: "Hiển thị cơ bản, hiện kim/hiện vật",
     accent: "from-orange-400/70 via-orange-200/30 to-transparent",
     partners: [
-      { name: "SGC", logo: "/partners/sgc.png" },
-      { name: "AZ Soundtech", logo: "/partners/az-soundtech.png" },
-      { name: "Tạp Việt Nam", logo: "/partners/tap-viet-nam.png" },
+      { name: "SGC", logo: "/sponsor_logo/SGC.png" },
+      { name: "AZ Soundtech", logo: "/sponsor_logo/azsoundtech.png" },
+      { name: "Tạp Việt Nam", logo: "/sponsor_logo/tapvietnam.png" },
     ],
   },
 ];
@@ -153,7 +153,7 @@ const partnerGroups = [
     slot: "Support",
     note: "Hỗ trợ sản phẩm/dịch vụ",
     accent: "from-emerald-300/70 via-emerald-200/30 to-transparent",
-    partners: [{ name: "Crocus", logo: "/partners/crocus.png" }],
+    partners: [{ name: "Crocus", logo: "/sponsor_logo/crocus.png" }],
   },
   {
     id: "studio-media",
@@ -163,7 +163,7 @@ const partnerGroups = [
       {
         id: "studio",
         label: "Đối tác phòng tập",
-        partners: [{ name: "FAM Music", logo: "/partners/fam-music.png" }],
+        partners: [{ name: "FAM Music", logo: "/sponsor_logo/fam.png" }],
       },
       {
         id: "media",
@@ -171,10 +171,10 @@ const partnerGroups = [
         slot: "Media",
         note: "Khai thác kênh truyền thông",
         partners: [
-          { name: "YBOX.VN", logo: "/partners/ybox.png" },
-          { name: "iVolunteer Vietnam", logo: "/partners/ivolunteer-vietnam.png" },
-          { name: "ADS Sáng Tạo", logo: "/partners/ads-sang-tao.png" },
-          { name: "Edu2Review", logo: "/partners/edu2review.png" },
+          { name: "YBOX.VN", logo: "/sponsor_logo/yboxvn.png" },
+          { name: "iVolunteer Vietnam", logo: "/sponsor_logo/ivolunteer.png" },
+          { name: "ADS Sáng Tạo", logo: "/sponsor_logo/ads.png" },
+          { name: "Edu2Review", logo: "/sponsor_logo/edu2review.png" },
         ],
       },
     ],
@@ -262,11 +262,11 @@ export default function SocialProofPage() {
                         />
                       </div>
                       <div className="pointer-events-none absolute inset-x-3 top-3 translate-y-2 opacity-0 transition duration-300 group-hover/logo:translate-y-0 group-hover/logo:opacity-100">
-                        <div className="rounded-xl border border-black/10 bg-white/95 px-3 py-2 text-left text-slate-900 shadow-[0_16px_30px_rgba(0,0,0,0.2)]">
+                        <div className="min-w-[200px] max-w-[240px] rounded-xl border border-black/10 bg-white/95 px-3 py-2 text-left text-slate-900 shadow-[0_16px_30px_rgba(0,0,0,0.2)]">
                           <p className="text-[10px] uppercase tracking-[0.2em] text-slate-500">
                             {group.tier}
                           </p>
-                          <p className="text-xs font-semibold">{partner.name}</p>
+                          <p className="text-xs font-semibold leading-snug">{partner.name}</p>
                         </div>
                       </div>
                     </div>
@@ -350,11 +350,13 @@ export default function SocialProofPage() {
                                 />
                               </div>
                               <div className="pointer-events-none absolute inset-x-3 top-3 translate-y-2 opacity-0 transition duration-300 group-hover/logo:translate-y-0 group-hover/logo:opacity-100">
-                                <div className="rounded-xl border border-black/10 bg-white/95 px-3 py-2 text-left text-slate-900 shadow-[0_16px_30px_rgba(0,0,0,0.2)]">
+                                <div className="min-w-[200px] max-w-[240px] rounded-xl border border-black/10 bg-white/95 px-3 py-2 text-left text-slate-900 shadow-[0_16px_30px_rgba(0,0,0,0.2)]">
                                   <p className="text-[10px] uppercase tracking-[0.2em] text-slate-500">
                                     {section.label}
                                   </p>
-                                  <p className="text-xs font-semibold">{partner.name}</p>
+                                  <p className="text-xs font-semibold leading-snug">
+                                    {partner.name}
+                                  </p>
                                 </div>
                               </div>
                             </div>

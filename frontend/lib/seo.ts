@@ -11,6 +11,9 @@ export const siteMetadata: Metadata = {
     template: "%s | UEHG Proposal",
   },
   description: baseDescription,
+  icons: {
+    icon: "/assets/uehg-favicon.png",
+  },
   openGraph: {
     title: baseTitle,
     description: baseDescription,
