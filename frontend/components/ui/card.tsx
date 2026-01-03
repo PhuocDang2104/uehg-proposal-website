@@ -10,7 +10,7 @@ export const Card = ({ children, className }: CardProps) => {
   return (
     <div
       className={clsx(
-        "relative overflow-hidden rounded-3xl border border-white/10 bg-white/5 p-6 shadow-[0_20px_60px_rgba(0,0,0,0.35)]",
+        "relative overflow-hidden rounded-3xl border border-white/10 bg-white/5 p-5 shadow-[0_20px_60px_rgba(0,0,0,0.35)]",
         className,
       )}
     >

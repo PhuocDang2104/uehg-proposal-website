@@ -81,7 +81,7 @@ const RootLayout = ({ children }: RootLayoutProps) => {
             </div>
             <StickyNav expanded={navExpanded} onExpandedChange={setNavExpanded} />
             <motion.main
-              className="content-shell relative z-10 mx-auto w-full max-w-4xl pb-12 pt-0"
+              className="content-shell relative z-10 mx-auto w-full max-w-[860px] pb-10 pt-0"
               initial={false}
               animate={{
                 paddingLeft: navExpanded ? "clamp(1.25rem, 8vw + 0.75rem, 24rem)" : "1.25rem",

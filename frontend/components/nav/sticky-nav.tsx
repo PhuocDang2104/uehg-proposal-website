@@ -62,15 +62,43 @@ const StickyNav = ({ expanded: expandedProp, onExpandedChange }: StickyNavProps)
   const [internalExpanded, setInternalExpanded] = useState(expandedProp ?? false);
   const expanded = expandedProp ?? internalExpanded;
   const [soundEnabled, setSoundEnabled] = useState(false);
+  const [pianoVisible, setPianoVisible] = useState(true);
   const [hoveredGroup, setHoveredGroup] = useState<number | null>(null);
   const closeTimer = useRef<NodeJS.Timeout | null>(null);
   const transitionAudioRef = useRef<HTMLAudioElement | null>(null);
+  const pianoVisibleRef = useRef(true);
+  const lastScrollYRef = useRef(0);
+  const scrollDirRef = useRef<"up" | "down">("up");
   useEffect(
     () => () => {
       if (closeTimer.current) clearTimeout(closeTimer.current);
     },
     [],
   );
+
+  useEffect(() => {
+    pianoVisibleRef.current = pianoVisible;
+  }, [pianoVisible]);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      const currentY = window.scrollY;
+      const delta = currentY - lastScrollYRef.current;
+      if (Math.abs(delta) < 6) return;
+      const nextDir = delta > 0 ? "down" : "up";
+      if (currentY < 40) {
+        if (!pianoVisibleRef.current) setPianoVisible(true);
+        scrollDirRef.current = "up";
+      } else if (nextDir !== scrollDirRef.current) {
+        scrollDirRef.current = nextDir;
+        setPianoVisible(nextDir === "up");
+      }
+      lastScrollYRef.current = currentY;
+    };
+    lastScrollYRef.current = window.scrollY;
+    window.addEventListener("scroll", handleScroll, { passive: true });
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
 
   const audioCtxRef = useRef<AudioContext | null>(null);
 
@@ -289,7 +317,14 @@ const StickyNav = ({ expanded: expandedProp, onExpandedChange }: StickyNavProps)
               <span className="pointer-events-none absolute inset-0 rounded-full bg-[radial-gradient(circle_at_30%_30%,rgba(255,255,255,0.2),transparent_40%),radial-gradient(circle_at_70%_70%,rgba(146,240,255,0.18),transparent_35%)] opacity-0 transition duration-300 group-hover:opacity-100" />
             </button>
           </div>
-          <div className="-mt-0.5 w-full max-w-[70px] overflow-hidden rounded-b-xl rounded-t-[12px] bg-white/6 shadow-[0_12px_32px_rgba(0,0,0,0.35)]">
+          <div
+            className={clsx(
+              "-mt-0.5 w-full max-w-[70px] overflow-hidden rounded-b-xl rounded-t-[12px] bg-white/6 shadow-[0_12px_32px_rgba(0,0,0,0.35)] transition duration-300",
+              pianoVisible
+                ? "opacity-100 translate-y-0"
+                : "opacity-0 -translate-y-2 pointer-events-none",
+            )}
+          >
             <div
               className="nav-scroll max-h-[400px] min-h-0 overflow-y-auto px-1.5 py-1.5"
               onMouseLeave={() => setHoveredGroup(null)}

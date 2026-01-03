@@ -189,7 +189,7 @@ const bannerSlides = [
   { src: "/assets/socialproof_banner3.png", alt: "Social proof banner 3" },
   { src: "/assets/socialproof_banner4.png", alt: "Social proof banner 4" },
 ];
-const bannerDuration = 20;
+const bannerDuration = 12;
 const bannerDelay = bannerDuration / bannerSlides.length;
 
 export default function SocialProofPage() {
@@ -472,16 +472,16 @@ export default function SocialProofPage() {
   return (
     <div className="space-y-10 md:space-y-12">
       <section
-        className="relative isolate w-screen overflow-hidden bg-black py-10 sm:py-12 lg:py-14"
+        className="relative isolate w-screen overflow-hidden bg-black py-8 sm:py-10 lg:py-12"
         style={{ marginLeft: "calc(50% - 50vw)", marginRight: "calc(50% - 50vw)" }}
       >
         <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_20%_15%,rgba(142,240,255,0.08),transparent_42%),radial-gradient(circle_at_80%_5%,rgba(255,141,106,0.08),transparent_38%),linear-gradient(180deg,rgba(0,0,0,0.99),rgba(0,0,0,0.9))]" />
         <div className="pointer-events-none absolute inset-0 opacity-45 mix-blend-screen bg-[radial-gradient(circle_at_35%_65%,rgba(188,162,255,0.12),transparent_48%)]" />
         <div className="relative mx-auto w-[min(1200px,92vw)]">
-          <div className="grid gap-8 lg:grid-cols-[0.85fr_1.15fr] lg:items-center">
+          <div className="grid gap-6 lg:grid-cols-[0.85fr_1.15fr] lg:items-center">
             <Reveal className="space-y-5">
               <Badge variant="glow">chương 3</Badge>
-              <h1 className="font-display text-4xl leading-tight text-foam sm:text-5xl lg:text-6xl">
+              <h1 className="font-display text-3xl leading-tight text-foam sm:text-4xl lg:text-5xl">
                 Nghệ sĩ & đối tác đã đồng hành.
               </h1>
             </Reveal>
@@ -489,7 +489,7 @@ export default function SocialProofPage() {
               <div className="relative lg:-mr-16">
                 <div className="pointer-events-none absolute -right-10 -top-10 h-28 w-28 rounded-full bg-ember/30 blur-3xl" />
                 <div className="pointer-events-none absolute -bottom-10 -left-12 h-32 w-32 rounded-full bg-pearl/25 blur-3xl" />
-                <div className="relative h-[200px] w-full overflow-hidden rounded-[24px] sm:h-[230px] lg:h-[260px]">
+                <div className="relative h-[170px] w-full overflow-hidden rounded-[24px] sm:h-[200px] lg:h-[230px]">
                   {bannerSlides.map((slide, index) => (
                     <div
                       key={slide.src}
@@ -641,12 +641,12 @@ export default function SocialProofPage() {
       </Section>
 
       <section
-        className="relative isolate w-screen overflow-hidden bg-black/80 py-12 sm:py-16 lg:py-20"
+        className="relative isolate w-screen overflow-hidden bg-black/80 py-10 sm:py-12 lg:py-16"
         style={{ marginLeft: "calc(50% - 50vw)", marginRight: "calc(50% - 50vw)" }}
       >
         <Reveal className="relative z-10">
           <div className="relative mx-auto w-[min(1200px,92vw)]">
-            <h2 className="mb-6 font-display text-4xl text-foam drop-shadow-[0_6px_24px_rgba(0,0,0,0.55)] sm:text-5xl">
+            <h2 className="mb-5 font-display text-3xl text-foam drop-shadow-[0_6px_24px_rgba(0,0,0,0.55)] sm:text-4xl">
               Các hoạt động nổi bật
             </h2>
             <div className="relative">

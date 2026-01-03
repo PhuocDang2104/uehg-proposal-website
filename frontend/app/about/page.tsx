@@ -32,21 +32,21 @@ const missionPillars = [
   {
     title: "Nuôi dưỡng đam mê",
     detail: "Nuôi dưỡng đam mê, kết nối những bạn trẻ có tâm hồn nghệ thuật.",
-    image: "/hero-floating/4.png",
+    image: "/assets/mission_1.jpg",
     imageAlt: "Minh họa nuôi dưỡng đam mê",
   },
   {
     title: "Sân chơi âm nhạc",
     detail:
       "Tạo ra sân chơi âm nhạc để các bạn trau dồi kinh nghiệm, giao lưu, học hỏi, sáng tạo và thỏa mãn niềm đam mê âm nhạc của mình.",
-    image: "/assets/music-assistant.png",
+    image: "/assets/mission_2.jpg",
     imageAlt: "Minh họa sân chơi âm nhạc",
   },
   {
     title: "Phát triển chuyên môn",
     detail:
       "Phát triển năng lực chuyên môn của thành viên trên các phương diện trong lĩnh vực nghệ thuật.",
-    image: "/hero-floating/7.png",
+    image: "/assets/mission_3.jpg",
     imageAlt: "Minh họa phát triển chuyên môn",
   },
 ];
@@ -277,13 +277,13 @@ export default function AboutPage() {
                       >
                         <div className="pt-4 transition-transform duration-700 ease-[cubic-bezier(0.22,1,0.36,1)] md:translate-y-3 md:group-hover/card:translate-y-0">
                           <div className="flex justify-center">
-                            <div className="relative h-36 w-36 rounded-2xl border border-white/15 bg-white/10 shadow-[0_18px_45px_rgba(0,0,0,0.35)] md:h-40 md:w-40">
+                            <div className="relative w-full max-w-[260px] aspect-[4/3] overflow-hidden rounded-2xl bg-white/10 shadow-[0_18px_45px_rgba(0,0,0,0.35)]">
                               <Image
                                 src={mission.image}
                                 alt={mission.imageAlt}
                                 fill
-                                sizes="160px"
-                                className="object-contain p-2"
+                                sizes="(min-width: 1024px) 260px, 220px"
+                                className="object-cover"
                               />
                             </div>
                           </div>

@@ -63,85 +63,88 @@ const seeded = (seed: number) => {
   return x - Math.floor(x);
 };
 
+const clamp = (value: number, min: number, max: number) =>
+  Math.min(Math.max(value, min), max);
+
 const baseFloatingItems: ItemConfig[] = [
   {
     id: "item-1",
     src: "/hero-floating/1.png",
-    size: 160,
-    xPct: 12,
-    yPct: 22,
+    size: 140,
+    xPct: 6,
+    yPct: 50,
     seed: 0.12,
   },
   {
     id: "item-2",
     src: "/hero-floating/2.png",
-    size: 135,
-    xPct: 30,
-    yPct: 18,
+    size: 118,
+    xPct: 20,
+    yPct: 58,
     seed: 0.28,
   },
   {
     id: "item-3",
     src: "/hero-floating/3.png",
-    size: 115,
-    xPct: 64,
-    yPct: 14,
+    size: 100,
+    xPct: 78,
+    yPct: 50,
     seed: 0.44,
   },
   {
     id: "item-4",
     src: "/hero-floating/4.png",
-    size: 150,
-    xPct: 82,
-    yPct: 28,
+    size: 128,
+    xPct: 90,
+    yPct: 60,
     seed: 0.6,
   },
   {
     id: "item-5",
     src: "/hero-floating/5.png",
-    size: 100,
-    xPct: 90,
-    yPct: 54,
+    size: 88,
+    xPct: 92,
+    yPct: 76,
     seed: 0.76,
   },
   {
     id: "item-6",
     src: "/hero-floating/6.png",
-    size: 185,
-    xPct: 16,
-    yPct: 56,
+    size: 155,
+    xPct: 6,
+    yPct: 74,
     seed: 0.92,
   },
   {
     id: "item-7",
     src: "/hero-floating/7.png",
-    size: 110,
-    xPct: 34,
-    yPct: 66,
+    size: 96,
+    xPct: 28,
+    yPct: 82,
     seed: 1.08,
   },
   {
     id: "item-8",
     src: "/hero-floating/8.png",
-    size: 145,
-    xPct: 68,
-    yPct: 62,
+    size: 120,
+    xPct: 72,
+    yPct: 82,
     seed: 1.24,
   },
   {
     id: "item-9",
     src: "/hero-floating/9.png",
-    size: 95,
-    xPct: 52,
-    yPct: 70,
+    size: 82,
+    xPct: 54,
+    yPct: 64,
     seed: 1.4,
   },
   {
     id: "item-10",
     src: "/hero-floating/10.png",
-    size: 165,
-    xPct: 12,
-    yPct: 40,
+    size: 140,
+    xPct: 44,
+    yPct: 74,
     seed: 1.56,
   },
 ];
@@ -150,57 +153,57 @@ const noteFloatingItems: ItemConfig[] = [
   {
     id: "note-1",
     src: "/hero-floating/note1.png",
-    size: 78,
-    xPct: 8,
-    yPct: 10,
+    size: 64,
+    xPct: 12,
+    yPct: 46,
     seed: 2.08,
   },
   {
     id: "note-2",
     src: "/hero-floating/note2.png",
-    size: 68,
-    xPct: 28,
-    yPct: 32,
+    size: 56,
+    xPct: 22,
+    yPct: 66,
     seed: 2.22,
   },
   {
     id: "note-3",
     src: "/hero-floating/note3.png",
-    size: 64,
-    xPct: 48,
-    yPct: 16,
+    size: 52,
+    xPct: 62,
+    yPct: 48,
     seed: 2.36,
   },
   {
     id: "note-4",
     src: "/hero-floating/note4.png",
-    size: 74,
-    xPct: 72,
-    yPct: 12,
+    size: 60,
+    xPct: 84,
+    yPct: 46,
     seed: 2.48,
   },
   {
     id: "note-5",
     src: "/hero-floating/note5.png",
-    size: 70,
+    size: 58,
     xPct: 88,
-    yPct: 44,
+    yPct: 68,
     seed: 2.6,
   },
   {
     id: "note-6",
     src: "/hero-floating/note2.png",
-    size: 62,
-    xPct: 22,
-    yPct: 78,
+    size: 50,
+    xPct: 34,
+    yPct: 74,
     seed: 2.7,
   },
   {
     id: "note-7",
     src: "/hero-floating/note4.png",
-    size: 76,
-    xPct: 56,
-    yPct: 82,
+    size: 62,
+    xPct: 70,
+    yPct: 72,
     seed: 2.82,
   },
 ];
@@ -320,11 +323,14 @@ export const HeroFloatingPhysics = () => {
         canvas.width = rect.width;
         canvas.height = rect.height;
       }
+      const padding = Math.max(12, Math.min(rect.width, rect.height) * 0.02);
       const nextStates = heroFloatingItems.map((item, index) => {
         const phase = seeded(item.seed + index) * Math.PI * 2;
         const floatSpeed = motion.floatSpeedMin + seeded(item.seed * 1.618) * motion.floatSpeedRange;
-        const anchorX = (item.xPct / 100) * rect.width;
-        const anchorY = (item.yPct / 100) * rect.height;
+        const maxX = Math.max(padding, rect.width - item.size - padding);
+        const maxY = Math.max(padding, rect.height - item.size - padding);
+        const anchorX = clamp((item.xPct / 100) * rect.width, padding, maxX);
+        const anchorY = clamp((item.yPct / 100) * rect.height, padding, maxY);
         return {
           x: anchorX,
           y: anchorY,
@@ -587,8 +593,8 @@ export const HeroFloatingPhysics = () => {
             Nơi Bắt Đầu — Ngược Dòng
           </h1>
           <p className="max-w-2xl text-lg text-foam/80 md:text-xl">
-            Hero “floating images” tạo cảm giác thác nước + cá hồi, phản chiếu ánh sáng đêm. Di chuyển
-            nhẹ nhàng, tránh va chạm với con trỏ và trở về vị trí neo bằng lò xo.
+            Đêm guitar dẫn ta ngược dòng như cá hồi, bền bỉ vượt thác để trở về bản nguyên khát vọng,
+            nơi tuổi trẻ rực sáng và đủ bản lĩnh bước tiếp giữa mọi cuộn xoáy
           </p>
         </div>
         <div className="flex flex-wrap items-center justify-center gap-3">

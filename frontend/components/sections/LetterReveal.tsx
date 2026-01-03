@@ -73,14 +73,28 @@ const LetterReveal = () => {
   const [expanded, setExpanded] = useState(false);
   const hasAutoOpened = useRef(false);
   const envelopeAudioRef = useRef<HTMLAudioElement | null>(null);
+  const envelopeAudioCtxRef = useRef<AudioContext | null>(null);
   const hasAudioTriggered = useRef(false);
 
   const ensureEnvelopeAudio = () => {
     if (!envelopeAudioRef.current) {
       const audio = new Audio("/audio/envelope.mp3");
       audio.preload = "auto";
-      audio.volume = 0.75;
+      audio.volume = 1;
       envelopeAudioRef.current = audio;
+      const Ctx =
+        window.AudioContext ||
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        (window as any).webkitAudioContext;
+      if (Ctx) {
+        const ctx = new Ctx();
+        const source = ctx.createMediaElementSource(audio);
+        const gain = ctx.createGain();
+        gain.gain.value = 2;
+        source.connect(gain);
+        gain.connect(ctx.destination);
+        envelopeAudioCtxRef.current = ctx;
+      }
     }
     return envelopeAudioRef.current;
   };
@@ -88,6 +102,10 @@ const LetterReveal = () => {
   const playEnvelopeAudio = () => {
     const audio = ensureEnvelopeAudio();
     if (!audio) return;
+    const ctx = envelopeAudioCtxRef.current;
+    if (ctx && ctx.state !== "running") {
+      ctx.resume().catch(() => {});
+    }
     audio.currentTime = 0;
     audio.play().catch(() => {});
   };
@@ -103,6 +121,15 @@ const LetterReveal = () => {
       contentRef.current.focus({ preventScroll: false });
     }
   }, [expanded]);
+
+  useEffect(() => {
+    return () => {
+      const ctx = envelopeAudioCtxRef.current;
+      if (ctx) {
+        ctx.close().catch(() => {});
+      }
+    };
+  }, []);
 
   useEffect(() => {
     if (!hasAudioTriggered.current && !expanded) return;

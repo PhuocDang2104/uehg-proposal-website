@@ -1,0 +1,38 @@
+<svg width="800" height="600" viewBox="0 0 800 600" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#0f1b2d" />
+      <stop offset="100%" stop-color="#1e3a4c" />
+    </linearGradient>
+    <radialGradient id="glow" cx="0.2" cy="0.2" r="0.6">
+      <stop offset="0%" stop-color="#7ed7ff" stop-opacity="0.55" />
+      <stop offset="100%" stop-color="#7ed7ff" stop-opacity="0" />
+    </radialGradient>
+  </defs>
+  <rect width="800" height="600" fill="url(#bg)" />
+  <rect width="800" height="600" fill="url(#glow)" />
+  <circle cx="640" cy="120" r="80" fill="#ff9b74" fill-opacity="0.25" />
+  <circle cx="140" cy="470" r="110" fill="#9fe8ff" fill-opacity="0.18" />
+  <text
+    x="50%"
+    y="50%"
+    text-anchor="middle"
+    font-family="Arial, sans-serif"
+    font-size="48"
+    fill="#f4f7ff"
+    letter-spacing="6"
+  >
+    MOCK 01
+  </text>
+  <text
+    x="50%"
+    y="60%"
+    text-anchor="middle"
+    font-family="Arial, sans-serif"
+    font-size="16"
+    fill="#cbd5e1"
+    letter-spacing="3"
+  >
+    REPLACE IMAGE
+  </text>
+</svg>
