@@ -1,5 +1,6 @@
 "use client";
 
+import { useEffect } from "react";
 import Link from "next/link";
 import { routes, getAdjacentRoutes, getRouteIndex } from "@/lib/routes";
 
@@ -11,6 +12,11 @@ const LinearPager = ({ currentRoute }: LinearPagerProps) => {
   const { prev, next } = getAdjacentRoutes(currentRoute);
   const total = routes.length;
   const currentIndex = getRouteIndex(currentRoute) + 1;
+
+  useEffect(() => {
+    if (typeof window === "undefined") return;
+    window.scrollTo(0, 0);
+  }, [currentRoute]);
 
   return (
     <div className="mt-12 flex flex-col items-stretch justify-between gap-3 rounded-2xl border border-white/10 bg-white/5 px-4 py-3 shadow-[0_10px_50px_rgba(0,0,0,0.35)] md:flex-row md:items-center md:px-6">
