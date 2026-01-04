@@ -131,7 +131,7 @@ const ShowcaseCarousel = () => {
       </div>
 
       <div
-        className={`relative mt-6 h-[360px] overflow-hidden select-none sm:h-[380px] md:h-[420px] ${isDragging ? "cursor-grabbing" : "cursor-grab"}`}
+        className={`relative mt-6 h-[390px] overflow-hidden select-none sm:h-[420px] md:h-[460px] ${isDragging ? "cursor-grabbing" : "cursor-grab"}`}
         onMouseEnter={() => setIsHovered(true)}
         onMouseLeave={() => setIsHovered(false)}
         onPointerDown={handlePointerDown}
@@ -159,7 +159,7 @@ const ShowcaseCarousel = () => {
                   setModalOpen(true);
                 }}
               >
-                <CardBody className="bg-gray-50/5 dark:bg-black/50 relative h-[320px] w-full overflow-hidden rounded-xl border border-white/10 p-5 shadow-[0_18px_50px_rgba(0,0,0,0.4)] transition duration-300 ease-out group-hover/card:shadow-[0_26px_70px_rgba(0,0,0,0.45)] group-hover/card:scale-[1.04] flex flex-col justify-between sm:h-[340px]">
+                <CardBody className="bg-gray-50/5 dark:bg-black/50 relative h-[360px] w-full overflow-hidden rounded-xl border border-white/10 p-5 shadow-[0_18px_50px_rgba(0,0,0,0.4)] transition duration-300 ease-out group-hover/card:shadow-[0_26px_70px_rgba(0,0,0,0.45)] group-hover/card:scale-[1.04] flex flex-col gap-4 sm:h-[390px] md:h-[410px]">
                   <div>
                     <CardItem
                       translateZ="60"
@@ -179,41 +179,15 @@ const ShowcaseCarousel = () => {
                     translateZ="120"
                     rotateX={16}
                     rotateZ={-8}
-                    className="mt-5 w-full transition group-hover/card:translate-z-[140px]"
+                    className="mt-4 w-full flex-1 transition group-hover/card:translate-z-[140px]"
                   >
                     <img
                       src={item.posterSrc}
                       alt={item.title}
-                      className="h-40 w-full rounded-xl object-cover transition group-hover/card:shadow-2xl group-hover/card:scale-[1.03] sm:h-44"
+                      className="h-full w-full rounded-xl object-cover transition group-hover/card:shadow-2xl group-hover/card:scale-[1.03]"
                       draggable={false}
                     />
                   </CardItem>
-                  <div className="flex items-center justify-center gap-3 px-1 text-[10px] text-foam/70">
-                    <CardItem translateZ={40} translateX={-12} className="group-hover/card:translate-z-60">
-                      {item.year}
-                    </CardItem>
-                    <CardItem translateZ={40} translateX={12} className="group-hover/card:translate-z-60 whitespace-nowrap">
-                      {item.location}
-                    </CardItem>
-                  </div>
-                  <div className="mt-2 flex justify-center gap-2 px-1">
-                    <CardItem
-                      translateZ={40}
-                      translateX={-20}
-                      as="button"
-                      className="rounded-xl border border-white/15 px-2.5 py-1 text-[10px] font-normal text-foam transition group-hover/card:border-pearl/60"
-                    >
-                      Chi tiết →
-                    </CardItem>
-                    <CardItem
-                      translateZ={40}
-                      translateX={20}
-                      as="button"
-                      className="rounded-xl bg-black px-3 py-1 text-[10px] font-bold text-white shadow-[0_10px_30px_rgba(255,141,106,0.35)] transition group-hover/card:bg-ember group-hover/card:text-river-900"
-                    >
-                      Xem show
-                    </CardItem>
-                  </div>
                 </CardBody>
               </CardContainer>
             ))}

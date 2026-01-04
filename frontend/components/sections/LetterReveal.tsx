@@ -215,9 +215,8 @@ const LetterReveal = () => {
                             style={{ backgroundImage: noiseTexture, opacity: 0.32, mixBlendMode: "soft-light" }}
                           />
                           <p className="relative text-[13px] leading-relaxed text-zinc-800 text-center">
-                            {previewText}{" "}
-                            <span className="font-semibold text-zinc-700 opacity-80">
-                              <br />
+                            {previewText}
+                            <span className="mt-2 block text-base font-extrabold tracking-wide text-zinc-900">
                               Ấn để xem thêm
                             </span>
                           </p>

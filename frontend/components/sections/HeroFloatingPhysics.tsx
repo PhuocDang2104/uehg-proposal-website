@@ -22,9 +22,9 @@ const BASE_MOTION: MotionParams = {
   spring: 0.01,
   damping: 0.9,
   maxSpeed: 14,
-  floatAmplitude: 10,
-  floatSpeedMin: 0.65,
-  floatSpeedRange: 0.55,
+  floatAmplitude: 2,
+  floatSpeedMin: 0.1,
+  floatSpeedRange: 0.08,
 };
 
 const LOW_MOTION: MotionParams = {
@@ -33,10 +33,12 @@ const LOW_MOTION: MotionParams = {
   spring: 0.008,
   damping: 0.92,
   maxSpeed: 9,
-  floatAmplitude: 4,
-  floatSpeedMin: 0.35,
-  floatSpeedRange: 0.25,
+  floatAmplitude: 0.6,
+  floatSpeedMin: 0.06,
+  floatSpeedRange: 0.04,
 };
+
+const FLOATING_SIZE_SCALE = 0.9;
 
 type ItemConfig = {
   id: string;
@@ -65,6 +67,8 @@ const seeded = (seed: number) => {
 
 const clamp = (value: number, min: number, max: number) =>
   Math.min(Math.max(value, min), max);
+
+const scaleSize = (size: number) => size * FLOATING_SIZE_SCALE;
 
 const baseFloatingItems: ItemConfig[] = [
   {
@@ -327,8 +331,9 @@ export const HeroFloatingPhysics = () => {
       const nextStates = heroFloatingItems.map((item, index) => {
         const phase = seeded(item.seed + index) * Math.PI * 2;
         const floatSpeed = motion.floatSpeedMin + seeded(item.seed * 1.618) * motion.floatSpeedRange;
-        const maxX = Math.max(padding, rect.width - item.size - padding);
-        const maxY = Math.max(padding, rect.height - item.size - padding);
+        const scaledSize = scaleSize(item.size);
+        const maxX = Math.max(padding, rect.width - scaledSize - padding);
+        const maxY = Math.max(padding, rect.height - scaledSize - padding);
         const anchorX = clamp((item.xPct / 100) * rect.width, padding, maxX);
         const anchorY = clamp((item.yPct / 100) * rect.height, padding, maxY);
         return {
@@ -393,21 +398,23 @@ export const HeroFloatingPhysics = () => {
     const step = (now: number) => {
       const states = itemsStateRef.current;
       const pointer = pointerRef.current;
+      const idleFactor = pointer.active ? 1 : 0.08;
 
       states.forEach((state, index) => {
         const t = (now * 0.003 * state.floatSpeed + state.floatPhase) % (Math.PI * 2);
-        const idleX = Math.sin(t) * motion.floatAmplitude;
-        const idleY = Math.cos(t * 1.18) * (motion.floatAmplitude * 0.9);
+        const idleX = Math.sin(t) * motion.floatAmplitude * idleFactor;
+        const idleY = Math.cos(t * 1.18) * (motion.floatAmplitude * 0.9) * idleFactor;
 
         const targetX = state.x0 + idleX;
         const targetY = state.y0 + idleY;
 
         if (pointer.active) {
           const item = heroFloatingItems[index];
+          const scaledSize = scaleSize(item.size);
           const renderX = state.x + idleX;
           const renderY = state.y + idleY;
-          const cx = renderX + item.size / 2;
-          const cy = renderY + item.size / 2;
+          const cx = renderX + scaledSize / 2;
+          const cy = renderY + scaledSize / 2;
 
           const dx = cx - pointer.x;
           const dy = cy - pointer.y;
@@ -559,37 +566,40 @@ export const HeroFloatingPhysics = () => {
       `}</style>
 
       <div className="absolute inset-0 pointer-events-none">
-        {heroFloatingItems.map((item, index) => (
-          <div
-            key={item.id}
-            ref={setItemRef(index)}
-            className="absolute origin-center"
-            style={{
-              width: item.size,
-              height: item.size,
-              rotate: `${(seeded(item.seed) - 0.5) * 10}deg`,
-              filter: "drop-shadow(0 15px 40px rgba(0,0,0,0.55))",
-              transform: "translate3d(0px, 0px, 0)",
-              transition: prefersReducedMotion ? "transform 240ms ease" : undefined,
-            }}
-          >
-            <div className="pointer-events-none h-full w-full overflow-hidden rounded-2xl">
-              <img
-                src={item.src}
-                alt=""
-                draggable={false}
-                className="h-full w-full object-cover"
-                loading="lazy"
-              />
+        {heroFloatingItems.map((item, index) => {
+          const scaledSize = scaleSize(item.size);
+          return (
+            <div
+              key={item.id}
+              ref={setItemRef(index)}
+              className="absolute origin-center"
+              style={{
+                width: scaledSize,
+                height: scaledSize,
+                rotate: `${(seeded(item.seed) - 0.5) * 6}deg`,
+                filter: "drop-shadow(0 6px 16px rgba(0,0,0,0.28))",
+                transform: "translate3d(0px, 0px, 0)",
+                transition: prefersReducedMotion ? "transform 240ms ease" : undefined,
+              }}
+            >
+              <div className="pointer-events-none h-full w-full overflow-hidden rounded-2xl">
+                <img
+                  src={item.src}
+                  alt=""
+                  draggable={false}
+                  className="h-full w-full object-cover"
+                  loading="lazy"
+                />
+              </div>
             </div>
-          </div>
-        ))}
+          );
+        })}
       </div>
 
       <div className="relative z-10 flex h-full flex-col items-center justify-center gap-6 px-6 py-16 text-center sm:px-10">
         <div className="flex flex-col items-center gap-3">
           <Badge variant="glow">Nơi Bắt Đầu — 2026</Badge>
-          <h1 className="max-w-3xl font-display text-4xl leading-tight text-foam md:text-5xl lg:text-6xl">
+          <h1 className="max-w-none font-display text-4xl leading-tight text-foam sm:text-5xl lg:text-6xl md:whitespace-nowrap tracking-tight">
             Nơi Bắt Đầu — Ngược Dòng
           </h1>
           <p className="max-w-2xl text-lg text-foam/80 md:text-xl">
