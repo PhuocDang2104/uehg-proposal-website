@@ -106,7 +106,7 @@ const SalmonMilestoneStack = () => {
               <CardBody className="relative flex h-full min-h-0 flex-col gap-4 px-5 py-6 md:px-7">
                 <div className="flex items-start justify-between gap-3">
                   <div className="space-y-1">
-                    <CardItem translateZ={80} className="font-display text-xl text-foam md:text-2xl">
+                    <CardItem translateZ={80} className="font-display text-xl font-bold text-foam md:text-2xl">
                       {card.title}
                     </CardItem>
                     <CardItem translateZ={55} className="text-sm text-foam/70 md:text-base">

@@ -98,7 +98,7 @@ export const TextRevealCard = ({
             transition={isActive ? { duration: 0 } : { duration: 0.4 }}
             className="absolute z-20 will-change-transform"
           >
-            <p className="font-display text-3xl font-semibold leading-none text-transparent bg-gradient-to-b from-white to-foam-muted bg-clip-text sm:text-4xl md:text-6xl">
+            <p className="font-display text-3xl font-bold leading-none text-transparent bg-gradient-to-b from-white to-foam-muted bg-clip-text sm:text-4xl md:text-6xl">
               {revealText}
             </p>
           </motion.div>
@@ -138,7 +138,7 @@ export const TextRevealCardTitle = ({ children, className }: TextBlockProps) => 
   return (
     <h2
       className={cn(
-        "font-display text-3xl leading-tight text-foam drop-shadow-[0_14px_35px_rgba(0,0,0,0.55)] md:text-5xl",
+        "font-display text-3xl font-bold leading-tight text-foam drop-shadow-[0_14px_35px_rgba(0,0,0,0.55)] md:text-5xl",
         className,
       )}
     >

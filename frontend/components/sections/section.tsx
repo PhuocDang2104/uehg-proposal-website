@@ -70,7 +70,7 @@ export const Section = ({
       >
         {eyebrow && <Badge variant="glow">{eyebrow}</Badge>}
         {title && (
-          <h2 className="font-display text-2xl leading-tight text-foam sm:text-3xl">
+          <h2 className="font-formal text-2xl font-bold leading-tight text-foam tracking-normal sm:text-3xl">
             {title}
           </h2>
         )}

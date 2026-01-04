@@ -167,7 +167,7 @@ const LetterReveal = () => {
       <div className="relative z-10 flex flex-col items-center gap-6">
         <div className="text-center space-y-3">
           <p className="text-sm uppercase tracking-[0.18em] text-foam/70">Thư ngỏ</p>
-          <h2 className="font-display text-3xl leading-tight text-foam md:text-4xl">
+          <h2 className="font-display text-3xl font-bold leading-tight text-foam md:text-4xl">
             Lời mời đồng hành cùng Guitar Show “Nơi Bắt Đầu — 2026”
           </h2>
         </div>

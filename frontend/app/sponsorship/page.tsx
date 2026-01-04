@@ -2,7 +2,7 @@ import { Reveal } from "@/components/motion/reveal";
 import { createPageMetadata } from "@/lib/seo";
 
 export const metadata = createPageMetadata({
-  title: "Sponsorship — Lời mời hợp tác",
+  title: "Tài trợ — Lời mời hợp tác",
   description: "Trang chuyển đổi chính: thư mời, gói tài trợ, quyền lợi, CTA đặt lịch/đăng ký.",
 });
 
@@ -186,7 +186,7 @@ const benefitTables: BenefitTable[] = [
   },
   {
     id: "placement",
-    title: "Quyền lợi product placement",
+    title: "Quyền lợi trưng bày sản phẩm",
     accent: "from-cyan-400/20 via-sky-400/10 to-transparent",
     rows: [
       {
@@ -218,7 +218,7 @@ const benefitTables: BenefitTable[] = [
     rows: [
       {
         content:
-          "Thương hiệu của Nhà Tài Trợ xuất hiện nổi bật trong Video Lễ Tổng Kết và Trailer chương trình (NBD 2024), Video recap diễn ra tại Fanpage chính thức của UEHG.",
+          "Thương hiệu của Nhà Tài Trợ xuất hiện nổi bật trong Video Lễ Tổng Kết và Trailer chương trình (NBD 2024), video tổng hợp diễn ra tại Fanpage chính thức của UEHG.",
         diamond: "X",
       },
       {
@@ -303,7 +303,7 @@ const benefitTables: BenefitTable[] = [
         diamond: "X",
       },
       {
-        content: "Nhà Tài Trợ được in ấn tên và logo bài đăng Recap chương trình.",
+        content: "Nhà Tài Trợ được in ấn tên và logo bài đăng tổng hợp chương trình.",
         diamond: "X",
         gold: "X",
         silver: "X",
@@ -370,7 +370,7 @@ export default function SponsorshipPage() {
         <div className="relative mx-auto w-[min(1200px,92vw)] space-y-8">
           <div className="text-center space-y-4">
             <p className="text-xs uppercase tracking-[0.36em] text-foam/60">Chương 5</p>
-            <h1 className="font-display text-4xl uppercase tracking-[0.18em] text-foam sm:text-5xl lg:text-6xl">
+            <h1 className="font-display text-4xl font-bold uppercase tracking-[0.18em] text-foam sm:text-5xl lg:text-6xl">
               các gói tài trợ
             </h1>
             <p className="mx-auto max-w-3xl text-sm text-foam/80 sm:text-base">
@@ -489,7 +489,7 @@ export default function SponsorshipPage() {
 
                 <div className="relative space-y-5">
                   <div className="space-y-2 text-center">
-                    <h3 className="font-display text-2xl uppercase tracking-[0.12em] text-foam sm:text-3xl">
+                    <h3 className="font-display text-2xl font-bold uppercase tracking-[0.12em] text-foam sm:text-3xl">
                       {table.title}
                     </h3>
                   </div>

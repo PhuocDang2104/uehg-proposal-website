@@ -7,7 +7,7 @@ import { Meteors } from "@/components/ui/meteors";
 import { createPageMetadata } from "@/lib/seo";
 
 export const metadata = createPageMetadata({
-  title: "Social Proof — Nghệ sĩ & Đối tác",
+  title: "Bằng chứng xã hội — Nghệ sĩ & Đối tác",
   description: "Wall nghệ sĩ, đối tác theo tier, hiệu ứng hover và các điểm nhấn nổi bật.",
 });
 
@@ -136,7 +136,7 @@ const partnerGroups = [
     id: "companion",
     label: "Đơn vị đồng hành",
     tier: "Đồng hành",
-    slot: "Support",
+    slot: "Hỗ trợ",
     note: "Hỗ trợ sản phẩm/dịch vụ",
     accent: "from-emerald-300/70 via-emerald-200/30 to-transparent",
     partners: [{ name: "Crocus", logo: "/sponsor_logo/crocus.png" }],
@@ -154,7 +154,7 @@ const partnerGroups = [
       {
         id: "media",
         label: "Bảo trợ truyền thông",
-        slot: "Media",
+        slot: "Truyền thông",
         note: "Khai thác kênh truyền thông",
         partners: [
           { name: "YBOX.VN", logo: "/sponsor_logo/yboxvn.png" },
@@ -170,10 +170,10 @@ const partnerGroups = [
 const interactionFrameImage = "/assets/hightlighted_show.png";
 
 const bannerSlides = [
-  { src: "/assets/socialproof_banner.png", alt: "Social proof banner 1" },
-  { src: "/assets/socialproof_banner2.png", alt: "Social proof banner 2" },
-  { src: "/assets/socialproof_banner3.png", alt: "Social proof banner 3" },
-  { src: "/assets/socialproof_banner4.png", alt: "Social proof banner 4" },
+  { src: "/assets/socialproof_banner.png", alt: "Banner nghệ sĩ & đối tác 1" },
+  { src: "/assets/socialproof_banner2.png", alt: "Banner nghệ sĩ & đối tác 2" },
+  { src: "/assets/socialproof_banner3.png", alt: "Banner nghệ sĩ & đối tác 3" },
+  { src: "/assets/socialproof_banner4.png", alt: "Banner nghệ sĩ & đối tác 4" },
 ];
 const bannerDuration = 12;
 const bannerDelay = bannerDuration / bannerSlides.length;
@@ -469,8 +469,8 @@ export default function SocialProofPage() {
           <div className="grid gap-6 lg:grid-cols-[0.85fr_1.15fr] lg:items-center">
             <Reveal className="space-y-5">
               <Badge variant="glow">chương 3</Badge>
-              <h1 className="font-display text-3xl leading-tight text-foam sm:text-4xl lg:text-5xl">
-                Nghệ sĩ & đối tác đã đồng hành.
+              <h1 className="font-display text-3xl font-bold leading-tight text-foam sm:text-4xl lg:text-5xl">
+                Nghệ sĩ & đối tác đã đồng hành
               </h1>
             </Reveal>
             <Reveal delay={0.08}>
@@ -506,9 +506,9 @@ export default function SocialProofPage() {
       </section>
 
       <Section
-        eyebrow="Artists Wall"
-        title="Collab Artists"
-        description="Frame nền đen với collage nghệ sĩ; hover để phóng sáng và xem chú thích."
+        eyebrow="Bức tường nghệ sĩ"
+        title="Nghệ sĩ cộng tác"
+        description="Bức tường nghệ sĩ trên nền tối, mỗi gương mặt sáng lên khi bạn lướt qua, kèm ghi chú lần đồng hành."
         backgroundPreset="noirBase"
         className="bg-black/40"
       >
@@ -558,8 +558,8 @@ export default function SocialProofPage() {
       </Section>
 
       <Section
-        eyebrow="Partners by Tier"
-        title="Sponsors & Partners"
+        eyebrow="Đối tác theo hạng"
+        title="Nhà tài trợ & đối tác"
         description="Những đối tác đã từng đồng hành."
         backgroundPreset="noirGlow"
         className="bg-black/40 w-[min(980px,92vw)] mx-auto"
@@ -620,7 +620,7 @@ export default function SocialProofPage() {
       >
         <Reveal className="relative z-10">
           <div className="relative mx-auto w-[min(1200px,92vw)]">
-            <h2 className="mb-5 font-display text-3xl text-foam drop-shadow-[0_6px_24px_rgba(0,0,0,0.55)] sm:text-4xl">
+            <h2 className="mb-5 font-display text-3xl font-bold text-foam drop-shadow-[0_6px_24px_rgba(0,0,0,0.55)] sm:text-4xl">
               Các hoạt động nổi bật
             </h2>
             <div className="relative">

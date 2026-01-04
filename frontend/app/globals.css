@@ -41,6 +41,7 @@
   --color-iris: var(--iris);
   --font-sans: var(--font-sans-var);
   --font-display: var(--font-display-var);
+  --font-formal: var(--font-display-var);
   --animate-meteor-effect: meteor 6s linear infinite;
 
   @keyframes meteor {
@@ -81,8 +82,9 @@ h1,
 h2,
 h3,
 h4 {
-  font-family: var(--font-display), "Space Grotesk", system-ui, sans-serif;
+  font-family: var(--font-display), "Montserrat", system-ui, sans-serif;
   letter-spacing: -0.02em;
+  font-weight: 700;
 }
 
 a {
@@ -109,6 +111,7 @@ a {
   z-index: -10;
   background-image: linear-gradient(var(--bg-linear-angle), var(--bg-linear-start), var(--bg-linear-end));
   background-repeat: no-repeat;
+  filter: brightness(0.92);
 }
 
 .gradient-shell::before {

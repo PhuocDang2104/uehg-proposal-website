@@ -2,7 +2,7 @@ import { ShowScrollModule } from "@/components/the-show/show-scroll-module";
 import { createPageMetadata } from "@/lib/seo";
 
 export const metadata = createPageMetadata({
-  title: "The Show — NBĐ Ngược Dòng",
+  title: "Guitar Show — NBĐ Ngược Dòng",
   description: "Banner concept + lịch sử show UEHG, key visual cá hồi & thác nước.",
 });
 

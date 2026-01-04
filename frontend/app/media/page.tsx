@@ -7,16 +7,16 @@ import { Reveal } from "@/components/motion/reveal";
 import { createPageMetadata } from "@/lib/seo";
 
 export const metadata = createPageMetadata({
-  title: "Media — Ảnh/clip/link",
-  description: "Afternoon recap video hero, gallery, press mentions, download center.",
+  title: "Truyền thông — Ảnh/clip/link",
+  description: "Video tổng hợp, thư viện ảnh, báo chí và trung tâm tải tài liệu.",
 });
 
 const gallery = [
   "Sân khấu bùng nổ",
-  "Crowd energy",
-  "Backstage",
-  "Lineup moment",
-  "Sponsor booth",
+  "Năng lượng khán giả",
+  "Hậu trường",
+  "Khoảnh khắc đội hình",
+  "Gian hàng tài trợ",
   "Hậu trường âm thanh",
 ];
 
@@ -24,28 +24,30 @@ export default function MediaPage() {
   return (
     <div className="space-y-10 md:space-y-12">
       <PageHeader
-        eyebrow="Media"
-        title="Show, gallery, press"
-        subtitle="Cho xem bằng mắt: video recap, playlist highlight, gallery và bài viết truyền thông."
+        eyebrow="Truyền thông"
+        title="Show diễn, thư viện ảnh, báo chí"
+        subtitle="Cho xem bằng mắt: video tổng hợp, danh sách phát nổi bật, thư viện ảnh và bài viết truyền thông."
       />
 
       <Section
-        eyebrow="Aftermovie / Recap"
-        title="Video hero & playlist"
-        description="Video recap chính kèm playlist highlight."
+        eyebrow="Hậu kỳ / tổng hợp"
+        title="Video chính & danh sách phát"
+        description="Video tổng hợp chính kèm danh sách phát nổi bật."
         backgroundPreset="lagoonPulse"
       >
         <div className="grid gap-4 md:grid-cols-2">
           <Card className="flex h-48 items-center justify-center rounded-2xl bg-black/40 text-foam/60">
-            Video recap nổi bật
+            Video tổng hợp nổi bật
           </Card>
           <div className="grid gap-3">
             {[1, 2, 3].map((item) => (
               <Reveal key={item}>
                 <Card className="flex items-center justify-between">
                   <div>
-                    <p className="text-sm uppercase tracking-[0.16em] text-foam/60">Playlist</p>
-                    <p className="text-foam">Recap #{item}</p>
+                    <p className="text-sm uppercase tracking-[0.16em] text-foam/60">
+                      Danh sách phát
+                    </p>
+                    <p className="text-foam">Tổng hợp #{item}</p>
                   </div>
                   <Badge variant="glow">Xem</Badge>
                 </Card>
@@ -56,15 +58,15 @@ export default function MediaPage() {
       </Section>
 
       <Section
-        eyebrow="Gallery"
-        title="Ảnh sân khấu + crowd + backstage"
+        eyebrow="Thư viện ảnh"
+        title="Ảnh sân khấu + khán giả + hậu trường"
         description="Grid ảnh; mở lightbox để xem chi tiết."
         backgroundPreset="irisDrift"
       >
         <div className="grid gap-3 sm:grid-cols-2 md:grid-cols-3">
           {gallery.map((item) => (
             <Card key={item} className="h-32">
-              <p className="text-sm uppercase tracking-[0.16em] text-foam/60">Gallery</p>
+              <p className="text-sm uppercase tracking-[0.16em] text-foam/60">Thư viện ảnh</p>
               <p className="text-foam">{item}</p>
             </Card>
           ))}
@@ -72,29 +74,29 @@ export default function MediaPage() {
       </Section>
 
       <Section
-        eyebrow="Press & Mentions"
+        eyebrow="Báo chí & nhắc đến"
         title="Đối tác truyền thông"
         description="Nơi gắn logo báo chí/đơn vị truyền thông nếu có."
         backgroundPreset="dawnMist"
       >
         <div className="flex flex-wrap gap-2">
-          <Badge variant="glow">Press logo</Badge>
-          <Badge>Partner shout-out</Badge>
+          <Badge variant="glow">Logo báo chí</Badge>
+          <Badge>Nhắc tên đối tác</Badge>
         </div>
       </Section>
 
       <Section
-        eyebrow="Download center"
-        title="Media kit & tài liệu"
-        description="Sponsorship kit, logo pack, media kit."
+        eyebrow="Trung tâm tải"
+        title="Bộ truyền thông & tài liệu"
+        description="Bộ tài trợ, gói logo, bộ truyền thông."
         backgroundPreset="emberBloom"
       >
         <div className="flex flex-wrap gap-3">
           <Button href="/media" variant="secondary">
-            Tải Sponsorship Kit
+            Tải bộ tài trợ
           </Button>
           <Button href="/media" variant="ghost">
-            Media Kit / Logo Pack
+            Bộ truyền thông / gói logo
           </Button>
         </div>
       </Section>

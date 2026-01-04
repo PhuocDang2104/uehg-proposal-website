@@ -14,7 +14,7 @@ const ContactTableSection = () => {
     const message = String(data.get("message") ?? "").trim();
 
     const toEmail = "donghai.uehg@gmail.com";
-    const subject = `UEHG Contact${name ? ` - ${name}` : ""}`;
+    const subject = `UEHG Liên hệ${name ? ` - ${name}` : ""}`;
     const body = [
       "Thông tin liên hệ:",
       `Họ và tên: ${name || "Không cung cấp"}`,
@@ -44,7 +44,7 @@ const ContactTableSection = () => {
   };
 
   return (
-    <section className="relative mt-10 overflow-hidden rounded-[28px] border border-white/10 bg-black px-5 py-10 shadow-[0_30px_100px_rgba(0,0,0,0.6)] md:mt-14 md:px-8 md:py-12">
+    <section className="relative mt-10 overflow-hidden rounded-[28px] border border-white/10 bg-black px-5 py-10 shadow-[0_30px_100px_rgba(0,0,0,0.6)] -mx-2 sm:-mx-4 lg:-mx-8 md:mt-14 md:px-8 md:py-12">
       <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_12%_20%,rgba(142,240,255,0.14),transparent_42%),radial-gradient(circle_at_88%_0%,rgba(255,141,106,0.06),transparent_50%),linear-gradient(180deg,rgba(5,8,16,0.96),rgba(0,0,0,0.98))]" />
       <div className="pointer-events-none absolute inset-0 opacity-45 mix-blend-screen bg-[radial-gradient(circle_at_20%_85%,rgba(142,240,255,0.24),transparent_45%)] animate-[hue-rotate_18s_linear_infinite]" />
       <div className="pointer-events-none absolute -left-16 top-10 h-48 w-48 rounded-full bg-pearl/24 blur-3xl animate-[floatUp_8s_ease-in-out_infinite]" />
@@ -54,10 +54,10 @@ const ContactTableSection = () => {
 
       <div className="relative z-10 grid gap-8 lg:grid-cols-[1.05fr_0.95fr] lg:items-center">
         <div className="space-y-5">
-          <p className="text-[11px] uppercase tracking-[0.42em] text-foam/50">Contact</p>
-          <h2 className="font-display text-4xl leading-none text-foam sm:text-5xl lg:text-6xl">
+          <p className="text-[11px] uppercase tracking-[0.42em] text-foam/50">Liên hệ</p>
+          <h2 className="font-display text-4xl font-bold leading-none text-foam sm:text-5xl lg:text-6xl">
             Liên hệ
-            <span className="mt-2 block text-pearl">Chúng tôi</span>
+            <span className="mt-2 block text-pearl">UEHG</span>
           </h2>
           <p className="max-w-md text-sm text-foam/70">
             Chỉ cần để lại thông tin, đội UEHG sẽ phản hồi nhanh nhất có thể để kết nối và hỗ trợ
@@ -150,9 +150,9 @@ const ContactTableSection = () => {
             <div className="pointer-events-none absolute -inset-6 rounded-[32px] bg-[radial-gradient(circle_at_20%_20%,rgba(142,240,255,0.28),transparent_60%),radial-gradient(circle_at_80%_15%,rgba(255,141,106,0.22),transparent_55%)] opacity-70 blur-2xl" />
             <div className="relative z-10 space-y-3">
               <p className="text-[10px] uppercase tracking-[0.32em] text-foam/60">
-                UEHG · Contact
+                UEHG · Liên hệ
               </p>
-              <h3 className="font-display text-2xl text-foam">Cảm ơn bạn!</h3>
+              <h3 className="font-display text-2xl font-bold text-foam">Cảm ơn bạn!</h3>
               <p className="text-sm text-foam/80">
                 Gmail đã được mở sẵn với đầy đủ thông tin. Vui lòng kiểm tra và nhấn gửi để hoàn
                 tất liên hệ.

@@ -24,7 +24,7 @@ export const PageHeader = ({
       <div className="relative z-10 grid gap-6 md:grid-cols-2 md:items-center">
         <Reveal className="space-y-4">
           {eyebrow && <Badge variant="glow">{eyebrow}</Badge>}
-          <h1 className="font-display text-3xl leading-tight text-foam sm:text-4xl md:text-4xl">
+          <h1 className="font-display text-3xl font-bold leading-tight text-foam sm:text-4xl md:text-4xl">
             {title}
           </h1>
           {subtitle && <p className="max-w-lg text-base text-foam/80">{subtitle}</p>}

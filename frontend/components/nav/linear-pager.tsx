@@ -19,7 +19,7 @@ const LinearPager = ({ currentRoute }: LinearPagerProps) => {
   }, [currentRoute]);
 
   return (
-    <div className="mt-12 flex flex-col items-stretch justify-between gap-3 rounded-2xl border border-white/10 bg-white/5 px-4 py-3 shadow-[0_10px_50px_rgba(0,0,0,0.35)] md:flex-row md:items-center md:px-6">
+    <div className="mt-12 flex w-full flex-col items-stretch justify-between gap-3 rounded-2xl border border-white/10 bg-white/5 px-4 py-3 shadow-[0_10px_50px_rgba(0,0,0,0.35)] -mx-2 sm:-mx-4 lg:-mx-8 md:flex-row md:items-center md:px-6">
       <div className="text-xs uppercase tracking-[0.16em] text-foam/70">
         Flow {currentIndex}/{total}
       </div>

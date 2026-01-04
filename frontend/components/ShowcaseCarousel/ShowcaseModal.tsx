@@ -55,7 +55,7 @@ const ShowcaseModal = ({ open, onClose, show }: ShowcaseModalProps) => {
             <div className="flex items-start justify-between gap-3">
               <div>
                 <p className="text-xs uppercase tracking-[0.18em] text-pearl/70">{show.year}</p>
-                <h3 className="font-display text-2xl text-foam">{show.title}</h3>
+                <h3 className="font-display text-2xl font-bold text-foam">{show.title}</h3>
                 <p className="text-sm text-foam/80">{show.subtitle}</p>
               </div>
               <button

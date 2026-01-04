@@ -4,11 +4,11 @@ import { useEffect, useMemo, useState } from "react";
 import { MotionConfig, useReducedMotion, motion } from "framer-motion";
 import { usePathname } from "next/navigation";
 import { cn } from "@/lib/utils";
+import { getRouteIndex, routes } from "@/lib/routes";
 import StickyNav from "../nav/sticky-nav";
 import SmoothScrollProvider from "../providers/smooth-scroll-provider";
 import { ScrollBackgroundProvider } from "./scroll-background";
 import WavyRail from "../ui/wavy-rail";
-import { getProgress } from "@/lib/routes";
 import UEHGAIChatWidget from "../UEHGAIChatWidget";
 import ContactTableSection from "@/components/sections/contact-table";
 import LinearPager from "@/components/nav/linear-pager";
@@ -26,19 +26,36 @@ const RootLayout = ({ children }: RootLayoutProps) => {
     if (pathname === "/") return "/";
     return pathname.endsWith("/") ? pathname.slice(0, -1) : pathname;
   }, [pathname]);
-  const routeProgress = useMemo(() => getProgress(currentPath) / 100, [currentPath]);
-  const routePercent = Math.round(routeProgress * 100);
-  const isComplete = routeProgress >= 0.999;
+  const routeIndex = useMemo(() => getRouteIndex(currentPath), [currentPath]);
+  const totalRoutes = routes.length;
+  const [scrollProgress, setScrollProgress] = useState(0);
+  const isComplete = scrollProgress >= 0.999;
   const [barFaded, setBarFaded] = useState(false);
 
   useEffect(() => {
-    const handleScroll = () => {
-      setBarFaded(window.scrollY > 40);
+    let ticking = false;
+    const update = () => {
+      ticking = false;
+      const doc = document.documentElement;
+      const scrollTop = window.scrollY || doc.scrollTop;
+      const maxScroll = doc.scrollHeight - window.innerHeight;
+      const next = maxScroll > 0 ? scrollTop / maxScroll : 1;
+      setScrollProgress(Math.max(0, Math.min(1, next)));
+      setBarFaded(scrollTop > 40);
     };
-    handleScroll();
-    window.addEventListener("scroll", handleScroll, { passive: true });
-    return () => window.removeEventListener("scroll", handleScroll);
-  }, []);
+    const requestUpdate = () => {
+      if (ticking) return;
+      ticking = true;
+      requestAnimationFrame(update);
+    };
+    update();
+    window.addEventListener("scroll", requestUpdate, { passive: true });
+    window.addEventListener("resize", requestUpdate);
+    return () => {
+      window.removeEventListener("scroll", requestUpdate);
+      window.removeEventListener("resize", requestUpdate);
+    };
+  }, [currentPath]);
 
   useEffect(() => {
     document.documentElement.dataset.motion = prefersReduceMotion ? "reduced" : "full";
@@ -49,33 +66,53 @@ const RootLayout = ({ children }: RootLayoutProps) => {
       <SmoothScrollProvider disable={prefersReduceMotion}>
         <ScrollBackgroundProvider>
           <div className="relative min-h-screen text-foam overflow-x-hidden">
-            <div
-              className="pointer-events-none fixed left-0 right-0 top-2 z-40 flex justify-center"
-              style={{ opacity: barFaded ? 0.5 : 1, transition: "opacity 220ms ease" }}
-            >
-              <div className="w-[min(680px,96vw)] px-4">
-                <div className="relative flex items-center gap-3">
-                  <div className="relative">
-                    <div className="absolute inset-0 rounded-full bg-[radial-gradient(circle_at_50%_50%,rgba(142,240,255,0.3),transparent_55%)] blur-md opacity-60" />
-                    <div className="relative rounded-full border border-white/15 bg-white/10 px-3 py-1 text-xs font-semibold uppercase tracking-[0.2em] text-pearl shadow-[0_8px_24px_rgba(0,0,0,0.35)]">
-                      <span
-                        className={cn(
-                          isComplete
-                            ? "animate-[hue-rotate_3s_linear_infinite] text-pearl drop-shadow-[0_0_12px_rgba(146,240,255,0.8)]"
-                            : "text-pearl",
-                        )}
-                      >
-                        {routePercent}%
-                      </span>
-                    </div>
-                  </div>
-                  <WavyRail
-                    progress={routeProgress}
-                    orientation="horizontal"
-                    thickness={7}
-                    showCelebration
-                    className="h-5 w-full rounded-full border border-white/10 bg-white/5"
+            <div className="pointer-events-none fixed left-0 right-0 top-2 z-40 flex justify-center">
+              <div className="w-[min(720px,96vw)] px-3">
+                <div className="relative flex items-center gap-2 rounded-full px-2.5 py-1">
+                  <div
+                    className={cn(
+                      "pointer-events-none absolute inset-0 rounded-full border border-white/10 bg-white/5 shadow-[0_10px_26px_rgba(0,0,0,0.35)] backdrop-blur-md transition-opacity duration-200",
+                      barFaded ? "opacity-50" : "opacity-100",
+                    )}
                   />
+                  <div
+                    className={cn(
+                      "pointer-events-none absolute inset-0 rounded-full bg-[radial-gradient(circle_at_20%_30%,rgba(142,240,255,0.12),transparent_55%),radial-gradient(circle_at_80%_40%,rgba(255,141,106,0.12),transparent_60%)] transition-opacity duration-200",
+                      barFaded ? "opacity-40" : "opacity-70",
+                    )}
+                  />
+                  <div
+                    className={cn(
+                      "relative rounded-full border border-white/10 bg-white/10 px-2.5 py-0.5 text-[8px] font-semibold uppercase tracking-[0.2em] text-foam/80 shadow-[inset_0_0_0_1px_rgba(255,255,255,0.02)] transition-opacity duration-200",
+                      barFaded ? "opacity-60" : "opacity-100",
+                    )}
+                  >
+                    <span
+                      className={cn(
+                        "tabular-nums",
+                        isComplete
+                          ? "animate-[hue-rotate_3s_linear_infinite] text-pearl drop-shadow-[0_0_12px_rgba(146,240,255,0.6)]"
+                          : "text-foam/80",
+                      )}
+                    >
+                      {routeIndex + 1}/{totalRoutes}
+                    </span>
+                  </div>
+                  <div className="relative flex-1">
+                    <div
+                      className={cn(
+                        "pointer-events-none absolute inset-0 rounded-full bg-[linear-gradient(90deg,rgba(142,240,255,0.14),rgba(255,141,106,0.14))] transition-opacity duration-200",
+                        barFaded ? "opacity-40" : "opacity-60",
+                      )}
+                    />
+                    <WavyRail
+                      progress={scrollProgress}
+                      orientation="horizontal"
+                      thickness={2}
+                      showCelebration
+                      className="h-2 w-full rounded-full border border-white/10 bg-black/30"
+                    />
+                  </div>
                 </div>
               </div>
             </div>

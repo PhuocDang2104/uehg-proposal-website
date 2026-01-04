@@ -116,11 +116,11 @@ const ShowcaseCarousel = () => {
       />
 
       <div className="relative z-10 mx-auto flex max-w-6xl flex-col gap-2 px-6">
-        <p className="text-xs uppercase tracking-[0.2em] text-foam/70">Showcase Archive</p>
+        <p className="text-xs uppercase tracking-[0.2em] text-foam/70">Kho lưu trữ show</p>
         <div className="flex flex-wrap items-end justify-between gap-4">
           <div>
-            <h3 className="font-display text-2xl text-foam sm:text-3xl">
-              Our Past Productions
+            <h3 className="font-display text-2xl font-bold text-foam sm:text-3xl">
+              Các show đã qua
             </h3>
             <p className="text-xs text-foam/70 sm:text-sm">
               Cuộn ngang để xem các show tiêu biểu của UEHG.
@@ -152,7 +152,7 @@ const ShowcaseCarousel = () => {
             {duplicated.map((item, idx) => (
               <CardContainer
                 key={`${item.id}-${idx}`}
-                className="inter-var w-[280px] shrink-0 sm:w-[300px]"
+                className="inter-var w-[270px] shrink-0 sm:w-[290px]"
                 onClick={() => {
                   if (dragMovedRef.current) return;
                   setActiveShow(item);
@@ -179,12 +179,12 @@ const ShowcaseCarousel = () => {
                     translateZ="120"
                     rotateX={16}
                     rotateZ={-8}
-                    className="mt-4 w-full flex-1 transition group-hover/card:translate-z-[140px]"
+                    className="mt-4 w-full transition group-hover/card:translate-z-[140px]"
                   >
                     <img
                       src={item.posterSrc}
                       alt={item.title}
-                      className="h-full w-full rounded-xl object-cover transition group-hover/card:shadow-2xl group-hover/card:scale-[1.03]"
+                      className="h-52 w-full rounded-xl object-cover transition group-hover/card:shadow-2xl group-hover/card:scale-[1.03] sm:h-60 md:h-64"
                       draggable={false}
                     />
                   </CardItem>

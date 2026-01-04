@@ -192,7 +192,7 @@ export default function AboutPage() {
                 <CardBody className="relative overflow-hidden rounded-3xl border border-white/10 bg-white/5 p-6 shadow-[0_25px_70px_rgba(0,0,0,0.45)] md:p-8">
                   <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_20%_20%,rgba(142,240,255,0.18),transparent_45%),radial-gradient(circle_at_80%_0%,rgba(255,141,106,0.16),transparent_40%)]" />
                   <div className="relative z-10 space-y-4">
-                    <CardItem translateZ={70} className="font-display text-4xl text-foam md:text-5xl">
+                    <CardItem translateZ={70} className="font-display text-4xl font-bold text-foam md:text-5xl">
                       UEHG
                     </CardItem>
                     <CardItem

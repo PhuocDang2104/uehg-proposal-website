@@ -1,9 +1,8 @@
 "use client";
 
-import { useEffect, useMemo, useRef } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import { useReducedMotion } from "framer-motion";
 import { Badge } from "../ui/badge";
-import { Button } from "../ui/button";
 
 type MotionParams = {
   R: number;
@@ -38,7 +37,7 @@ const LOW_MOTION: MotionParams = {
   floatSpeedRange: 0.04,
 };
 
-const FLOATING_SIZE_SCALE = 0.9;
+const FLOATING_SIZE_SCALE = 0.85;
 
 type ItemConfig = {
   id: string;
@@ -238,6 +237,10 @@ export const HeroFloatingPhysics = () => {
   const waterFadeFrameRef = useRef<number | null>(null);
   const lastMoveTimeRef = useRef(0);
   const fishRef = useRef<HTMLDivElement | null>(null);
+  const [askValue, setAskValue] = useState("");
+  const [askResponse, setAskResponse] = useState<string | null>(null);
+  const [askError, setAskError] = useState<string | null>(null);
+  const [askLoading, setAskLoading] = useState(false);
 
   const ensureWaterAudio = () => {
     if (!waterAudioRef.current) {
@@ -279,6 +282,27 @@ export const HeroFloatingPhysics = () => {
       audio.play().catch(() => {});
     }
     fadeAudio(0.8, 150);
+  };
+
+  const handleAskSubmit = async () => {
+    const trimmed = askValue.trim();
+    if (!trimmed || askLoading) return;
+
+    setAskLoading(true);
+    setAskResponse(null);
+    setAskError(null);
+
+    try {
+      await new Promise((resolve) => setTimeout(resolve, 520));
+      setAskResponse(
+        "Gờ đã nhận được tâm trạng của bạn. Cảm ơn bạn đã chia sẻ — tụi mình luôn lắng nghe!",
+      );
+      setAskValue("");
+    } catch {
+      setAskError("Không thể kết nối AI lúc này. Vui lòng thử lại sau.");
+    } finally {
+      setAskLoading(false);
+    }
   };
 
   const setItemRef = (index: number) => (el: HTMLDivElement | null) => {
@@ -541,6 +565,7 @@ export const HeroFloatingPhysics = () => {
           background: gradientBackground,
         }}
       />
+      <div className="pointer-events-none absolute inset-0 bg-[linear-gradient(180deg,rgba(0,0,0,0)_45%,rgba(0,0,0,0.55)_78%,rgba(0,0,0,0.95)_100%)]" />
       <div
         className="pointer-events-none absolute inset-0 opacity-30 mix-blend-soft-light"
         style={{ backgroundImage: noiseSvg, backgroundSize: "240px" }}
@@ -562,6 +587,156 @@ export const HeroFloatingPhysics = () => {
           0% { transform: translate3d(0px,0px,0); }
           50% { transform: translate3d(-18px, -10px,0); }
           100% { transform: translate3d(12px, 6px,0); }
+        }
+        .hero-ask-stack {
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          gap: 12px;
+          width: min(760px, 100%);
+        }
+        .hero-ask {
+          display: flex;
+          align-items: center;
+          gap: 12px;
+          padding: 12px 18px;
+          border-radius: 999px;
+          position: relative;
+          overflow: hidden;
+          width: 100%;
+          border: 1px solid rgba(255, 255, 255, 0.08);
+          background: rgba(8, 14, 28, 0.78);
+          box-shadow:
+            0 18px 40px rgba(4, 8, 20, 0.55),
+            0 0 0 1px rgba(142, 240, 255, 0.16),
+            0 0 28px rgba(142, 240, 255, 0.14),
+            0 0 36px rgba(255, 141, 106, 0.14);
+          backdrop-filter: blur(12px);
+          transition: box-shadow 0.25s ease, border-color 0.25s ease;
+        }
+        .hero-ask::before {
+          content: "";
+          position: absolute;
+          inset: -250%;
+          z-index: 0;
+          background: conic-gradient(
+            from 110deg at 50% 50%,
+            rgba(142, 240, 255, 0.6) 0%,
+            rgba(255, 141, 106, 0.55) 35%,
+            rgba(188, 162, 255, 0.55) 60%,
+            rgba(142, 240, 255, 0.6) 100%
+          );
+          animation: hero-ask-spin 10s linear infinite;
+          opacity: 0.52;
+          filter: blur(16px);
+          pointer-events: none;
+        }
+        .hero-ask::after {
+          content: "";
+          position: absolute;
+          inset: 1px;
+          border-radius: 999px;
+          background: linear-gradient(135deg, rgba(8, 16, 32, 0.92), rgba(10, 18, 36, 0.92));
+          box-shadow:
+            inset 0 0 0 1px rgba(255, 255, 255, 0.04),
+            inset 0 0 20px rgba(142, 240, 255, 0.08),
+            inset 0 0 28px rgba(255, 141, 106, 0.08);
+          z-index: 0;
+          pointer-events: none;
+        }
+        .hero-ask > * {
+          position: relative;
+          z-index: 1;
+        }
+        .hero-ask--still::before {
+          animation: none;
+        }
+        .hero-ask__icon {
+          display: inline-flex;
+          align-items: center;
+          justify-content: center;
+          color: var(--pearl);
+          font-size: 18px;
+        }
+        .hero-ask__input {
+          flex: 1;
+          border: none;
+          background: transparent;
+          font-size: 0.95rem;
+          color: var(--foam);
+          outline: none;
+          min-width: 0;
+          cursor: text;
+        }
+        .hero-ask__input::placeholder {
+          color: rgba(232, 238, 249, 0.55);
+        }
+        .hero-ask__btn {
+          border: none;
+          border-radius: 999px;
+          padding: 8px 16px;
+          font-weight: 600;
+          background: linear-gradient(135deg, var(--ember), var(--pearl));
+          color: var(--river-900);
+          cursor: pointer;
+          transition: transform 0.2s ease, box-shadow 0.2s ease;
+          box-shadow: 0 12px 22px rgba(255, 141, 106, 0.25);
+        }
+        .hero-ask__btn:disabled {
+          cursor: not-allowed;
+          opacity: 0.7;
+          box-shadow: 0 8px 18px rgba(255, 141, 106, 0.18);
+        }
+        .hero-ask__btn:hover:not(:disabled) {
+          transform: translateY(-1px);
+          box-shadow: 0 16px 28px rgba(255, 141, 106, 0.32);
+        }
+        .hero-ask__input:disabled {
+          opacity: 0.7;
+        }
+        .hero-ask:focus-within {
+          box-shadow:
+            0 22px 44px rgba(8, 14, 28, 0.55),
+            0 0 0 1px rgba(142, 240, 255, 0.32),
+            0 0 40px rgba(142, 240, 255, 0.2),
+            0 0 48px rgba(255, 141, 106, 0.18);
+        }
+        .hero-ask-response {
+          width: 100%;
+          padding: 14px 18px;
+          border-radius: 18px;
+          background: rgba(8, 16, 34, 0.78);
+          border: 1px solid rgba(255, 255, 255, 0.08);
+          box-shadow: 0 18px 40px rgba(0, 0, 0, 0.35);
+          display: flex;
+          flex-direction: column;
+          gap: 6px;
+          color: var(--foam);
+          backdrop-filter: blur(6px);
+        }
+        .hero-ask-response__label {
+          font-size: 0.7rem;
+          font-weight: 600;
+          letter-spacing: 0.16em;
+          text-transform: uppercase;
+          color: rgba(232, 238, 249, 0.6);
+        }
+        .hero-ask-response__text {
+          font-size: 0.95rem;
+          line-height: 1.6;
+          white-space: pre-wrap;
+        }
+        .hero-ask-response--error {
+          border-color: rgba(239, 68, 68, 0.28);
+          background: rgba(239, 68, 68, 0.12);
+          color: #fecaca;
+        }
+        .hero-ask-response--error .hero-ask-response__label {
+          color: #fecaca;
+        }
+        @keyframes hero-ask-spin {
+          from { transform: rotate(0deg); }
+          to { transform: rotate(360deg); }
         }
       `}</style>
 
@@ -599,7 +774,7 @@ export const HeroFloatingPhysics = () => {
       <div className="relative z-10 flex h-full flex-col items-center justify-center gap-6 px-6 py-16 text-center sm:px-10">
         <div className="flex flex-col items-center gap-3">
           <Badge variant="glow">Nơi Bắt Đầu — 2026</Badge>
-          <h1 className="max-w-none font-display text-4xl leading-tight text-foam sm:text-5xl lg:text-6xl md:whitespace-nowrap tracking-tight">
+          <h1 className="max-w-none font-display text-4xl font-bold leading-tight text-foam sm:text-5xl lg:text-6xl md:whitespace-nowrap tracking-tight">
             Nơi Bắt Đầu — Ngược Dòng
           </h1>
           <p className="max-w-2xl text-lg text-foam/80 md:text-xl">
@@ -607,13 +782,44 @@ export const HeroFloatingPhysics = () => {
             nơi tuổi trẻ rực sáng và đủ bản lĩnh bước tiếp giữa mọi cuộn xoáy
           </p>
         </div>
-        <div className="flex flex-wrap items-center justify-center gap-3">
-          <Button href="/sponsorship" size="md">
-            Trở thành Nhà Tài Trợ
-          </Button>
-          <Button href="/contact" variant="secondary" size="md">
-            Đăng ký quan tâm/Đặt vé
-          </Button>
+        <div className="hero-ask-stack">
+          <div className={`hero-ask ${prefersReducedMotion ? "hero-ask--still" : ""}`}>
+            <span className="hero-ask__icon" aria-hidden="true">
+              ✦
+            </span>
+            <input
+              className="hero-ask__input"
+              placeholder="Chia sẽ tâm trạng hôm nay của bạn tới Gờ nhé?"
+              value={askValue}
+              onChange={(event) => setAskValue(event.target.value)}
+              onKeyDown={(event) => {
+                if (event.key === "Enter") {
+                  event.preventDefault();
+                  handleAskSubmit();
+                }
+              }}
+              aria-label="Chia sẻ tâm trạng với Gờ"
+              disabled={askLoading}
+            />
+            <button
+              className="hero-ask__btn"
+              type="button"
+              onClick={handleAskSubmit}
+              disabled={askLoading || !askValue.trim()}
+            >
+              {askLoading ? "Đang gửi..." : "Gửi"}
+            </button>
+          </div>
+          {(askResponse || askError) && (
+            <div
+              className={`hero-ask-response ${askError ? "hero-ask-response--error" : ""}`}
+              role="status"
+              aria-live="polite"
+            >
+              <div className="hero-ask-response__label">Gờ AI</div>
+              <div className="hero-ask-response__text">{askError ?? askResponse}</div>
+            </div>
+          )}
         </div>
       </div>
     </section>

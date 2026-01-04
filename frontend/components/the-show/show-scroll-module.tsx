@@ -83,50 +83,50 @@ const chapters = [
 const showCarouselSlides = [
   {
     src: "/assets/socialproof_banner.png",
-    alt: "Show carousel slide 01",
-    label: "Flow 01",
+    alt: "Slide chương trình 01",
+    label: "Chặng 01",
   },
   {
     src: "/assets/socialproof_banner2.png",
-    alt: "Show carousel slide 02",
-    label: "Flow 02",
+    alt: "Slide chương trình 02",
+    label: "Chặng 02",
   },
   {
     src: "/assets/socialproof_banner3.png",
-    alt: "Show carousel slide 03",
-    label: "Flow 03",
+    alt: "Slide chương trình 03",
+    label: "Chặng 03",
   },
 ];
 
 const draggableShowCards = [
   {
     src: "/assets/drag-mock-01.png",
-    alt: "Draggable mock 01",
-    label: "Mock 01",
+    alt: "Thẻ kéo 01",
+    label: "Mẫu 01",
     className: "lg:left-0 lg:top-6 lg:-rotate-7 lg:z-30",
   },
   {
     src: "/assets/drag-mock-02.png",
-    alt: "Draggable mock 02",
-    label: "Mock 02",
+    alt: "Thẻ kéo 02",
+    label: "Mẫu 02",
     className: "lg:left-16 lg:top-0 lg:rotate-3 lg:z-20",
   },
   {
     src: "/assets/drag-mock-03.png",
-    alt: "Draggable mock 03",
-    label: "Mock 03",
+    alt: "Thẻ kéo 03",
+    label: "Mẫu 03",
     className: "lg:left-32 lg:top-16 lg:-rotate-2 lg:z-10",
   },
   {
     src: "/assets/drag-mock-04.png",
-    alt: "Draggable mock 04",
-    label: "Mock 04",
+    alt: "Thẻ kéo 04",
+    label: "Mẫu 04",
     className: "lg:left-8 lg:top-48 lg:rotate-6 lg:z-20",
   },
   {
     src: "/assets/drag-mock-05.png",
-    alt: "Draggable mock 05",
-    label: "Mock 05",
+    alt: "Thẻ kéo 05",
+    label: "Mẫu 05",
     className: "lg:left-24 lg:top-64 lg:-rotate-8 lg:z-30",
   },
 ];
@@ -405,7 +405,7 @@ export const ShowScrollModule = ({
                     ))}
                     <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/80 via-black/30 to-transparent" />
                     <div className="pointer-events-none absolute left-4 top-4 rounded-full border border-white/30 bg-black/55 px-3 py-1 text-[10px] uppercase tracking-[0.32em] text-white/70">
-                      Showcase
+                      Trình diễn
                     </div>
                     {activeCarouselSlide ? (
                       <div className="pointer-events-none absolute bottom-4 left-4 text-xs uppercase tracking-[0.28em] text-white/75">
@@ -425,7 +425,7 @@ export const ShowScrollModule = ({
                         type="button"
                         onClick={handleCarouselPrev}
                         className="inline-flex h-9 w-9 items-center justify-center rounded-full border border-white/15 bg-black/50 text-white/70 transition hover:border-white/40 hover:text-white"
-                        aria-label="Previous slide"
+                        aria-label="Slide trước"
                       >
                         <svg viewBox="0 0 24 24" className="h-4 w-4" aria-hidden="true">
                           <path
@@ -442,7 +442,7 @@ export const ShowScrollModule = ({
                         type="button"
                         onClick={handleCarouselNext}
                         className="inline-flex h-9 w-9 items-center justify-center rounded-full border border-white/15 bg-black/50 text-white/70 transition hover:border-white/40 hover:text-white"
-                        aria-label="Next slide"
+                        aria-label="Slide sau"
                       >
                         <svg viewBox="0 0 24 24" className="h-4 w-4" aria-hidden="true">
                           <path
@@ -468,7 +468,7 @@ export const ShowScrollModule = ({
                           "h-[3px] flex-1 rounded-full bg-white/15 transition",
                           slideIndex === carouselIndex ? "bg-white/75" : "hover:bg-white/35",
                         )}
-                        aria-label={`Go to slide ${slideIndex + 1}`}
+                        aria-label={`Đi tới slide ${slideIndex + 1}`}
                       />
                     ))}
                   </div>
@@ -564,7 +564,7 @@ export const ShowScrollModule = ({
                                 duration={fadeDuration}
                                 delay={80}
                               >
-                                <h2 className="font-display text-4xl text-foam sm:text-5xl lg:text-6xl">
+                                <h2 className="font-display text-4xl font-bold text-foam sm:text-5xl lg:text-6xl">
                                   {section.title}
                                 </h2>
                               </ScrollAnimate>
@@ -606,7 +606,7 @@ export const ShowScrollModule = ({
                                         key={item.value}
                                         className="flex items-start gap-4"
                                       >
-                                        <span className="text-4xl font-display text-pearl">
+                                        <span className="text-4xl font-display font-bold text-pearl">
                                           {item.value}
                                         </span>
                                         <p className="pt-1 text-base text-foam/80">
@@ -627,7 +627,7 @@ export const ShowScrollModule = ({
                                   <p className="text-xs uppercase tracking-[0.24em] text-foam/70">
                                     Truyền thông offline
                                   </p>
-                                  <p className="mt-3 font-display text-5xl text-foam">
+                                  <p className="mt-3 font-display text-5xl font-bold text-foam">
                                     {expectedResultsOffline.value}
                                   </p>
                                   <p className="mt-2 text-base text-foam/80">
@@ -649,7 +649,7 @@ export const ShowScrollModule = ({
                         <ScrollAnimate animation={titleAnim} duration={fadeDuration} delay={80}>
                           <h2
                             className={cn(
-                              "font-display text-3xl text-foam sm:text-4xl",
+                              "font-display text-3xl font-bold text-foam sm:text-4xl",
                               section.hero ? "lg:text-5xl" : "",
                             )}
                           >
@@ -868,7 +868,7 @@ export const ShowScrollModule = ({
                             <span className="text-[10px] uppercase tracking-[0.38em] text-slate-500">
                               {section.artist.eyebrow}
                             </span>
-                            <p className="font-display text-3xl text-slate-900">
+                            <p className="font-display text-3xl font-bold text-slate-900">
                               {section.artist.name}
                             </p>
                             <div className="max-w-[520px] space-y-2 text-sm text-slate-600">

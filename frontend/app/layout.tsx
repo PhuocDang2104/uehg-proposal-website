@@ -1,19 +1,20 @@
 import type { Metadata } from "next";
-import { Playfair_Display, Space_Grotesk } from "next/font/google";
+import { Inter, Montserrat } from "next/font/google";
 import "./globals.css";
 import RootLayoutShell from "@/components/layout/root-layout";
 import { siteMetadata } from "@/lib/seo";
 
-const sans = Space_Grotesk({
+const sans = Inter({
   variable: "--font-sans-var",
   subsets: ["latin"],
   display: "swap",
 });
 
-const display = Playfair_Display({
+const display = Montserrat({
   variable: "--font-display-var",
   subsets: ["latin"],
   display: "swap",
+  weight: ["400", "500", "600", "700"],
 });
 
 export const metadata: Metadata = siteMetadata;

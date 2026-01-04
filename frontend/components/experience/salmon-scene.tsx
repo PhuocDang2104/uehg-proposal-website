@@ -29,9 +29,9 @@ const SalmonScene = () => {
         <div
           className={`space-y-2 transition-opacity duration-200 ${hovering ? "opacity-40" : "opacity-100"}`}
         >
-          <h3 className="font-display text-2xl text-foam">Cá hồi bơi ngược dòng</h3>
+          <h3 className="font-display text-2xl font-bold text-foam">Cá hồi bơi ngược dòng</h3>
           <p className="text-sm text-foam/75">
-            Poster NBĐ được soi kỹ bằng hiệu ứng phóng đại, làm rõ chất liệu và ánh sáng khi rê chuột.
+            Lướt chuột để phóng to, cảm nhận chất liệu và ánh sáng của poster NBĐ.
           </p>
         </div>
       </div>

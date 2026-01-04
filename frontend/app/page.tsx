@@ -7,7 +7,7 @@ import SalmonScene from "@/components/experience/salmon-scene";
 import SalmonMilestoneStack from "@/components/sections/SalmonMilestoneStack";
 
 export const metadata = createPageMetadata({
-  title: "Homepage — NBĐ: Nơi Bắt Đầu — Ngược Dòng",
+  title: "Trang chủ — NBĐ: Nơi Bắt Đầu — Ngược Dòng",
   description:
     "Landing giới thiệu hành trình UEHG và Guitar Show 2026, dẫn dắt sponsor & sinh viên qua flow tuyến tính.",
 });

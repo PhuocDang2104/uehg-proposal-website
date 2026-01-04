@@ -166,7 +166,7 @@ const UEHGAIChatWidget: React.FC = () => {
       <button
         aria-label="Mở trợ lý âm nhạc"
         onClick={handleOpen}
-        className="h-20 w-20 rounded-xl shadow-[0_10px_30px_rgba(0,0,0,0.35)] outline-none focus:ring-2 focus:ring-ember/70 bg-black/60 border border-white/10 overflow-hidden cursor-pointer"
+        className="h-16 w-16 overflow-hidden outline-none cursor-pointer bg-transparent border-0 shadow-none"
       >
         <div className="relative h-full w-full">
           <img

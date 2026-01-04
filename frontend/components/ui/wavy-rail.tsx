@@ -23,10 +23,15 @@ const WavyRail = ({
   const noise = useRef(createNoise3D());
   const frame = useRef<number | null>(null);
   const sizeRef = useRef({ w: 0, h: 0 });
+  const progressRef = useRef(progress);
   const neonColors = useMemo(
     () => ["#9FF4FF", "#7BD7FF", "#FF9FB4", "#BCA2FF"],
     [],
   );
+
+  useEffect(() => {
+    progressRef.current = progress;
+  }, [progress]);
 
   useEffect(() => {
     const canvas = canvasRef.current;
@@ -47,16 +52,16 @@ const WavyRail = ({
     observer.observe(canvas);
 
     let t = 0;
-    const render = () => {
-      const { w, h } = sizeRef.current;
-      ctx.clearRect(0, 0, w, h);
-      t += 0.004;
-      const clamped = Math.max(0, Math.min(1, progress));
-      const visibleHeight = orientation === "vertical" ? clamped * h : clamped * w;
-      if (visibleHeight <= 2) {
-        frame.current = requestAnimationFrame(render);
-        return;
-      }
+      const render = () => {
+        const { w, h } = sizeRef.current;
+        ctx.clearRect(0, 0, w, h);
+        t += 0.004;
+        const clamped = Math.max(0, Math.min(1, progressRef.current));
+        const visibleHeight = orientation === "vertical" ? clamped * h : clamped * w;
+        if (visibleHeight <= 2) {
+          frame.current = requestAnimationFrame(render);
+          return;
+        }
       ctx.save();
       ctx.beginPath();
       if (orientation === "vertical") {
@@ -108,7 +113,7 @@ const WavyRail = ({
       observer.disconnect();
       if (frame.current) cancelAnimationFrame(frame.current);
     };
-  }, [neonColors, progress]);
+  }, [neonColors, orientation, thickness]);
 
   const clamped = Math.max(0, Math.min(1, progress));
   const isComplete = clamped >= 0.999;
