@@ -13,54 +13,48 @@ import {
 import { Button } from "../ui/button";
 
 const fullLetterText = [
-  "THƯ NGỎ",
   "Kính gửi Quý đơn vị,",
-  "Lời đầu tiên, Câu lạc bộ Guitar Đại học Kinh tế TP. Hồ Chí Minh (UEHG) kính gửi đến Quý đơn vị lời chúc sức khỏe và lời chào trân trọng nhất.",
+  "Lời đầu tiên Câu lạc bộ Guitar Đại Học Kinh tế TP. Hồ Chí Minh (UEHG) kính gửi đến Quý đơn vị lời chúc sức khỏe và lời chào trân trọng nhất.",
   'UEHG được thành lập vào năm 2011, là sân chơi nghệ thuật với sứ mệnh thắp sáng và nuôi dưỡng ngọn lửa đam mê âm nhạc cho các thế hệ sinh viên. Trải qua nhiều năm duy trì và phát triển, với slogan “Just the beginning”, UEHG đã thành công xây dựng một cộng đồng, một sân chơi cho những tâm hồn trẻ yêu âm nhạc được học hỏi, được kết nối và thỏa sức đam mê của mình trên địa bàn TP. Hồ Chí Minh nói chung và sinh viên UEH nói riêng. Bên cạnh đó, UEHG cũng đã tổ chức thành công nhiều show diễn với quy mô lên đến 1000 sinh viên trong nhiều năm hoạt động. Và Guitar Show Nơi bắt đầu là một trong những chương trình thường niên lớn nhất của clb với sự bùng nổ của với các màn trình diễn nơi UEHG truyền tải nguồn năng lượng tích cực đến khán giả thông qua những giai điệu vô cùng đặc sắc.',
-  'Đến với Guitar Show “NƠI BẮT ĐẦU - X” năm 2025 diễn ra vào ngày DD/MM tại hội trường X:',
-  "“SLogan”",
-  "Giới thiệu Show Nơi Bắt đầu",
-  'Để Guitar Show  “NƠI BẮT ĐẦU - X” được diễn ra suôn sẻ và trọn vẹn, sự đồng hành từ phía Quý đơn vị với tư cách là Nhà tài trợ (NTT) của chương trình là một điều vô cùng quan trọng. Sự quan tâm và giúp đỡ của Quý đơn vị vừa góp phần tiếp lửa xây dựng một cộng đồng yêu âm nhạc nói chung vừa là nguồn động lực to lớn đối với UEHG trong quá trình thực hiện Guitar Show “NƠI BẮT ĐẦU - X” nói riêng.',
+  'Guitar Show “NƠI BẮT ĐẦU - NGƯỢC DÒNG” năm 2026 diễn ra vào ngày 24/01 tại hội trường A116 Đại Học Kinh tế TP. Hồ Chí Minh. Để Guitar Show “NƠI BẮT ĐẦU - NGƯỢC DÒNG” được diễn ra suôn sẻ và trọn vẹn, sự đồng hành từ phía Quý đơn vị với tư cách là Nhà tài trợ của chương trình là một điều vô cùng quan trọng. Sự quan tâm và giúp đỡ của Quý đơn vị vừa góp phần tiếp lửa xây dựng một cộng đồng yêu âm nhạc nói chung vừa là nguồn động lực to lớn đối với UEHG trong quá trình thực hiện Guitar Show “NƠI BẮT ĐẦU - NGƯỢC DÒNG” nói riêng.',
   "Trân trọng,",
-  "Câu lạc bộ Guitar Đại học Kinh tế TP. Hồ Chí Minh (UEHG).",
+  "Câu lạc bộ Guitar Đại Học Kinh tế TP. Hồ Chí Minh.",
 ];
 
 const fullLetterNodes: React.ReactNode[] = [
-  <strong key="title">THƯ NGỎ</strong>,
-  <strong key="greeting">Kính gửi Quý đơn vị,</strong>,
+  <span key="greeting">
+    Kính gửi <strong>Quý đơn vị</strong>,
+  </span>,
   <span key="p1">
-    Lời đầu tiên, <strong>Câu lạc bộ Guitar Đại học Kinh tế TP. Hồ Chí Minh (UEHG)</strong> kính gửi
-    đến Quý đơn vị lời chúc sức khỏe và lời chào trân trọng nhất.
+    Lời đầu tiên <strong>Câu lạc bộ Guitar Đại Học Kinh tế TP. Hồ Chí Minh (UEHG)</strong> kính gửi
+    đến <strong>Quý đơn vị</strong> lời chúc sức khỏe và lời chào trân trọng nhất.
   </span>,
   <span key="p2">
-    UEHG được thành lập vào năm 2011, là sân chơi nghệ thuật với sứ mệnh thắp sáng và nuôi dưỡng
-    ngọn lửa đam mê âm nhạc cho các thế hệ sinh viên. Trải qua nhiều năm duy trì và phát triển, với
-    slogan “Just the beginning”, UEHG đã thành công xây dựng một cộng đồng, một sân chơi cho những
-    tâm hồn trẻ yêu âm nhạc được học hỏi, được kết nối và thỏa sức đam mê của mình trên địa bàn TP.
-    Hồ Chí Minh nói chung và sinh viên UEH nói riêng. Bên cạnh đó, UEHG cũng đã tổ chức thành công
-    nhiều show diễn với quy mô lên đến 1000 sinh viên trong nhiều năm hoạt động. Và Guitar Show Nơi
-    bắt đầu là một trong những chương trình thường niên lớn nhất của clb với sự bùng nổ của với các
-    màn trình diễn nơi UEHG truyền tải nguồn năng lượng tích cực đến khán giả thông qua những giai điệu
-    vô cùng đặc sắc.
+    <strong>UEHG</strong> được thành lập vào năm 2011, là sân chơi nghệ thuật với sứ mệnh thắp sáng
+    và nuôi dưỡng ngọn lửa đam mê âm nhạc cho các thế hệ sinh viên. Trải qua nhiều năm duy trì và phát
+    triển, với slogan “Just the beginning”, UEHG đã thành công xây dựng một cộng đồng, một sân chơi
+    cho những tâm hồn trẻ yêu âm nhạc được học hỏi, được kết nối và thỏa sức đam mê của mình trên địa
+    bàn TP. Hồ Chí Minh nói chung và sinh viên UEH nói riêng. Bên cạnh đó, UEHG cũng đã tổ chức thành
+    công nhiều show diễn với quy mô lên đến 1000 sinh viên trong nhiều năm hoạt động. Và Guitar Show
+    Nơi bắt đầu là một trong những chương trình thường niên lớn nhất của clb với sự bùng nổ của với
+    các màn trình diễn nơi UEHG truyền tải nguồn năng lượng tích cực đến khán giả thông qua những giai
+    điệu vô cùng đặc sắc.
   </span>,
   <span key="p3">
-    Đến với <strong>Guitar Show “NƠI BẮT ĐẦU - X” năm 2025</strong> diễn ra vào ngày DD/MM tại hội
-    trường X:
+    <strong>Guitar Show “NƠI BẮT ĐẦU - NGƯỢC DÒNG”</strong> năm 2026 diễn ra vào ngày 24/01 tại hội
+    trường A116 Đại Học Kinh tế TP. Hồ Chí Minh. Để{" "}
+    <strong>Guitar Show “NƠI BẮT ĐẦU - NGƯỢC DÒNG”</strong> được diễn ra suôn sẻ và trọn vẹn, sự đồng
+    hành từ phía <strong>Quý đơn vị</strong> với tư cách là{" "}
+    <strong>Nhà tài trợ của chương trình</strong> là một điều vô cùng quan trọng. Sự quan tâm và giúp
+    đỡ của <strong>Quý đơn vị</strong> vừa góp phần tiếp lửa xây dựng một cộng đồng yêu âm nhạc nói
+    chung vừa là nguồn động lực to lớn đối với UEHG trong quá trình thực hiện{" "}
+    <strong>Guitar Show “NƠI BẮT ĐẦU - NGƯỢC DÒNG”</strong> nói riêng.
   </span>,
-  <strong key="slogan">“SLogan”</strong>,
-  <strong key="intro">Giới thiệu Show Nơi Bắt đầu</strong>,
-  <span key="p4">
-    Để Guitar Show “NƠI BẮT ĐẦU - X” được diễn ra suôn sẻ và trọn vẹn, sự đồng hành từ phía Quý đơn
-    vị với tư cách là <strong>Nhà tài trợ (NTT)</strong> của chương trình là một điều vô cùng quan
-    trọng. Sự quan tâm và giúp đỡ của Quý đơn vị vừa góp phần tiếp lửa xây dựng một cộng đồng yêu âm
-    nhạc nói chung vừa là nguồn động lực to lớn đối với UEHG trong quá trình thực hiện Guitar Show “NƠI
-    BẮT ĐẦU - X” nói riêng.
-  </span>,
-  <strong key="closing">Trân trọng,</strong>,
-  <strong key="club">Câu lạc bộ Guitar Đại học Kinh tế TP. Hồ Chí Minh (UEHG).</strong>,
+  <span key="closing">Trân trọng,</span>,
+  <strong key="club">Câu lạc bộ Guitar Đại Học Kinh tế TP. Hồ Chí Minh.</strong>,
 ];
 
-const previewText = fullLetterText.slice(0, 3).join(" ");
+const previewText = fullLetterText.slice(0, 2).join(" ");
 
 const noiseTexture =
   "url(\"data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 160 160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.78' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='160' height='160' filter='url(%23n)' opacity='0.35'/%3E%3C/svg%3E\")";
@@ -71,7 +65,6 @@ const LetterReveal = () => {
   const isInView = useInView(sectionRef, { margin: "-10% 0px -10% 0px", once: true });
   const prefersReducedMotion = useReducedMotion() ?? false;
   const [expanded, setExpanded] = useState(false);
-  const hasAutoOpened = useRef(false);
   const envelopeAudioRef = useRef<HTMLAudioElement | null>(null);
   const envelopeAudioCtxRef = useRef<AudioContext | null>(null);
   const hasAudioTriggered = useRef(false);
@@ -137,18 +130,6 @@ const LetterReveal = () => {
     playEnvelopeAudio();
   }, [expanded]);
 
-  useEffect(() => {
-    if (isInView && !hasAutoOpened.current) {
-      hasAutoOpened.current = true;
-      const timer = setTimeout(
-        () => setExpanded(true),
-        prefersReducedMotion ? 2500 : 2500,
-      );
-      return () => clearTimeout(timer);
-    }
-    return undefined;
-  }, [isInView, prefersReducedMotion]);
-
   const foldVariants = useMemo<Variants>(
     () => ({
       initial: {
@@ -187,7 +168,7 @@ const LetterReveal = () => {
         <div className="text-center space-y-3">
           <p className="text-sm uppercase tracking-[0.18em] text-foam/70">Thư ngỏ</p>
           <h2 className="font-display text-3xl leading-tight text-foam md:text-4xl">
-            Lời mời đồng hành cùng Guitar Show “Nơi Bắt Đầu — X”
+            Lời mời đồng hành cùng Guitar Show “Nơi Bắt Đầu — 2026”
           </h2>
         </div>
 

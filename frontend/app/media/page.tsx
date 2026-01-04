@@ -26,18 +26,18 @@ export default function MediaPage() {
       <PageHeader
         eyebrow="Media"
         title="Show, gallery, press"
-        subtitle="Cho xem bằng mắt: video hero + playlist grid, gallery lightbox, press mention placeholder."
+        subtitle="Cho xem bằng mắt: video recap, playlist highlight, gallery và bài viết truyền thông."
       />
 
       <Section
         eyebrow="Aftermovie / Recap"
         title="Video hero & playlist"
-        description="Block video chính + playlist grid. Placeholder iframe box."
+        description="Video recap chính kèm playlist highlight."
         backgroundPreset="lagoonPulse"
       >
         <div className="grid gap-4 md:grid-cols-2">
           <Card className="flex h-48 items-center justify-center rounded-2xl bg-black/40 text-foam/60">
-            Video hero placeholder
+            Video recap nổi bật
           </Card>
           <div className="grid gap-3">
             {[1, 2, 3].map((item) => (
@@ -58,13 +58,13 @@ export default function MediaPage() {
       <Section
         eyebrow="Gallery"
         title="Ảnh sân khấu + crowd + backstage"
-        description="Grid ảnh; click mở lightbox (placeholder)."
+        description="Grid ảnh; mở lightbox để xem chi tiết."
         backgroundPreset="irisDrift"
       >
         <div className="grid gap-3 sm:grid-cols-2 md:grid-cols-3">
           {gallery.map((item) => (
             <Card key={item} className="h-32">
-              <p className="text-sm uppercase tracking-[0.16em] text-foam/60">Placeholder</p>
+              <p className="text-sm uppercase tracking-[0.16em] text-foam/60">Gallery</p>
               <p className="text-foam">{item}</p>
             </Card>
           ))}

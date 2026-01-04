@@ -12,7 +12,6 @@ type StackCard = {
   paragraphs?: string[];
   bullets?: string[];
   images?: { src: string; alt: string }[];
-  cta?: string;
 };
 
 const stackCards: StackCard[] = [
@@ -29,7 +28,6 @@ const stackCards: StackCard[] = [
       { src: "/nbd_resource/NBD_banner.png", alt: "Poster Nơi Bắt Đầu 2025 – Ngược Dòng" },
       { src: "/posters/show-02.png", alt: "Hình ảnh sân khấu UEHG" },
     ],
-    cta: "Đọc câu chuyện đầy đủ",
   },
   {
     id: "info",
@@ -45,7 +43,6 @@ const stackCards: StackCard[] = [
       { src: "/posters/show-03.png", alt: "Không gian hội trường A.116" },
       { src: "/posters/show-04.png", alt: "Khoảnh khắc ánh sáng tại show UEHG" },
     ],
-    cta: "Giữ chỗ ngay",
   },
   {
     id: "purpose",
@@ -64,7 +61,6 @@ const stackCards: StackCard[] = [
       { src: "/posters/show-07.png", alt: "Tinh thần thiện nguyện UEHG" },
       { src: "/posters/show-08.png", alt: "Cộng đồng Guitar UEH" },
     ],
-    cta: "Đồng hành cùng UEHG",
   },
 ];
 
@@ -187,20 +183,6 @@ const SalmonMilestoneStack = () => {
                     </div>
                   )}
 
-                  {card.cta && (
-                    <div className="flex flex-wrap items-center gap-3">
-                      <CardItem
-                        translateZ={60}
-                        as="button"
-                        className="rounded-xl border border-white/20 px-4 py-2 text-xs font-semibold uppercase tracking-[0.08em] text-foam transition group-hover/card:border-ember/60 group-hover/card:bg-ember/10"
-                      >
-                        {card.cta}
-                      </CardItem>
-                      <CardItem translateZ={35} className="text-xs text-foam/60">
-                        Hover/tap để xem thêm
-                      </CardItem>
-                    </div>
-                  )}
                 </div>
               </CardBody>
             </CardContainer>

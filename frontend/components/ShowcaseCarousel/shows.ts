@@ -19,7 +19,7 @@ export const shows: ShowItem[] = [
     location: "Hội trường A, UEH",
     shortSummary: "Đêm acoustic thân mật, mở màn chuỗi Nơi Bắt Đầu.",
     fullDescription:
-      "Đêm nhạc acoustic mở màn chuỗi sự kiện, mang màu sắc mộc mạc với những bản phối tối giản. Quy mô 300 khách, đội ngũ sinh viên tự sản xuất, gây quỹ cho dự án thiện nguyện đầu tiên của UEHG.",
+      "Guitar Show “Nơi bắt đầu 2024 – VỌNG” là đêm nhạc mang màu sắc hoài niệm, nơi tiếng guitar dẫn lối khán giả trở về những miền ký ức và chạm vào “vũ trụ” cảm xúc bên trong mỗi người. Với không gian sâu lắng, các bản phối tối giản nhưng đầy rung cảm, chương trình tạo nên một khoảnh khắc yên bình để kết nối ta với chính mình và với người bên cạnh. Sự kiện sold out 920+ vé chỉ trong 5 phút, quy mô ~1000 sinh viên trên địa bàn TP.HCM, diễn ra tại Hội trường A.116 – UEH (17h30–21h30, 26/10/2024).",
   },
   {
   id: "show-02",

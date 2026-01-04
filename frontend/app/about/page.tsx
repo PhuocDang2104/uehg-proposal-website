@@ -74,6 +74,11 @@ const mediaChannels = [
       "Hình ảnh thương hiệu rõ ràng: Định vị là nơi kết nối đam mê âm nhạc, sáng tạo và mang giá trị cộng đồng.",
     ],
     glow: "from-pearl/20 via-white/5 to-ember/10",
+    href: "https://www.facebook.com/uehgclub",
+    icon: {
+      viewBox: "0 0 320 512",
+      path: "M279.14 288l14.22-92.66h-88.91V117.78c0-25.35 12.42-50.06 52.24-50.06H295V6.26S259.36 0 225.36 0c-73.22 0-121.08 44.38-121.08 124.72V195.3H22.89V288h81.39v224h100.17V288z",
+    },
   },
   {
     name: "YouTube",
@@ -84,6 +89,11 @@ const mediaChannels = [
       "Tạo cầu nối giữa những trái tim yêu nhạc, lan tỏa đam mê.",
     ],
     glow: "from-ember/20 via-white/5 to-iris/10",
+    href: "https://www.youtube.com/@UEHGCLBGuitar",
+    icon: {
+      viewBox: "0 0 24 24",
+      path: "M23.498 6.186a2.945 2.945 0 0 0-2.07-2.087C19.613 3.6 12.5 3.6 12.5 3.6s-7.113 0-8.93.5a2.945 2.945 0 0 0-2.07 2.087A30.53 30.53 0 0 0 1 12a30.53 30.53 0 0 0 .5 5.814 2.945 2.945 0 0 0 2.07 2.087c1.817.5 8.93.5 8.93.5s7.113 0 8.93-.5a2.945 2.945 0 0 0 2.07-2.087A30.53 30.53 0 0 0 24 12a30.53 30.53 0 0 0-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z",
+    },
   },
   {
     name: "TikTok",
@@ -94,6 +104,12 @@ const mediaChannels = [
       "Tinh thần sáng tạo: Không ngừng đổi mới để mang đến nội dung hấp dẫn.",
     ],
     glow: "from-iris/20 via-white/5 to-pearl/10",
+    href: "https://www.tiktok.com/@uehguitar?_r=1&_d=secCgYIASAHKAESPgo8NAMnOu06Ul7x4z3rRkbO9EqcA5p3XD4ipE1sfQukkOLV5pSvu7SFmWMK8rymI4KUBsvXfYuO1V9KIBoWGgA%3D&_svg=1&checksum=2cb04c66ecfcea7afb06e89f4b2bdcfd3ca4a7ad371c05c3855972b8bd53698f&item_author_type=2&sec_uid=MS4wLjABAAAAgFLogBFNh2mNCoA4tICCrg2GgaG1Jf9lN_JZ7NTLR60OfQDKw-hda6TMmD2lrsbI&sec_user_id=MS4wLjABAAAA8rQLJNayAi7gZgAXsZN6JEJBeyP0ftBF6b2ZID44fViOszSLgSojAi4Y_GwIlErt&share_app_id=1180&share_author_id=6978092229265867777&share_link_id=C4478030-9BB8-4393-807A-F359C5CD35F0&share_region=VN&share_scene=1&sharer_language=vi&social_share_type=5&source=h5_t&timestamp=1767528108&tt_from=copy&u_code=dbjdl88kk1dagh&ug_btm=b6880%2Cb5836&user_id=6812213984994706434&utm_campaign=client_share&utm_medium=ios&utm_source=copy",
+    iconSrc: "/assets/tiktok-logo.png",
+    icon: {
+      viewBox: "0 0 24 24",
+      path: "M14 2v9.2a4.2 4.2 0 1 1-2-3.9V6h6V2h-4z",
+    },
   },
 ];
 
@@ -350,43 +366,71 @@ export default function AboutPage() {
           <div className="relative z-10 grid gap-4 lg:grid-cols-3">
             {mediaChannels.map((channel, index) => (
               <Reveal key={channel.name} delay={index * 0.05}>
-                <CardContainer className="h-full">
-                  <CardBody className="relative h-full overflow-hidden rounded-3xl border border-white/10 bg-white/5 p-6 shadow-[0_20px_60px_rgba(0,0,0,0.35)]">
-                    <div
-                      className={`pointer-events-none absolute inset-0 bg-gradient-to-br ${channel.glow}`}
-                    />
-                    <div className="relative z-10 space-y-4">
-                      <div className="flex flex-wrap items-center justify-between gap-3">
-                        <CardItem translateZ={55}>
-                          <Badge variant="glow">{channel.name}</Badge>
+                <a
+                  href={channel.href}
+                  target="_blank"
+                  rel="noreferrer"
+                  aria-label={`Mở kênh ${channel.name}`}
+                  className="block h-full focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-pearl/60 focus-visible:ring-offset-2 focus-visible:ring-offset-[#0f172a]"
+                >
+                  <CardContainer className="h-full">
+                    <CardBody className="relative h-full overflow-hidden rounded-3xl border border-white/10 bg-white/5 p-6 shadow-[0_20px_60px_rgba(0,0,0,0.35)] transition-transform duration-300 group-hover/card:-translate-y-1">
+                      <div
+                        className={`pointer-events-none absolute inset-0 bg-gradient-to-br ${channel.glow}`}
+                      />
+                      <div className="relative z-10 space-y-4">
+                        <div className="flex flex-wrap items-center justify-between gap-3">
+                          <div className="flex items-center gap-3">
+                            <CardItem
+                              translateZ={60}
+                              className="flex h-12 w-12 items-center justify-center rounded-2xl border border-white/15 bg-black/35 text-foam/90"
+                            >
+                              {channel.iconSrc ? (
+                                <Image
+                                  src={channel.iconSrc}
+                                  alt={`${channel.name} logo`}
+                                  width={24}
+                                  height={24}
+                                  className="h-5 w-5 object-contain"
+                                />
+                              ) : (
+                                <svg viewBox={channel.icon.viewBox} className="h-5 w-5" aria-hidden="true">
+                                  <path d={channel.icon.path} fill="currentColor" />
+                                </svg>
+                              )}
+                            </CardItem>
+                            <CardItem translateZ={55}>
+                              <Badge variant="glow">{channel.name}</Badge>
+                            </CardItem>
+                          </div>
+                          <CardItem
+                            translateZ={35}
+                            className="text-xs uppercase tracking-[0.2em] text-foam/60"
+                          >
+                            {channel.tagline}
+                          </CardItem>
+                        </div>
+                        <CardItem translateZ={50}>
+                          <Lens zoomFactor={1.3} lensSize={140}>
+                            <div className="rounded-2xl border border-white/10 bg-white/10 px-4 py-3 text-sm text-foam/80">
+                              {channel.metric}
+                            </div>
+                          </Lens>
                         </CardItem>
-                        <CardItem
-                          translateZ={35}
-                          className="text-xs uppercase tracking-[0.2em] text-foam/60"
-                        >
-                          {channel.tagline}
+                        <CardItem translateZ={40}>
+                          <ul className="space-y-2 text-sm text-foam/80">
+                            {channel.bullets.map((bullet) => (
+                              <li key={bullet} className="flex items-start gap-2">
+                                <span className="mt-2 h-1.5 w-1.5 rounded-full bg-ember" />
+                                <span>{bullet}</span>
+                              </li>
+                            ))}
+                          </ul>
                         </CardItem>
                       </div>
-                      <CardItem translateZ={50}>
-                        <Lens zoomFactor={1.3} lensSize={140}>
-                          <div className="rounded-2xl border border-white/10 bg-white/10 px-4 py-3 text-sm text-foam/80">
-                            {channel.metric}
-                          </div>
-                        </Lens>
-                      </CardItem>
-                      <CardItem translateZ={40}>
-                        <ul className="space-y-2 text-sm text-foam/80">
-                          {channel.bullets.map((bullet) => (
-                            <li key={bullet} className="flex items-start gap-2">
-                              <span className="mt-2 h-1.5 w-1.5 rounded-full bg-ember" />
-                              <span>{bullet}</span>
-                            </li>
-                          ))}
-                        </ul>
-                      </CardItem>
-                    </div>
-                  </CardBody>
-                </CardContainer>
+                    </CardBody>
+                  </CardContainer>
+                </a>
               </Reveal>
             ))}
           </div>

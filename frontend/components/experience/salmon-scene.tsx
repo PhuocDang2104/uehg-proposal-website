@@ -31,8 +31,7 @@ const SalmonScene = () => {
         >
           <h3 className="font-display text-2xl text-foam">Cá hồi bơi ngược dòng</h3>
           <p className="text-sm text-foam/75">
-            Poster concept NBĐ — lens zoom trên ảnh. Hover để soi chi tiết chất liệu & ánh sáng, mô phỏng
-            focus như demo tham chiếu.
+            Poster NBĐ được soi kỹ bằng hiệu ứng phóng đại, làm rõ chất liệu và ánh sáng khi rê chuột.
           </p>
         </div>
       </div>

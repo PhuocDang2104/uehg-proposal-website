@@ -8,7 +8,7 @@ import { createPageMetadata } from "@/lib/seo";
 
 export const metadata = createPageMetadata({
   title: "Social Proof — Nghệ sĩ & Đối tác",
-  description: "Wall nghệ sĩ, đối tác theo tier, hover ripple + modal case snippet placeholder.",
+  description: "Wall nghệ sĩ, đối tác theo tier, hiệu ứng hover và các điểm nhấn nổi bật.",
 });
 
 const artistWall = [
@@ -20,8 +20,6 @@ const artistWall = [
     image: "/artists/minhtoclam.png",
     position: { left: "90%", bottom: "-18%", width: "clamp(180px, 24vw, 320px)" },
     zIndex: "z-10",
-    tooltipPosition: "top",
-    tooltipAlign: "left",
   },
   {
     id: "van-mai-huong",
@@ -31,8 +29,6 @@ const artistWall = [
     image: "/artists/vanmaihuong.png",
     position: { left: "28%", bottom: "-6%", width: "clamp(150px, 20vw, 260px)" },
     zIndex: "z-20",
-    tooltipPosition: "top",
-    tooltipAlign: "left",
   },
   {
     id: "lena",
@@ -42,8 +38,6 @@ const artistWall = [
     image: "/artists/lena.png",
     position: { left: "7%", bottom: "-6%", width: "clamp(140px, 18vw, 240px)" },
     zIndex: "z-15",
-    tooltipPosition: "top",
-    tooltipAlign: "center",
   },
   {
     id: "duong-domic",
@@ -53,8 +47,6 @@ const artistWall = [
     image: "/artists/domic.png",
     position: { left: "50%", bottom: "-6%", width: "clamp(220px, 30vw, 380px)" },
     zIndex: "z-30",
-    tooltipPosition: "top",
-    tooltipAlign: "center",
   },
   {
     id: "the-cassette",
@@ -64,8 +56,6 @@ const artistWall = [
     image: "/artists/thecassette.png",
     position: { left: "78%", bottom: "22%", width: "clamp(190px, 32vw, 320px)" },
     zIndex: "z-1",
-    tooltipPosition: "top",
-    tooltipAlign: "center",
   },
   {
     id: "thai-dinh",
@@ -75,8 +65,6 @@ const artistWall = [
     image: "/artists/thaidinh.png",
     position: { left: "72%", bottom: "-12%", width: "clamp(170px, 22vw, 300px)" },
     zIndex: "z-25",
-    tooltipPosition: "top",
-    tooltipAlign: "right",
   },
   {
     id: "theflob",
@@ -86,8 +74,6 @@ const artistWall = [
     image: "/artists/theflob.png",
     position: { left: "20%", bottom: "22%", width: "clamp(230px, 34vw, 360px)" },
     zIndex: "z-10",
-    tooltipPosition: "top",
-    tooltipAlign: "right",
   },
 ];
 
@@ -534,31 +520,18 @@ export default function SocialProofPage() {
               <Meteors number={18} className="bg-white/70 before:from-white/80" />
             </div>
             <div className="relative h-full w-full">
-              {artistWall.map((artist) => {
-                const raiseOnHover = artist.id !== "theflob" && artist.id !== "the-cassette";
-                const tooltipPosition =
-                  artist.tooltipPosition === "top" ? "bottom-full mb-3" : "top-full mt-3";
-                const tooltipAlign =
-                  artist.tooltipAlign === "left"
-                    ? "left-0"
-                    : artist.tooltipAlign === "right"
-                      ? "right-0"
-                      : "left-1/2 -translate-x-1/2";
-                const tooltipMotion =
-                  artist.tooltipPosition === "top" ? "-translate-y-2" : "translate-y-2";
-
-                return (
-                  <div
-                    key={artist.id}
-                    className={`group/artist absolute aspect-square -translate-x-1/2 cursor-pointer transition-transform duration-300 ease-out ${artist.zIndex} ${raiseOnHover ? "hover:z-40 focus-visible:z-40" : ""} focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ember/60 focus-visible:ring-offset-2 focus-visible:ring-offset-black/80`}
-                    style={artist.position}
-                    role="button"
-                    tabIndex={0}
-                    aria-label={artist.name}
-                  >
-                    <div className="absolute -inset-6 -z-10 scale-90 rounded-full bg-[radial-gradient(circle,rgba(255,255,255,0.35),rgba(255,141,106,0.18),transparent_70%)] opacity-0 blur-2xl transition duration-300 ease-out group-hover/artist:scale-110 group-hover/artist:opacity-100 group-focus-within/artist:scale-110 group-focus-within/artist:opacity-100" />
-                    <div className="relative h-full w-full origin-bottom transition-transform duration-300 ease-out group-hover/artist:scale-[1.04] group-focus-within/artist:scale-[1.04]">
-                      <Image
+              {artistWall.map((artist) => (
+                <div
+                  key={artist.id}
+                  className={`group/artist absolute aspect-square -translate-x-1/2 cursor-pointer transition-transform duration-300 ease-out ${artist.zIndex} hover:z-50 focus-visible:z-50 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ember/60 focus-visible:ring-offset-2 focus-visible:ring-offset-black/80`}
+                  style={artist.position}
+                  role="button"
+                  tabIndex={0}
+                  aria-label={artist.name}
+                >
+                  <div className="absolute -inset-6 -z-10 scale-90 rounded-full bg-[radial-gradient(circle,rgba(255,255,255,0.35),rgba(255,141,106,0.18),transparent_70%)] opacity-0 blur-2xl transition duration-300 ease-out group-hover/artist:scale-110 group-hover/artist:opacity-100 group-focus-within/artist:scale-110 group-focus-within/artist:opacity-100" />
+                  <div className="relative h-full w-full origin-bottom transition-transform duration-300 ease-out group-hover/artist:scale-[1.04] group-focus-within/artist:scale-[1.04]">
+                    <Image
                         src={artist.image}
                         alt={artist.name}
                         fill
@@ -567,9 +540,9 @@ export default function SocialProofPage() {
                       />
                     </div>
                     <div
-                      className={`pointer-events-none absolute ${tooltipPosition} ${tooltipAlign} ${tooltipMotion} origin-top opacity-0 transition duration-300 ease-out group-hover/artist:translate-y-0 group-hover/artist:opacity-100 group-focus-within/artist:translate-y-0 group-focus-within/artist:opacity-100`}
+                      className="pointer-events-none absolute inset-x-3 bottom-3 z-40 translate-y-2 opacity-0 transition duration-300 ease-out group-hover/artist:translate-y-0 group-hover/artist:opacity-100 group-focus-within/artist:translate-y-0 group-focus-within/artist:opacity-100"
                     >
-                      <div className="min-w-[180px] rounded-xl border border-black/10 bg-white/95 px-4 py-3 text-slate-900 shadow-[0_18px_40px_rgba(0,0,0,0.25)]">
+                      <div className="rounded-xl border border-black/10 bg-white/95 px-4 py-3 text-slate-900 shadow-[0_18px_40px_rgba(0,0,0,0.25)]">
                         <p className="text-[10px] uppercase tracking-[0.2em] text-slate-500">
                           {artist.tag}
                         </p>
@@ -577,9 +550,8 @@ export default function SocialProofPage() {
                         <p className="text-xs text-slate-600">{artist.note}</p>
                       </div>
                     </div>
-                  </div>
-                );
-              })}
+                </div>
+              ))}
             </div>
           </div>
         </Reveal>

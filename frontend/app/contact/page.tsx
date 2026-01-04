@@ -1,3 +1,4 @@
+import Image from "next/image";
 import { createPageMetadata } from "@/lib/seo";
 
 export const metadata = createPageMetadata({
@@ -91,6 +92,16 @@ export default function ContactPage() {
                   <span className="font-semibold text-slate-900">Số điện thoại:</span> (+84) 788
                   588 069
                 </p>
+              </div>
+
+              <div className="mt-3 flex items-center justify-center px-2 py-2">
+                <Image
+                  src="/assets/uehg_logo_white.png"
+                  alt="UEHG logo"
+                  width={520}
+                  height={520}
+                  className="h-72 w-72 object-contain"
+                />
               </div>
             </div>
           </div>

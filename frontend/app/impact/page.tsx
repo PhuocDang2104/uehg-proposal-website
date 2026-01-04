@@ -28,7 +28,7 @@ export default function ImpactPage() {
       <Section
         eyebrow="Ticketing Velocity"
         title="Tốc độ bán vé"
-        description="Hiển thị kiểu count-up; placeholder card."
+        description="Nhịp bán vé theo từng mốc mở bán nổi bật."
         backgroundPreset="emberBloom"
       >
         <div className="grid gap-4 md:grid-cols-3">
@@ -36,9 +36,7 @@ export default function ImpactPage() {
             <Card key={stat.title} className="space-y-2">
               <Badge variant="glow">{stat.title}</Badge>
               <p className="text-xl font-semibold text-foam">{stat.detail}</p>
-              <p className="text-xs uppercase tracking-[0.18em] text-foam/60">
-                Count-up placeholder
-              </p>
+              <p className="text-xs uppercase tracking-[0.18em] text-foam/60">Tốc độ mở bán</p>
             </Card>
           ))}
         </div>
@@ -47,7 +45,7 @@ export default function ImpactPage() {
       <Section
         eyebrow="Audience & Reach"
         title="Độ phủ offline + online"
-        description="Gợi ý biểu đồ dòng nước (area chart) thay vì chart SaaS. Placeholder gradient block."
+        description="Biểu đồ dòng chảy thể hiện tăng trưởng khán giả và độ phủ truyền thông."
         backgroundPreset="lagoonPulse"
       >
         <div className="grid gap-4 md:grid-cols-2">
@@ -58,7 +56,7 @@ export default function ImpactPage() {
           </Card>
           <Card className="space-y-2">
             <Badge>Online distribution</Badge>
-            <p className="text-foam">FB/YT/TikTok reach; placeholder chart dạng dòng chảy.</p>
+            <p className="text-foam">FB/YT/TikTok reach theo mùa, phân bổ theo kênh.</p>
             <div className="mt-4 h-36 rounded-2xl bg-gradient-to-r from-pearl/30 via-iris/30 to-ember/40" />
           </Card>
         </div>
@@ -67,7 +65,7 @@ export default function ImpactPage() {
       <Section
         eyebrow="Community & CSR"
         title="Hành trình trao yêu thương"
-        description="Tổng gây quỹ 150M+, story highlight ảnh + quote."
+        description="Tổng gây quỹ 150M+, điểm nhấn câu chuyện và hình ảnh cộng đồng."
         backgroundPreset="dawnMist"
       >
         <div className="grid gap-4 md:grid-cols-3">
@@ -80,7 +78,7 @@ export default function ImpactPage() {
           <Reveal delay={0.05}>
             <Card className="space-y-2">
               <Badge>Story highlight</Badge>
-              <p className="text-foam/80">Slot ảnh + quote để giảm khô khan.</p>
+              <p className="text-foam/80">Ảnh và trích dẫn tiêu biểu từ các mùa trước.</p>
             </Card>
           </Reveal>
           <Reveal delay={0.1}>

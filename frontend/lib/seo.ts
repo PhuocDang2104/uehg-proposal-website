@@ -12,7 +12,11 @@ export const siteMetadata: Metadata = {
   },
   description: baseDescription,
   icons: {
-    icon: "/assets/uehg-favicon.png",
+    icon: [
+      { url: "/assets/uehg_logo_white.png", type: "image/png" },
+    ],
+    shortcut: "/assets/uehg_logo_white.png",
+    apple: "/assets/uehg_logo_white.png",
   },
   openGraph: {
     title: baseTitle,

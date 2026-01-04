@@ -20,9 +20,9 @@ export default function HomePage() {
       </div>
 
       <Section
-        eyebrow="Scroll-driven 3D"
+        eyebrow="Nơi Bắt Đầu 2026"
         title="Cá hồi bơi ngược dòng"
-        description="Placeholder cho camera dọc sông 3D + chip thông tin bật theo bậc thác. Tích hợp Lenis + GSAP ScrollTrigger sau."
+        description="Theo dòng sông, từng bậc thác mở ra các mốc quan trọng của Guitar Show 2026."
         backgroundPreset="riverNight"
       >
         <div className="grid gap-6 lg:grid-cols-[1.05fr_0.95fr]">
