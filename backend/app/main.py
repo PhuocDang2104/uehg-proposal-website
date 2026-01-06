@@ -94,7 +94,12 @@ def chat(payload: ChatRequest, db=Depends(get_db)):
 
 
 @app.get("/health")
-def health(db=Depends(get_db)):
+def health():
+    return {"status": "ok"}
+
+
+@app.get("/health/db")
+def health_db(db=Depends(get_db)):
     try:
         db.execute(text("SELECT 1"))
     except Exception as exc:  # pragma: no cover

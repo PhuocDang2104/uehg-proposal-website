@@ -144,6 +144,12 @@ Response
 {"status":"ok"}
 ```
 
+### GET /health/db
+
+```json
+{"status":"ok"}
+```
+
 ### POST /admin/ingest
 
 - Header: `Authorization: Bearer <ADMIN_API_KEY>`
