@@ -15,6 +15,12 @@ type MotionParams = {
   floatSpeedRange: number;
 };
 
+type ChatResponse = {
+  answer?: string;
+};
+
+const API_BASE = process.env.NEXT_PUBLIC_API_BASE ?? "";
+
 const BASE_MOTION: MotionParams = {
   R: 200,
   strength: 1.2,
@@ -237,6 +243,7 @@ export const HeroFloatingPhysics = () => {
   const waterFadeFrameRef = useRef<number | null>(null);
   const lastMoveTimeRef = useRef(0);
   const fishRef = useRef<HTMLDivElement | null>(null);
+  const sessionIdRef = useRef<string | null>(null);
   const [askValue, setAskValue] = useState("");
   const [askResponse, setAskResponse] = useState<string | null>(null);
   const [askError, setAskError] = useState<string | null>(null);
@@ -284,6 +291,18 @@ export const HeroFloatingPhysics = () => {
     fadeAudio(0.8, 150);
   };
 
+  useEffect(() => {
+    if (typeof window === "undefined") return;
+    const saved = localStorage.getItem("uehg-ai-session");
+    if (saved) {
+      sessionIdRef.current = saved;
+      return;
+    }
+    const id = crypto.randomUUID();
+    localStorage.setItem("uehg-ai-session", id);
+    sessionIdRef.current = id;
+  }, []);
+
   const handleAskSubmit = async () => {
     const trimmed = askValue.trim();
     if (!trimmed || askLoading) return;
@@ -293,10 +312,15 @@ export const HeroFloatingPhysics = () => {
     setAskError(null);
 
     try {
-      await new Promise((resolve) => setTimeout(resolve, 520));
-      setAskResponse(
-        "Gờ đã nhận được tâm trạng của bạn. Cảm ơn bạn đã chia sẻ — tụi mình luôn lắng nghe!",
-      );
+      const sessionId = sessionIdRef.current ?? crypto.randomUUID();
+      const response = await fetch(`${API_BASE}/chat`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ message: trimmed, session_id: sessionId }),
+      });
+      if (!response.ok) throw new Error("Chat API error");
+      const data = (await response.json()) as ChatResponse;
+      setAskResponse(data.answer ?? "Xin loi, hien chua co cau tra loi phu hop.");
       setAskValue("");
     } catch {
       setAskError("Không thể kết nối AI lúc này. Vui lòng thử lại sau.");

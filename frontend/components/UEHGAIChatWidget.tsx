@@ -9,6 +9,12 @@ type ChatMessage = {
   ts: number;
 };
 
+type ChatResponse = {
+  answer?: string;
+  citations?: Array<{ type: string; id?: string; title?: string; url?: string; score?: number }>;
+  suggested_questions?: string[];
+};
+
 const QUICK_PROMPTS = [
   "UEHG là gì và hoạt động ra sao?",
   "Guitar Show “NƠI BẮT ĐẦU” tổ chức khi nào, ở đâu?",
@@ -16,23 +22,7 @@ const QUICK_PROMPTS = [
   "UEHG có kênh truyền thông nào để theo dõi?",
 ];
 
-const MOCK_RESPONSES: Record<string, string> = {
-  "UEHG là gì và hoạt động ra sao?":
-    "UEHG (Câu lạc bộ Guitar Đại học Kinh tế TP.HCM) được thành lập ngày 09/09/2011, trực thuộc Hội Sinh Viên UEH. CLB là sân chơi nghệ thuật nuôi dưỡng đam mê âm nhạc, kết nối sinh viên yêu guitar và phát triển chuyên môn qua các hoạt động luyện tập, giao lưu và biểu diễn. Slogan của UEHG: “Just the beginning”.",
-  "Guitar Show “NƠI BẮT ĐẦU” tổ chức khi nào, ở đâu?":
-    "Guitar Show “NƠI BẮT ĐẦU - NGƯỢC DÒNG” là chương trình thường niên lớn của UEHG, dự kiến diễn ra ngày 25/01/2026 tại Hội trường A.116 UEH. Chương trình mang năng lượng tích cực và các tiết mục trình diễn đặc sắc từ cộng đồng UEHG. Nếu bạn cần lịch chi tiết/giờ check-in, hãy để lại email hoặc nhắn fanpage để tụi mình gửi thông tin cập nhật sớm nhất.",
-  "UEHG từng hợp tác với những nghệ sĩ nào nổi bật?":
-    "UEHG đã có cơ hội hợp tác và đồng hành cùng nhiều nghệ sĩ/nhóm nhạc như: Minh Tốc và Lam, Văn Mai Hương, Thái Đinh, Lena, Whee!, The Flob, Dương Domic, The Cassette. Nếu bạn cần link tổng hợp hoặc thông tin chi tiết về từng lần hợp tác, hãy nhắn lại để tụi mình gửi ngay.",
-  "UEHG có kênh truyền thông nào để theo dõi?":
-    "Bạn có thể theo dõi UEHG qua:\n- Facebook (kênh chính): hơn 27.000 lượt thích và 30.000 lượt theo dõi, cập nhật sự kiện/hoạt động.\n- YouTube: lưu giữ sân khấu và sản phẩm âm nhạc; video cao nhất hơn 20.000 views.\n- TikTok: nội dung cover guitar, hậu trường và xu hướng âm nhạc dành cho Gen Z.",
-};
-
-const normalizeText = (s: string) =>
-  s
-    .toLowerCase()
-    .normalize("NFD")
-    .replace(/[\u0300-\u036f]/g, "")
-    .replace(/[^a-z0-9]/g, "");
+const API_BASE = process.env.NEXT_PUBLIC_API_BASE ?? "";
 
 const UEHGAIChatWidget: React.FC = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -50,10 +40,23 @@ const UEHGAIChatWidget: React.FC = () => {
   const inputRef = useRef<HTMLInputElement | null>(null);
   const openAudioRef = useRef<HTMLAudioElement | null>(null);
   const sendAudioRef = useRef<HTMLAudioElement | null>(null);
+  const sessionIdRef = useRef<string | null>(null);
 
   useEffect(() => {
     localStorage.setItem("uehg-ai-sound", String(soundEnabled));
   }, [soundEnabled]);
+
+  useEffect(() => {
+    if (typeof window === "undefined") return;
+    const saved = localStorage.getItem("uehg-ai-session");
+    if (saved) {
+      sessionIdRef.current = saved;
+      return;
+    }
+    const id = crypto.randomUUID();
+    localStorage.setItem("uehg-ai-session", id);
+    sessionIdRef.current = id;
+  }, []);
 
   const playAudio = (ref: React.MutableRefObject<HTMLAudioElement | null>, src: string) => {
     if (!soundEnabled) return;
@@ -83,16 +86,21 @@ const UEHGAIChatWidget: React.FC = () => {
     }
   }, [isOpen]);
 
-  const findMock = (text: string) => {
-    const norm = normalizeText(text);
-    const entry = Object.entries(MOCK_RESPONSES).find(([k]) => {
-      const nk = normalizeText(k);
-      return nk === norm || nk.includes(norm) || norm.includes(nk);
+  const fetchAnswer = async (text: string) => {
+    const sessionId = sessionIdRef.current ?? crypto.randomUUID();
+    const response = await fetch(`${API_BASE}/chat`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ message: text, session_id: sessionId }),
     });
-    return entry?.[1];
+    if (!response.ok) {
+      throw new Error("Chat API error");
+    }
+    const data = (await response.json()) as ChatResponse;
+    return data.answer ?? "Xin loi, hien chua co cau tra loi phu hop.";
   };
 
-  const sendMessage = (text: string) => {
+  const sendMessage = async (text: string) => {
     if (!text.trim()) return;
     const userMsg: ChatMessage = {
       id: crypto.randomUUID(),
@@ -105,11 +113,8 @@ const UEHGAIChatWidget: React.FC = () => {
     setIsTyping(true);
     playAudio(sendAudioRef, "/sounds/send.mp3");
 
-    const replyText =
-      findMock(text.trim()) ??
-      "Mình hỗ trợ thông tin về UEHG, Guitar Show, hợp tác nghệ sĩ và kênh truyền thông. Thử các prompt nhanh nhé!";
-    const delay = 600 + Math.random() * 300;
-    setTimeout(() => {
+    try {
+      const replyText = await fetchAnswer(text.trim());
       const botMsg: ChatMessage = {
         id: crypto.randomUUID(),
         role: "assistant",
@@ -117,8 +122,17 @@ const UEHGAIChatWidget: React.FC = () => {
         ts: Date.now(),
       };
       setMessages((prev) => [...prev, botMsg]);
+    } catch {
+      const botMsg: ChatMessage = {
+        id: crypto.randomUUID(),
+        role: "assistant",
+        text: "Khong the ket noi AI luc nay. Vui long thu lai sau.",
+        ts: Date.now(),
+      };
+      setMessages((prev) => [...prev, botMsg]);
+    } finally {
       setIsTyping(false);
-    }, delay);
+    }
   };
 
   const handlePromptClick = (p: string) => sendMessage(p);

@@ -1,0 +1,36 @@
+version: "3.9"
+
+services:
+  postgres:
+    image: pgvector/pgvector:pg16
+    container_name: uehg-postgres
+    environment:
+      POSTGRES_DB: uehg
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+    ports:
+      - "5432:5432"
+    volumes:
+      - ../infra/migrations:/docker-entrypoint-initdb.d
+
+  backend:
+    build:
+      context: ../backend
+      dockerfile: Dockerfile
+    container_name: uehg-backend
+    env_file:
+      - ../.env
+    environment:
+      DATABASE_URL: postgresql+psycopg://postgres:postgres@postgres:5432/uehg
+    ports:
+      - "8000:8000"
+    depends_on:
+      - postgres
+
+  adminer:
+    image: adminer:4
+    container_name: uehg-adminer
+    ports:
+      - "8080:8080"
+    depends_on:
+      - postgres

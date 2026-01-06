@@ -1,0 +1,6 @@
+{"id":"upcoming_show","query":"Show sap toi khi nao?","expect":{"refuse":false,"intent":"UPCOMING_SHOW","event_ids":["8a3f72c8-1b9a-4f3f-9e7d-0c2a0e2f0a11"]}}
+{"id":"past_show","query":"Show da qua gan day?","expect":{"refuse":false,"intent":"PAST_SHOW","event_ids":["b14d0c89-5f4e-4d3a-9eb4-2a1a3e1c9d22"]}}
+{"id":"members","query":"Thanh vien noi bat cua CLB?","expect":{"refuse":false,"intent":"MEMBERS","member_ids":["c1a3f0ab-5d23-4db9-8a44-1a2b3c4d5e01"]}}
+{"id":"booking","query":"Lien he booking nhu the nao?","expect":{"refuse":false,"intent":"BOOKING_CONTACT"}}
+{"id":"in_domain_missing","query":"UEHG co show o Ha Noi khong?","expect":{"refuse":true}}
+{"id":"out_of_scope","query":"Ngay mai thoi tiet the nao?","expect":{"refuse":true}}
