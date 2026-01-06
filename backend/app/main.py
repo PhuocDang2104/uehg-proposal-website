@@ -22,6 +22,11 @@ from app.ingest.pipeline import ingest_directory
 settings = get_settings()
 configure_logging(settings)
 logger = logging.getLogger("uehg.backend")
+logger.info(
+    "cors_config origins=%s regex=%s",
+    settings.cors_origins,
+    settings.cors_allow_origin_regex,
+)
 
 app = FastAPI(title="UEHG Music Club Assistant")
 

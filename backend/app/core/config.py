@@ -76,7 +76,17 @@ class Settings(BaseSettings):
 
     @property
     def cors_origins(self) -> List[str]:
-        return [item.strip() for item in self.cors_allow_origins.split(",") if item.strip()]
+        origins: List[str] = []
+        for raw in self.cors_allow_origins.split(","):
+            value = raw.strip()
+            if not value:
+                continue
+            if (value.startswith('"') and value.endswith('"')) or (
+                value.startswith("'") and value.endswith("'")
+            ):
+                value = value[1:-1]
+            origins.append(value)
+        return origins
 
 
 @lru_cache
