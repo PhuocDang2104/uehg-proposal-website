@@ -3,7 +3,7 @@ from __future__ import annotations
 from functools import lru_cache
 from typing import List, Optional
 
-from pydantic import Field
+from pydantic import Field, field_validator
 from pydantic_settings import BaseSettings, SettingsConfigDict
 
 
@@ -39,6 +39,32 @@ class Settings(BaseSettings):
         env_file_encoding="utf-8",
         extra="ignore",
     )
+
+    @field_validator("jina_embed_dim", mode="before")
+    @classmethod
+    def _coerce_jina_embed_dim(cls, value):
+        if value in ("", None):
+            return 1024
+        return value
+
+    @field_validator("jina_embed_model", mode="before")
+    @classmethod
+    def _coerce_jina_embed_model(cls, value):
+        if value in ("", None):
+            return "jina-embeddings-v3"
+        return value
+
+    @field_validator("database_url", mode="before")
+    @classmethod
+    def _coerce_database_url(cls, value):
+        if not value:
+            return value
+        if isinstance(value, str):
+            if value.startswith("postgres://"):
+                return value.replace("postgres://", "postgresql+psycopg://", 1)
+            if value.startswith("postgresql://"):
+                return value.replace("postgresql://", "postgresql+psycopg://", 1)
+        return value
 
     @property
     def cors_origins(self) -> List[str]:
