@@ -49,6 +49,7 @@ Option A (recommended): use `render.yaml`
    - `JINA_EMBED_DIM` (default `1024`)
    - `ADMIN_API_KEY`
    - `CORS_ALLOW_ORIGINS` (comma-separated Vercel domains)
+   - Optional: `CORS_ALLOW_ORIGIN_REGEX` (e.g. `https://.*\\.vercel\\.app`)
 
 Option B (manual): create Web Service
 

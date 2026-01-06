@@ -31,6 +31,7 @@ class Settings(BaseSettings):
     allow_llm_answer: bool = Field(False, alias="ALLOW_LLM_ANSWER")
 
     cors_allow_origins: str = Field("http://localhost:3000", alias="CORS_ALLOW_ORIGINS")
+    cors_allow_origin_regex: Optional[str] = Field(None, alias="CORS_ALLOW_ORIGIN_REGEX")
 
     metrics_enabled: bool = Field(True, alias="METRICS_ENABLED")
 
@@ -64,6 +65,13 @@ class Settings(BaseSettings):
                 return value.replace("postgres://", "postgresql+psycopg://", 1)
             if value.startswith("postgresql://"):
                 return value.replace("postgresql://", "postgresql+psycopg://", 1)
+        return value
+
+    @field_validator("cors_allow_origin_regex", mode="before")
+    @classmethod
+    def _coerce_cors_origin_regex(cls, value):
+        if value in ("", None):
+            return None
         return value
 
     @property
