@@ -168,9 +168,9 @@ def _compose_node(state: ChatState) -> ChatState:
 def _refuse_node(state: ChatState) -> ChatState:
     intent = state.get("intent")
     suggestions = [
-        "Show sap toi khi nao?",
-        "CLB co tuyen thanh vien khong?",
-        "Lien he booking the nao?",
+        "Show s\u1eafp t\u1edbi khi n\u00e0o?",
+        "CLB c\u00f3 tuy\u1ec3n th\u00e0nh vi\u00ean kh\u00f4ng?",
+        "Li\u00ean h\u1ec7 booking th\u1ebf n\u00e0o?",
     ]
     return {
         "answer": refusal_message(),
@@ -182,6 +182,8 @@ def _refuse_node(state: ChatState) -> ChatState:
 
 def _route_by_intent(state: ChatState) -> str:
     intent = Intent(state.get("intent"))
+    if intent == Intent.GREETING:
+        return "compose"
     if intent == Intent.OUT_OF_SCOPE:
         return "refuse"
     if intent in (Intent.UPCOMING_SHOW, Intent.PAST_SHOW, Intent.MEMBERS):

@@ -45,7 +45,7 @@ def in_domain(query: str, extra_terms: Iterable[str] | None = None) -> bool:
 
 def refusal_message() -> str:
     return (
-        "Minh chua co thong tin nay trong du lieu CLB. "
-        "Ban co the hoi ve show sap toi, show da qua, thanh vien, "
-        "booking hoac thong tin chung ve UEHG nhe."
+        "M\u00ecnh ch\u01b0a c\u00f3 th\u00f4ng tin n\u00e0y trong d\u1eef li\u1ec7u CLB. "
+        "B\u1ea1n c\u00f3 th\u1ec3 h\u1ecfi v\u1ec1 show s\u1eafp t\u1edbi, show \u0111\u00e3 qua, "
+        "th\u00e0nh vi\u00ean, booking ho\u1eb7c th\u00f4ng tin chung v\u1ec1 UEHG nh\u00e9."
     )

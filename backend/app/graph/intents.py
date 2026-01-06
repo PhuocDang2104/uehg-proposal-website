@@ -14,6 +14,7 @@ class Intent(str, Enum):
     MEMBERS = "MEMBERS"
     BOOKING_CONTACT = "BOOKING_CONTACT"
     FAQ = "FAQ"
+    GREETING = "GREETING"
     OUT_OF_SCOPE = "OUT_OF_SCOPE"
 
 
@@ -70,6 +71,31 @@ CLUB_TERMS = [
     "hoat dong",
 ]
 
+GREETING_TERMS = [
+    "chao",
+    "xin chao",
+    "hello",
+    "hi",
+    "hey",
+]
+
+GREETING_WORDS = {
+    "chao",
+    "xin",
+    "hello",
+    "hi",
+    "hey",
+    "ban",
+    "nhe",
+    "nha",
+    "ne",
+    "a",
+    "ad",
+    "anh",
+    "chi",
+    "em",
+}
+
 STOPWORDS = {
     "la",
     "co",
@@ -97,11 +123,23 @@ def _contains_any(norm: str, terms: List[str]) -> bool:
     return any(term in norm for term in terms)
 
 
+def _is_greeting(norm: str) -> bool:
+    tokens = norm.split()
+    if not tokens:
+        return False
+    if _contains_any(norm, GREETING_TERMS) and all(token in GREETING_WORDS for token in tokens):
+        return True
+    return False
+
+
 def route_intent(query: str) -> Intent:
+    norm = normalize_text(query)
+
+    if _is_greeting(norm):
+        return Intent.GREETING
+
     if not in_domain(query):
         return Intent.OUT_OF_SCOPE
-
-    norm = normalize_text(query)
 
     if _contains_any(norm, PAST_TERMS):
         return Intent.PAST_SHOW

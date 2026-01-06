@@ -30,7 +30,7 @@ def _event_line(event) -> str:
     venue = event.venue_name or ""
     city = event.city or ""
     place = ", ".join([part for part in [venue, city] if part])
-    ticket = f"Ve: {event.ticket_url}" if event.ticket_url else ""
+    ticket = f"V\u00e9: {event.ticket_url}" if event.ticket_url else ""
     details = " | ".join([part for part in [place, ticket] if part])
     details = f" ({details})" if details else ""
     return f"- {event.title} ({when}){details}"
@@ -121,34 +121,39 @@ def build_doc_citations(chunks: List[ChunkResult]) -> List[Dict[str, Any]]:
 def suggested_questions(intent: Intent) -> List[str]:
     suggestions = {
         Intent.UPCOMING_SHOW: [
-            "Dia diem o dau?",
-            "Co link mua ve khong?",
-            "Lineup gom nhung ai?",
+            "\u0110\u1ecba \u0111i\u1ec3m \u1edf \u0111\u00e2u?",
+            "C\u00f3 link mua v\u00e9 kh\u00f4ng?",
+            "Lineup g\u1ed3m nh\u1eefng ai?",
         ],
         Intent.PAST_SHOW: [
-            "Co recap hay highlight khong?",
-            "CLB co album/hinh anh su kien khong?",
-            "Show sap toi khi nao?",
+            "C\u00f3 recap hay highlight kh\u00f4ng?",
+            "CLB c\u00f3 album/h\u00ecnh \u1ea3nh s\u1ef1 ki\u1ec7n kh\u00f4ng?",
+            "Show s\u1eafp t\u1edbi khi n\u00e0o?",
         ],
         Intent.MEMBERS: [
-            "CLB co dang tuyen thanh vien khong?",
-            "Co ai phu trach booking khong?",
-            "Cach tham gia workshop?",
+            "CLB c\u00f3 \u0111ang tuy\u1ec3n th\u00e0nh vi\u00ean kh\u00f4ng?",
+            "C\u00f3 ai ph\u1ee5 tr\u00e1ch booking kh\u00f4ng?",
+            "C\u00e1ch tham gia workshop?",
         ],
         Intent.CLUB_INFO: [
-            "CLB hoat dong nhu the nao?",
-            "Cach lien he booking?",
-            "Show sap toi khi nao?",
+            "CLB ho\u1ea1t \u0111\u1ed9ng nh\u01b0 th\u1ebf n\u00e0o?",
+            "C\u00e1ch li\u00ean h\u1ec7 booking?",
+            "Show s\u1eafp t\u1edbi khi n\u00e0o?",
         ],
         Intent.FAQ: [
-            "CLB co dang tuyen thanh vien khong?",
-            "Cach lien he booking?",
-            "Show sap toi khi nao?",
+            "CLB c\u00f3 \u0111ang tuy\u1ec3n th\u00e0nh vi\u00ean kh\u00f4ng?",
+            "C\u00e1ch li\u00ean h\u1ec7 booking?",
+            "Show s\u1eafp t\u1edbi khi n\u00e0o?",
         ],
         Intent.BOOKING_CONTACT: [
-            "CLB co nhan booking su kien khong?",
-            "CLB co kit truyen thong khong?",
-            "Show sap toi khi nao?",
+            "CLB c\u00f3 nh\u1eadn booking s\u1ef1 ki\u1ec7n kh\u00f4ng?",
+            "CLB c\u00f3 kit truy\u1ec1n th\u00f4ng kh\u00f4ng?",
+            "Show s\u1eafp t\u1edbi khi n\u00e0o?",
+        ],
+        Intent.GREETING: [
+            "Show s\u1eafp t\u1edbi khi n\u00e0o?",
+            "CLB ho\u1ea1t \u0111\u1ed9ng nh\u01b0 th\u1ebf n\u00e0o?",
+            "C\u00e1ch li\u00ean h\u1ec7 booking?",
         ],
     }
     return suggestions.get(intent, [])
@@ -173,14 +178,23 @@ def _build_prompt(state: Dict[str, Any]) -> List[Dict[str, str]]:
 
     chunks_block = _chunks_evidence(chunks)
 
-    system = (
-        "You are a friendly assistant for the UEHG music club landing page. "
-        "Answer in Vietnamese using only the evidence provided. "
-        "If evidence is missing or the question is out of scope, reply exactly: "
-        f"\"{refusal_message()}\". "
-        "Do not invent ticket prices, links, or names. "
-        "If the question is ambiguous, ask one short clarifying question."
-    )
+    if intent == Intent.GREETING:
+        system = (
+            "You are a friendly assistant for the UEHG music club landing page. "
+            "For GREETING intent, respond with a short greeting and invite the user "
+            "to ask about upcoming shows, past shows, members, booking, or club info. "
+            "Use full Vietnamese diacritics."
+        )
+    else:
+        system = (
+            "You are a friendly assistant for the UEHG music club landing page. "
+            "Answer in Vietnamese using only the evidence provided. "
+            "If evidence is missing or the question is out of scope, reply exactly: "
+            f"\"{refusal_message()}\". "
+            "Do not invent ticket prices, links, or names. "
+            "If the question is ambiguous, ask one short clarifying question. "
+            "Use full Vietnamese diacritics."
+        )
 
     user = (
         f"Intent: {intent.value}\n"
@@ -201,6 +215,17 @@ def _build_prompt(state: Dict[str, Any]) -> List[Dict[str, str]]:
 
 
 def _compose_deterministic(intent: Intent, sql_results: Dict[str, Any], chunks: List[ChunkResult]):
+    if intent == Intent.GREETING:
+        return {
+            "answer": (
+                "Ch\u00e0o b\u1ea1n! M\u00ecnh l\u00e0 tr\u1ee3 l\u00fd c\u1ee7a CLB UEHG. "
+                "B\u1ea1n mu\u1ed1n h\u1ecfi v\u1ec1 show s\u1eafp t\u1edbi, "
+                "th\u00e0nh vi\u00ean, booking hay th\u00f4ng tin chung v\u1ec1 CLB kh\u00f4ng?"
+            ),
+            "citations": [],
+            "suggested_questions": suggested_questions(intent),
+        }
+
     if intent in (Intent.UPCOMING_SHOW, Intent.PAST_SHOW):
         events = sql_results.get("events") or []
         if not events:
@@ -209,7 +234,7 @@ def _compose_deterministic(intent: Intent, sql_results: Dict[str, Any], chunks: 
                 "citations": [],
                 "suggested_questions": suggested_questions(intent),
             }
-        lines = ["Cac show lien quan:"] + [_event_line(event) for event in events]
+        lines = ["C\u00e1c show li\u00ean quan:"] + [_event_line(event) for event in events]
         return {
             "answer": "\n".join(lines),
             "citations": build_event_citations(events),
@@ -224,7 +249,9 @@ def _compose_deterministic(intent: Intent, sql_results: Dict[str, Any], chunks: 
                 "citations": [],
                 "suggested_questions": suggested_questions(intent),
             }
-        lines = ["Thanh vien/nhan su noi bat:"] + [_member_line(m) for m in members]
+        lines = ["Th\u00e0nh vi\u00ean/nh\u00e2n s\u1ef1 n\u1ed5i b\u1eadt:"] + [
+            _member_line(m) for m in members
+        ]
         return {
             "answer": "\n".join(lines),
             "citations": build_member_citations(members),
@@ -239,7 +266,7 @@ def _compose_deterministic(intent: Intent, sql_results: Dict[str, Any], chunks: 
         }
 
     top_chunks = chunks[:3]
-    summary_lines = ["Thong tin tu du lieu CLB:"]
+    summary_lines = ["Th\u00f4ng tin t\u1eeb d\u1eef li\u1ec7u CLB:"]
     summary_lines.extend([f"- {chunk.content.strip()}" for chunk in top_chunks])
     return {
         "answer": "\n".join(summary_lines),
