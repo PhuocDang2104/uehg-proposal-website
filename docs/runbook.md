@@ -24,3 +24,6 @@
 - Neu /chat tra 500, kiem tra `GROQ_API_KEY` va `GROQ_MODEL`.
 - Kiem tra logs Render de thay Groq error response.
 - Neu Groq tra 404, thu set `GROQ_BASE_URL=https://api.groq.com/openai/v1`.
+
+## Embedding issues
+- Neu logs bao 403 tu Jina, kiem tra `JINA_API_KEY` va model `JINA_EMBED_MODEL`.

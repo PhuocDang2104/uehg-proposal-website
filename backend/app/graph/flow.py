@@ -65,7 +65,14 @@ def _vector_node(state: ChatState) -> ChatState:
     logger = deps["logger"]
     intent = Intent(state.get("intent"))
     query = state.get("query", "")
-    embedding = embedder.embed_query_sync(query)
+    try:
+        embedding = embedder.embed_query_sync(query)
+    except Exception as exc:  # pragma: no cover
+        logger.error("jina_embed_failed", exc_info=exc)
+        return {
+            "chunks": [],
+            "debug": {"retrieved_chunks": 0, "top_score": 0.0, "vector_error": str(exc)},
+        }
 
     source_type = None
     source_ids = None
