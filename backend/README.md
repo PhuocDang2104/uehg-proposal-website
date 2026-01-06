@@ -195,6 +195,7 @@ Render API keys (set as env vars):
 Render LLM config:
 - `GROQ_MODEL` (default `llama-3.1-8b-instant`)
 - `GROQ_TIMEOUT` (seconds)
+- `GROQ_BASE_URL` (default `https://api.groq.com/openai/v1`)
 
 ## Frontend integration
 

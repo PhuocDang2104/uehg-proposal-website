@@ -280,13 +280,19 @@ def compose_answer(state: Dict[str, Any], groq_client: GroqClient | None = None)
     sql_results = state.get("sql_results") or {}
     chunks = state.get("chunks") or []
     deps = state.get("deps") or {}
+    logger = deps.get("logger")
     groq = groq_client or deps.get("groq")
 
     if not groq or not getattr(groq, "api_key", None):
         return _compose_deterministic(intent, sql_results, chunks)
 
     prompt = _build_prompt(state)
-    answer = groq.chat(prompt)
+    try:
+        answer = groq.chat(prompt)
+    except Exception:  # pragma: no cover
+        if logger:
+            logger.exception("groq_chat_failed")
+        return _compose_deterministic(intent, sql_results, chunks)
 
     if intent in (Intent.UPCOMING_SHOW, Intent.PAST_SHOW):
         events = sql_results.get("events") or []

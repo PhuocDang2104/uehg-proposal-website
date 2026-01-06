@@ -20,6 +20,7 @@ class Settings(BaseSettings):
     groq_api_key: Optional[str] = Field(None, alias="GROQ_API_KEY")
     groq_model: str = Field("llama-3.1-8b-instant", alias="GROQ_MODEL")
     groq_timeout: float = Field(20.0, alias="GROQ_TIMEOUT")
+    groq_base_url: str = Field("https://api.groq.com/openai/v1", alias="GROQ_BASE_URL")
 
     jina_api_key: Optional[str] = Field(None, alias="JINA_API_KEY")
     jina_embed_model: str = Field("jina-embeddings-v3", alias="JINA_EMBED_MODEL")
@@ -71,6 +72,13 @@ class Settings(BaseSettings):
     def _coerce_groq_timeout(cls, value):
         if value in ("", None):
             return 20.0
+        return value
+
+    @field_validator("groq_base_url", mode="before")
+    @classmethod
+    def _coerce_groq_base_url(cls, value):
+        if value in ("", None):
+            return "https://api.groq.com/openai/v1"
         return value
 
     @field_validator("database_url", mode="before")
