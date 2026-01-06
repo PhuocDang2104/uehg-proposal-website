@@ -155,7 +155,9 @@ def _evidence_gate(state: ChatState) -> ChatState:
 
 
 def _compose_node(state: ChatState) -> ChatState:
-    response = compose_answer(state)
+    deps = state.get("deps") or {}
+    groq = deps.get("groq")
+    response = compose_answer(state, groq)
     return {
         "answer": response["answer"],
         "citations": response.get("citations", []),

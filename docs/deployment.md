@@ -45,6 +45,8 @@ Option A (recommended): use `render.yaml`
    - `DATABASE_URL` (Aiven connection string)
    - `JINA_API_KEY` (required)
    - `GROQ_API_KEY` (required for LLM generate)
+   - `GROQ_MODEL` (default `llama-3.1-8b-instant`)
+   - `GROQ_TIMEOUT` (default `20`)
    - `JINA_EMBED_MODEL` (default `jina-embeddings-v3`)
    - `JINA_EMBED_DIM` (default `1024`)
    - `ADMIN_API_KEY`

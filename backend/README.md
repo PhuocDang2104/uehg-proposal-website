@@ -8,7 +8,7 @@ Frontend (AskAI panel + chat widget)
 -> POST /chat
 -> Intent routing + SQL + RAG (pgvector)
 -> Evidence gate
--> Answer + citations + suggested_questions
+-> Groq LLM answer + citations + suggested_questions
 
 ```mermaid
 flowchart TD
@@ -73,6 +73,7 @@ python backend/scripts/ingest.py --path content
 - Chunk size ~500 tokens, overlap ~80.
 - Embeddings upsert into `documents`.
 - Can set `JINA_API_KEY` de tao embeddings.
+- Groq LLM generate neu co `GROQ_API_KEY` (khong co key se fallback sang cau tra loi dinh san).
 
 Frontmatter example:
 
@@ -190,6 +191,10 @@ Render API keys (set as env vars):
 - `JINA_API_KEY`
 - `GROQ_API_KEY`
 - `ADMIN_API_KEY`
+
+Render LLM config:
+- `GROQ_MODEL` (default `llama-3.1-8b-instant`)
+- `GROQ_TIMEOUT` (seconds)
 
 ## Frontend integration
 

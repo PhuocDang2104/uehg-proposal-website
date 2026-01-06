@@ -5,6 +5,7 @@ from typing import Any, Dict, List, Optional, TypedDict
 from sqlalchemy.orm import Session
 
 from app.core.config import Settings
+from app.llm.groq_client import GroqClient
 from app.rag.embeddings import JinaEmbeddingClient
 
 
@@ -12,6 +13,7 @@ class ChatDeps(TypedDict):
     db: Session
     settings: Settings
     embedder: JinaEmbeddingClient
+    groq: GroqClient
     logger: Any
 
 

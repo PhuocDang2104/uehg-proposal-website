@@ -14,7 +14,7 @@ LangGraph duoc dung de the hien ro flow routing va de mo rong sau nay.
 4. Vector search (documents) voi filter `source_type`, `source_id`, `event_time`
    - Embedding provider: Jina API
 5. Evidence gate -> allow/deny
-6. Answer composer -> `answer + citations + suggested_questions`
+6. Groq LLM answer composer -> `answer + citations + suggested_questions`
 
 ## Mermaid
 

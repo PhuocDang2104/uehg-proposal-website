@@ -19,3 +19,7 @@
 ## Debug intent
 - Bat `DEBUG=true` de tra ve `debug.intent` trong API.
 - Kiem tra `docs/architecture.md` de xem flow.
+
+## LLM issues
+- Neu /chat tra 500, kiem tra `GROQ_API_KEY` va `GROQ_MODEL`.
+- Kiem tra logs Render de thay Groq error response.

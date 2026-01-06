@@ -20,6 +20,10 @@ services:
         value: jina-embeddings-v3
       - key: JINA_EMBED_DIM
         value: "1024"
+      - key: GROQ_MODEL
+        value: llama-3.1-8b-instant
+      - key: GROQ_TIMEOUT
+        value: "20"
       - key: RAG_TOP_K
         value: "6"
       - key: RAG_MIN_SCORE

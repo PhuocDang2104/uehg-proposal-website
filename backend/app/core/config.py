@@ -17,6 +17,10 @@ class Settings(BaseSettings):
         alias="DATABASE_URL",
     )
 
+    groq_api_key: Optional[str] = Field(None, alias="GROQ_API_KEY")
+    groq_model: str = Field("llama-3.1-8b-instant", alias="GROQ_MODEL")
+    groq_timeout: float = Field(20.0, alias="GROQ_TIMEOUT")
+
     jina_api_key: Optional[str] = Field(None, alias="JINA_API_KEY")
     jina_embed_model: str = Field("jina-embeddings-v3", alias="JINA_EMBED_MODEL")
     jina_embed_dim: int = Field(1024, alias="JINA_EMBED_DIM")
@@ -53,6 +57,20 @@ class Settings(BaseSettings):
     def _coerce_jina_embed_model(cls, value):
         if value in ("", None):
             return "jina-embeddings-v3"
+        return value
+
+    @field_validator("groq_model", mode="before")
+    @classmethod
+    def _coerce_groq_model(cls, value):
+        if value in ("", None):
+            return "llama-3.1-8b-instant"
+        return value
+
+    @field_validator("groq_timeout", mode="before")
+    @classmethod
+    def _coerce_groq_timeout(cls, value):
+        if value in ("", None):
+            return 20.0
         return value
 
     @field_validator("database_url", mode="before")

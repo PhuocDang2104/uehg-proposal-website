@@ -15,6 +15,7 @@ from app.core.logging import configure_logging
 from app.db.connection import get_db
 from app.graph.flow import build_graph
 from app.observability.metrics import record_metrics
+from app.llm.groq_client import GroqClient
 from app.rag.embeddings import JinaEmbeddingClient
 from app.schemas import ChatDebug, ChatRequest, ChatResponse, IngestRequest
 from app.ingest.pipeline import ingest_directory
@@ -50,6 +51,7 @@ def build_deps(db):
         "db": db,
         "settings": settings,
         "embedder": JinaEmbeddingClient(settings),
+        "groq": GroqClient(settings),
         "logger": logger,
     }
 

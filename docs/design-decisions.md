@@ -11,6 +11,10 @@
 - SQL la source of truth cho events/members.
 - RAG chi dung de bo sung noi dung dai, phai dat threshold moi duoc tra loi.
 
+## LLM generation
+- Groq LLM (llama-3.1-8b-instant) duoc dung de tao cau tra loi than thien.
+- Prompt chi su dung evidence tu SQL/RAG.
+
 ## Embeddings
 - Default model: `jina-embeddings-v3` (dim=1024).
 - Neu doi model, can doi ca `JINA_EMBED_DIM` va migration documents.
