@@ -26,7 +26,7 @@ const stackCards: StackCard[] = [
     ],
     images: [
       { src: "/nbd_resource/NBD_banner.png", alt: "Poster Nơi Bắt Đầu 2025 – Ngược Dòng" },
-      { src: "/posters/show-02.png", alt: "Hình ảnh sân khấu UEHG" },
+      { src: "/nbd_resource/nbd_card_2.jpg", alt: "Hình ảnh sân khấu UEHG" },
     ],
   },
   {
@@ -40,26 +40,26 @@ const stackCards: StackCard[] = [
       "Thời gian: 17h30–21h30 ngày 25/01/2026.",
     ],
     images: [
-      { src: "/posters/show-03.png", alt: "Không gian hội trường A.116" },
-      { src: "/posters/show-04.png", alt: "Khoảnh khắc ánh sáng tại show UEHG" },
+      { src: "/nbd_resource/nbd_card_3.jpg", alt: "Không gian hội trường A.116" },
+      { src: "/nbd_resource/nbd_card_4.jpg", alt: "Khoảnh khắc ánh sáng tại show UEHG" },
     ],
   },
   {
     id: "purpose",
     label: "Mục đích",
     title: "Đi ngược để chạm đích",
-    subtitle: "Ý nghĩa của hành trình 2026",
-    bullets: [
-      "Gây quỹ 150M+ cho hoạt động thiện nguyện & học bổng âm nhạc.",
-      "Kết nối nhà tài trợ với cộng đồng guitarist trẻ UEH và TPHCM.",
-      "Truyền cảm hứng dám đi khác số đông, mở đường cho mùa show 2026.",
-    ],
+    subtitle: "Ý nghĩa của Hành trình 2026",
     paragraphs: [
-      "Mỗi đêm diễn là lời cam kết về một cộng đồng sáng tạo, tử tế và giàu nội lực, nơi âm nhạc dẫn dắt tinh thần bền bỉ giống cá hồi ngược dòng.",
+      "Đêm diễn là một cam kết về dòng chảy sáng tạo tử tế – bền bỉ – giàu nội lực, nơi âm nhạc truyền cảm hứng kiên định như cá hồi ngược dòng.",
+    ],
+    bullets: [
+      "Tạo tiền đề mở rộng quy mô CLB, nâng cao độ nhận diện để lan tỏa các chương trình thiện nguyện tiếp theo của UEHG.",
+      "Kết nối nhà tài trợ với cộng đồng sinh viên trẻ yêu âm nhạc tại UEH và TP.HCM.",
+      "Truyền cảm hứng cho các bạn tân sinh viên UEH, mở đường cho một mùa show 2026 bùng nổ.",
     ],
     images: [
-      { src: "/posters/show-07.png", alt: "Tinh thần thiện nguyện UEHG" },
-      { src: "/posters/show-08.png", alt: "Cộng đồng Guitar UEH" },
+      { src: "/nbd_resource/nbd_card_5.jpg", alt: "Tinh thần thiện nguyện UEHG" },
+      { src: "/nbd_resource/nbd_card_6.jpg", alt: "Cộng đồng Guitar UEH" },
     ],
   },
 ];

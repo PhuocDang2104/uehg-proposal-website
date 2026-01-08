@@ -16,7 +16,7 @@ const fullLetterText = [
   "Kính gửi Quý đơn vị,",
   "Lời đầu tiên Câu lạc bộ Guitar Đại Học Kinh tế TP. Hồ Chí Minh (UEHG) kính gửi đến Quý đơn vị lời chúc sức khỏe và lời chào trân trọng nhất.",
   'UEHG được thành lập vào năm 2011, là sân chơi nghệ thuật với sứ mệnh thắp sáng và nuôi dưỡng ngọn lửa đam mê âm nhạc cho các thế hệ sinh viên. Trải qua nhiều năm duy trì và phát triển, với slogan “Just the beginning”, UEHG đã thành công xây dựng một cộng đồng, một sân chơi cho những tâm hồn trẻ yêu âm nhạc được học hỏi, được kết nối và thỏa sức đam mê của mình trên địa bàn TP. Hồ Chí Minh nói chung và sinh viên UEH nói riêng. Bên cạnh đó, UEHG cũng đã tổ chức thành công nhiều show diễn với quy mô lên đến 1000 sinh viên trong nhiều năm hoạt động. Và Guitar Show Nơi bắt đầu là một trong những chương trình thường niên lớn nhất của clb với sự bùng nổ của với các màn trình diễn nơi UEHG truyền tải nguồn năng lượng tích cực đến khán giả thông qua những giai điệu vô cùng đặc sắc.',
-  'Guitar Show “NƠI BẮT ĐẦU - NGƯỢC DÒNG” năm 2026 diễn ra vào ngày 24/01 tại hội trường A116 Đại Học Kinh tế TP. Hồ Chí Minh. Để Guitar Show “NƠI BẮT ĐẦU - NGƯỢC DÒNG” được diễn ra suôn sẻ và trọn vẹn, sự đồng hành từ phía Quý đơn vị với tư cách là Nhà tài trợ của chương trình là một điều vô cùng quan trọng. Sự quan tâm và giúp đỡ của Quý đơn vị vừa góp phần tiếp lửa xây dựng một cộng đồng yêu âm nhạc nói chung vừa là nguồn động lực to lớn đối với UEHG trong quá trình thực hiện Guitar Show “NƠI BẮT ĐẦU - NGƯỢC DÒNG” nói riêng.',
+  'Guitar Show “NƠI BẮT ĐẦU - NGƯỢC DÒNG” năm 2026 diễn ra vào ngày 25/01 tại hội trường A116 Đại Học Kinh tế TP. Hồ Chí Minh. Để Guitar Show “NƠI BẮT ĐẦU - NGƯỢC DÒNG” được diễn ra suôn sẻ và trọn vẹn, sự đồng hành từ phía Quý đơn vị với tư cách là Nhà tài trợ của chương trình là một điều vô cùng quan trọng. Sự quan tâm và giúp đỡ của Quý đơn vị vừa góp phần tiếp lửa xây dựng một cộng đồng yêu âm nhạc nói chung vừa là nguồn động lực to lớn đối với UEHG trong quá trình thực hiện Guitar Show “NƠI BẮT ĐẦU - NGƯỢC DÒNG” nói riêng.',
   "Trân trọng,",
   "Câu lạc bộ Guitar Đại Học Kinh tế TP. Hồ Chí Minh.",
 ];
@@ -41,7 +41,7 @@ const fullLetterNodes: React.ReactNode[] = [
     điệu vô cùng đặc sắc.
   </span>,
   <span key="p3">
-    <strong>Guitar Show “NƠI BẮT ĐẦU - NGƯỢC DÒNG”</strong> năm 2026 diễn ra vào ngày 24/01 tại hội
+    <strong>Guitar Show “NƠI BẮT ĐẦU - NGƯỢC DÒNG”</strong> năm 2026 diễn ra vào ngày 25/01 tại hội
     trường A116 Đại Học Kinh tế TP. Hồ Chí Minh. Để{" "}
     <strong>Guitar Show “NƠI BẮT ĐẦU - NGƯỢC DÒNG”</strong> được diễn ra suôn sẻ và trọn vẹn, sự đồng
     hành từ phía <strong>Quý đơn vị</strong> với tư cách là{" "}

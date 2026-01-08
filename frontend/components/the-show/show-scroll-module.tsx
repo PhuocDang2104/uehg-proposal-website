@@ -222,7 +222,7 @@ const showSections: ShowSection[] = [
     stats: [
       { label: "Quy mô", value: "1000 sinh viên trên địa bàn TPHCM" },
       { label: "Địa điểm", value: "Hội trường A.116 ĐH Kinh tế TPHCM" },
-      { label: "Thời gian", value: "17h30-21h30 · 24/01/2026" },
+      { label: "Thời gian", value: "17h30-21h30 · 25/01/2026" },
     ],
   },
   {
